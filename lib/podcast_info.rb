@@ -4,50 +4,52 @@ require 'http'
 require 'yaml'
 
 config = YAML.safe_load_file('config/secrets.yml')
+puts config
 
-def gh_api_path(path)
+
+def spt_api_path(path)
   "https://api.github.com/#{path}"
 end
 
-def call_gh_url(config, url)
+def call_spt_url(config, url)
   HTTP.headers('Accept' => 'application/vnd.github.v3+json',
                'Authorization' => "token #{config['GITHUB_TOKEN']}").get(url)
 end
 
-gh_response = {}
-gh_results = {}
+spt_response = {}
+spt_results = {}
 
-## HAPPY project request
-project_url = gh_api_path('repos/soumyaray/YPBT-app')
-gh_response[project_url] = call_gh_url(config, project_url)
-project = gh_response[project_url].parse
+# ## HAPPY project request
+# project_url = gh_api_path('repos/soumyaray/YPBT-app')
+# gh_response[project_url] = call_gh_url(config, project_url)
+# project = gh_response[project_url].parse
 
-gh_results['size'] = project['size']
-# should be 551
+# gh_results['size'] = project['size']
+# # should be 551
 
-gh_results['owner'] = project['owner']
-# should have info about Soumya
+# gh_results['owner'] = project['owner']
+# # should have info about Soumya
 
-gh_results['git_url'] = project['git_url']
-# should be "git://github.com/soumyaray/YPBT-app.git"
+# gh_results['git_url'] = project['git_url']
+# # should be "git://github.com/soumyaray/YPBT-app.git"
 
-gh_results['contributors_url'] = project['contributors_url']
-# "should be https://api.github.com/repos/soumyaray/YPBT-app/contributors"
+# gh_results['contributors_url'] = project['contributors_url']
+# # "should be https://api.github.com/repos/soumyaray/YPBT-app/contributors"
 
-contributors_url = project['contributors_url']
-gh_response[contributors_url] = call_gh_url(config, contributors_url)
-contributors = gh_response[contributors_url].parse
+# contributors_url = project['contributors_url']
+# gh_response[contributors_url] = call_gh_url(config, contributors_url)
+# contributors = gh_response[contributors_url].parse
 
-gh_results['contributors'] = contributors
-contributors.count
-# should be 3 contributors array
+# gh_results['contributors'] = contributors
+# contributors.count
+# # should be 3 contributors array
 
-contributors.map { |c| c['login'] }
-# should be ["Yuan-Yu", "SOA-KunLin", "luyimin"]
+# contributors.map { |c| c['login'] }
+# # should be ["Yuan-Yu", "SOA-KunLin", "luyimin"]
 
-## BAD project request
-bad_project_url = gh_api_path('soumyaray/foobar')
-gh_response[bad_project_url] = call_gh_url(config, bad_project_url)
-gh_response[bad_project_url].parse # makes sure any streaming finishes
+# ## BAD project request
+# bad_project_url = gh_api_path('soumyaray/foobar')
+# gh_response[bad_project_url] = call_gh_url(config, bad_project_url)
+# gh_response[bad_project_url].parse # makes sure any streaming finishes
 
-File.write('spec/fixtures/github_results.yml', gh_results.to_yaml)
+# File.write('spec/fixtures/github_results.yml', gh_results.to_yaml)

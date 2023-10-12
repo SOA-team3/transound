@@ -53,39 +53,37 @@ podcast_response = {}
 podcast_results = {}
 
 ## HAPPY project request
-project_url = spotify_api_path( id = "5Vv32KtHB3peVZ8TeacUty",
-                                category = "shows",
+project_url = spotify_api_path( id = "7vwvbU1pDkv0IuWPY8SZyz", #"5Vv32KtHB3peVZ8TeacUty",
+                                category = "episodes", #could be "episodes" or "shows"
                                 market = "TW",)
 podcast_response[project_url] = call_spotify_url(config, project_url)
 project = podcast_response[project_url].parse
 
 podcast_results['description'] = project['description']
 # should be description of some podcast
+
+podcast_results['images'] = project['images']
+# should be images of some podcast
+
+podcast_results['name'] = project['name']
+# should be name of some podcast
+
+podcast_results['release_date'] = project['release_date']
+# should be release_date of some podcast
+
+podcast_results['show'] = project['show']
+# should be show of some podcast
+
+podcast_results['type'] = project['type']
+# should be type of some podcast
+
+
+## BAD project request
+bad_project_url = spotify_api_path( id = "5Vv32KtHB3peVZ8TeacUtyhjkloihuiopoijkl",
+                                    category = "shows",
+                                    market = "TW",)
+podcast_response[bad_project_url] = call_spotify_url(config, bad_project_url)
+# puts podcast_response[bad_project_url].parse # makes sure any streaming finishes
+
 puts podcast_results
-
-# gh_results['owner'] = project['owner']
-# # should have info about Soumya
-
-# gh_results['git_url'] = project['git_url']
-# # should be "git://github.com/soumyaray/YPBT-app.git"
-
-# gh_results['contributors_url'] = project['contributors_url']
-# # "should be https://api.github.com/repos/soumyaray/YPBT-app/contributors"
-
-# contributors_url = project['contributors_url']
-# gh_response[contributors_url] = call_gh_url(config, contributors_url)
-# contributors = gh_response[contributors_url].parse
-
-# gh_results['contributors'] = contributors
-# contributors.count
-# # should be 3 contributors array
-
-# contributors.map { |c| c['login'] }
-# # should be ["Yuan-Yu", "SOA-KunLin", "luyimin"]
-
-# ## BAD project request
-# bad_project_url = gh_api_path('soumyaray/foobar')
-# gh_response[bad_project_url] = call_gh_url(config, bad_project_url)
-# gh_response[bad_project_url].parse # makes sure any streaming finishes
-
-# File.write('spec/fixtures/github_results.yml', gh_results.to_yaml)
+File.write('spec/fixtures/podcast_results.yml', podcast_results.to_yaml)

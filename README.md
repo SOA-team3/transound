@@ -14,6 +14,7 @@ Project to gather useful information from Spotify Web API
     - id
     - description
     - images
+    - language
     - name
     - release_date
     - type

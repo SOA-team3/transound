@@ -30,3 +30,4 @@ Project to gather useful information from Spotify Web API
 
 - Episode (the single episode of a podcast, which users listen to)
 - Show (a podcast show, which users subscribe to)
+(Note: A Show could have multiple Episodes)

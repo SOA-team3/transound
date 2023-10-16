@@ -50,9 +50,11 @@ module TranSound
 
     # Decorates HTTP responses with success/error
     class Response < SimpleDelegator
+      BadRequest = Class.new(StandardError)
       Unauthorized = Class.new(StandardError)
       NotFound = Class.new(StandardError)
       HTTP_ERROR = {
+        400 => BadRequest,
         401 => Unauthorized,
         404 => NotFound
       }.freeze
@@ -136,4 +138,5 @@ ID = '7vwvbU1pDkv0IuWPY8SZyz'
 MARKET = 'TW'
 
 project = TranSound::PodcastApi.new(TranSound::Token.new.get).episode(TYPE, ID, MARKET)
-puts project.description
+# puts project.description
+# puts TranSound::Request::Response::BadRequest

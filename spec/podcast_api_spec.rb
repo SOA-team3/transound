@@ -27,14 +27,14 @@ describe 'Tests Podcast API library' do
 
     it 'SAD: should raise exception on incorrect project' do
       _(proc do
-        TranSound::PodcastApi.new(TEMP_TOKEN).episode(TYPE, 'bad_id', MARKET)
-      end).must_raise TranSound::PodcastApi::Errors::NotFound
+        TranSound::PodcastApi.new(TEMP_TOKEN).episode(TYPE, 'BAD_ID', MARKET)
+      end).must_raise TranSound::Request::Response::BadRequest
     end
 
     it 'SAD: should raise exception when unauthorized' do
       _(proc do
         TranSound::PodcastApi.new('BAD_TOKEN').episode(TYPE, ID, MARKET)
-      end).must_raise TranSound::PodcastApi::Errors::Unauthorized
+      end).must_raise TranSound::Request::Response::Unauthorized
     end
   end
 
@@ -49,14 +49,15 @@ describe 'Tests Podcast API library' do
 
     it 'SAD: should raise exception on incorrect project' do
       _(proc do
-        TranSound::PodcastApi.new(TEMP_TOKEN).show(TYPE, 'ID', MARKET)
-      end).must_raise TranSound::PodcastApi::Errors::NotFound
+        TranSound::PodcastApi.new(TEMP_TOKEN).show(TYPE, 'BAD_ID', MARKET)
+      end).must_raise TranSound::Request::Response::BadRequest
+      # .must_raise TranSound::Request::Response::NotFound
     end
 
     it 'SAD: should raise exception when unauthorized' do
       _(proc do
         TranSound::PodcastApi.new('BAD_TOKEN').show(TYPE, ID, MARKET)
-      end).must_raise TranSound::PodcastApi::Errors::Unauthorized
+      end).must_raise TranSound::Request::Response::Unauthorized
     end
   end
 end

@@ -50,7 +50,7 @@ def apply_for_new_temp_token
   # puts response.body
   json_body = JSON.parse(response.body)
   access_token = json_body['access_token']
-  # save the temp token
+  #save the temp token
   save_temp_token(access_token)
   access_token
   # puts "access_token: #{access_token}"
@@ -90,22 +90,17 @@ podcast_response = {}
 podcast_results = {}
 
 # ## HAPPY project request
-project_url = spotify_api_path('7vwvbU1pDkv0IuWPY8SZyz', # '5Vv32KtHB3peVZ8TeacUty'
-                               'episodes', # could be "episodes" or "shows"
-                               'TW')
+project_url = spotify_api_path(id = '7vwvbU1pDkv0IuWPY8SZyz', # "5Vv32KtHB3peVZ8TeacUty",
+                               type = 'episodes', # could be "episodes" or "shows"
+                               market = 'TW')
 podcast_response[project_url] = call_spotify_url(config, project_url)
 project = podcast_response[project_url].parse
-
-# puts(project)
 
 podcast_results['description'] = project['description']
 # should be the description of a certain podcast
 
 podcast_results['images'] = project['images']
 # should be the images of a certain podcast
-
-podcast_results['language'] = project['language']
-# should be the name of a certain language
 
 podcast_results['name'] = project['name']
 # should be the name of a certain podcast
@@ -123,11 +118,11 @@ podcast_results['type'] = project['type']
 # should be the type of a certain podcast
 
 ## BAD project request
-bad_project_url = spotify_api_path('5eacUtyhjkloihuiopoijkl',
-                                   'shows',
-                                   'TW')
+bad_project_url = spotify_api_path(id = '5eacUtyhjkloihuiopoijkl',
+                                   type = 'shows',
+                                   market = 'TW')
 podcast_response[bad_project_url] = call_spotify_url(config, bad_project_url)
 # puts podcast_response[bad_project_url].parse # makes sure any streaming finishes
 
 # puts podcast_results
-File.write('../spec/fixtures/podcast_results.yml', podcast_results.to_yaml)
+File.write('spec/fixtures/podcast_results.yml', podcast_results.to_yaml)

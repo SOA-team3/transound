@@ -50,9 +50,11 @@ module TranSound
 
     # Decorates HTTP responses with success/error
     class Response < SimpleDelegator
+      BadRequest = Class.new(StandardError)
       Unauthorized = Class.new(StandardError)
       NotFound = Class.new(StandardError)
       HTTP_ERROR = {
+        400 => BadRequest,
         401 => Unauthorized,
         404 => NotFound
       }.freeze
@@ -75,6 +77,7 @@ module TranSound
     TEMP_TOKEN = CONFIG['spotify_temp_token']
 
     def get
+      # puts "Time_difference_of_get_token: #{time_difference_of_get_token}"
       return apply_for_new_temp_token if time_difference_of_get_token >= 55
 
       TEMP_TOKEN
@@ -131,9 +134,18 @@ module TranSound
   end
 end
 
-TYPE = 'episodes'
-ID = '7vwvbU1pDkv0IuWPY8SZyz'
-MARKET = 'TW'
+# TYPE = 'episodes'
+# ID = '7vwvbU1pDkv0IuWPY8SZyz'
+# MARKET = 'TW'
+# TEMP_TOKEN = TranSound::Token.new.get
 
-project = TranSound::PodcastApi.new(TranSound::Token.new.get).episode(TYPE, ID, MARKET)
-puts project.description
+# project = TranSound::PodcastApi.new( TEMP_TOKEN ).episode(TYPE, ID, MARKET)
+# puts project.description
+# puts TranSound::Request::Response::BadRequest
+
+# TYPE = 'shows'
+# ID = '5Vv32KtHB3peVZ8TeacUty'
+# MARKET = 'TW'
+
+# show = TranSound::PodcastApi.new(TranSound::Token.new.get).episode(TYPE, ID, MARKET)
+# # puts show.description

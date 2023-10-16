@@ -90,19 +90,22 @@ podcast_response = {}
 podcast_results = {}
 
 # ## HAPPY project request
-project_url = spotify_api_path('7vwvbU1pDkv0IuWPY8SZyz', #'5Vv32KtHB3peVZ8TeacUty'
+project_url = spotify_api_path('7vwvbU1pDkv0IuWPY8SZyz', # '5Vv32KtHB3peVZ8TeacUty'
                                'episodes', # could be "episodes" or "shows"
                                'TW')
 podcast_response[project_url] = call_spotify_url(config, project_url)
 project = podcast_response[project_url].parse
 
-puts(project)
+# puts(project)
 
 podcast_results['description'] = project['description']
 # should be the description of a certain podcast
 
 podcast_results['images'] = project['images']
 # should be the images of a certain podcast
+
+podcast_results['language'] = project['language']
+# should be the name of a certain language
 
 podcast_results['name'] = project['name']
 # should be the name of a certain podcast

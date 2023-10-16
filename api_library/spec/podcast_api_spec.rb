@@ -44,7 +44,6 @@ describe 'Tests Podcast API library' do
       _(proc do
         TranSound::PodcastApi.new(TEMP_TOKEN).show(SHOW_TYPE, 'BAD_ID', MARKET)
       end).must_raise TranSound::Request::Response::BadRequest
-      # .must_raise TranSound::Request::Response::NotFound
     end
 
     it 'SAD: should raise exception when unauthorized' do

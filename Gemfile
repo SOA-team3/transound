@@ -14,7 +14,6 @@ gem 'yaml'
 gem 'reek'
 gem 'rubocop'
 
-
 # testing
 gem 'simplecov', '~> 0'
 gem 'vcr', '~> 6'

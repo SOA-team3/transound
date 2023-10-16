@@ -73,14 +73,15 @@ module TranSound
 
   # Apply token or Get token
   class Token
-    CONFIG = YAML.safe_load_file('../config/secrets.yml')
+    SECRET_PATH = 'config/secrets.yml'
+    CONFIG = YAML.safe_load_file(SECRET_PATH)
     CLIENT_ID = CONFIG['spotify_Client_ID']
     CLIENT_SECRET = CONFIG['spotify_Client_secret']
     GETTOKEN_TIME = CONFIG['spotify_gettoken_time']
     TEMP_TOKEN = CONFIG['spotify_temp_token']
 
     def get
-      # puts "Time_difference_of_get_token: #{time_difference_of_get_token}"
+      # puts "Time_difference_of_getting_token: #{time_difference_of_get_token}"
       if time_difference_of_get_token >= 55
         access_token = apply_for_new_temp_token
         # save the temp token
@@ -111,11 +112,11 @@ module TranSound
 
     def save_temp_token(access_token)
       # Modify the value of spotify_gettoken_time and spotify_temp_token
-      config = YAML.safe_load_file('../config/secrets.yml')
+      config = YAML.safe_load_file(SECRET_PATH)
       config['spotify_gettoken_time'] = current_datetime.strftime('%Y%m%d%H%M%S')
       config['spotify_temp_token'] = access_token
       # Save the updated YAML back to the file
-      File.write('../config/secrets.yml', config.to_yaml)
+      File.write(SECRET_PATH, config.to_yaml)
     end
 
     def current_datetime

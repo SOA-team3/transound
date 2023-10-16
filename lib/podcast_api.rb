@@ -50,8 +50,11 @@ module TranSound
 
     # Decorates HTTP responses with success/error
     class Response < SimpleDelegator
+      # The BadRequest class is responsible for Bad ID or other Bad parameters.
       BadRequest = Class.new(StandardError)
+      # The Unauthorized class is responsible for Unauthorized Token.
       Unauthorized = Class.new(StandardError)
+      # The NotFound class is responsible for API webpage not found.
       NotFound = Class.new(StandardError)
       HTTP_ERROR = {
         400 => BadRequest,
@@ -78,7 +81,12 @@ module TranSound
 
     def get
       # puts "Time_difference_of_get_token: #{time_difference_of_get_token}"
-      return apply_for_new_temp_token if time_difference_of_get_token >= 55
+      if time_difference_of_get_token >= 55
+        access_token = apply_for_new_temp_token
+        # save the temp token
+        save_temp_token(access_token)
+        return access_token
+      end
 
       TEMP_TOKEN
     end
@@ -98,11 +106,7 @@ module TranSound
       response = HTTP.headers(auth_header).post(token_url, form: params)
       # puts response.body
       json_body = JSON.parse(response.body)
-      access_token = json_body['access_token']
-      # save the temp token
-      save_temp_token(access_token)
-      access_token
-      # puts "access_token: #{access_token}"
+      json_body['access_token']
     end
 
     def save_temp_token(access_token)

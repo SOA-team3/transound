@@ -58,10 +58,11 @@ PLATFORMS
   arm64-darwin-21
   arm64-darwin-22
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   http (~> 5.1)
   rubocop
 
 BUNDLED WITH
-   2.3.7
+   2.4.10

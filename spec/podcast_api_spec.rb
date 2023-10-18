@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
-# require 'simplecov'
-# SimpleCov.start
-
 require 'yaml'
 
 require 'minitest/autorun'
 require 'minitest/unit'
 require 'minitest/rg'
-# require 'vcr'
-# require 'webmock'
 
 require_relative '../lib/podcast_api'
 
@@ -22,32 +17,6 @@ MARKET = 'TW'
 TEMP_TOKEN = TranSound::Token.new.get
 EPISODE_CORRECT = YAML.safe_load_file('spec/fixtures/episode_results.yml')
 SHOW_CORRECT = YAML.safe_load_file('spec/fixtures/show_results.yml')
-
-CASSETTES_FOLDER = 'spec/fixtures/cassettes'
-CASSETTE_FILE = 'podcast_api[.yml]'
-
-# above
-# frozen_string_literal: true
-
-# require_relative 'spec_helper'
-
-# describe 'Tests Podcast API library' do
-#   VCR.configure do |c|
-#     c.cassette_library_dir = CASSETTES_FOLDER
-#     c.hook_into :webmock
-#     c.filter_sensitive_data('<SPOTIFY_TOKEN>') { TEMP_TOKEN }
-#     c.filter_sensitive_data('<SPOTIFY_TOKEN_ESC>') { CGI.escape(TEMP_TOKEN) }
-#   end
-
-#   before do
-#     VCR.insert_cassette CASSETTE_FILE,
-#                         record: :new_episodes,
-#                         match_requests_on: %i[method uri headers]
-#   end
-
-#   after do
-#     VCR.eject_cassette
-#   end
 
 describe 'Episode information' do
   it 'HAPPY: should provide correct episode information' do

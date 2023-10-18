@@ -84,6 +84,7 @@ module TranSound
       # puts "Time_difference_of_getting_token: #{time_difference_of_get_token}"
       if time_difference_of_get_token >= 55
         access_token = apply_for_new_temp_token
+
         # save the temp token
         save_temp_token(access_token)
         return access_token
@@ -134,6 +135,7 @@ module TranSound
 
     def time_difference_of_get_token
       # Calculate the time difference in minutes
+      puts((current_datetime - gettoken_time) / 60)
       ((current_datetime - gettoken_time) / 60).to_i
     end
   end

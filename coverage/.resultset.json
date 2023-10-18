@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/brian/SOA_assignment/SOA2023_transound/lib/podcast_api.rb": {
+      "/home/tsaiadrian/transound/lib/podcast_api.rb": {
         "lines": [
           null,
           null,
@@ -88,38 +88,11 @@
           1,
           null,
           1,
-          0,
-          null,
-          0,
-          0,
-          null,
-          null,
           1,
           null,
-          null,
+          1,
           1,
           null,
-          0,
-          null,
-          0,
-          null,
-          null,
-          null,
-          null,
-          0,
-          null,
-          null,
-          0,
-          null,
-          0,
-          0,
-          null,
-          null,
-          1,
-          null,
-          0,
-          0,
-          0,
           null,
           0,
           null,
@@ -129,6 +102,33 @@
           1,
           null,
           1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          2,
+          null,
+          2,
           null,
           null,
           1,
@@ -161,7 +161,7 @@
           null
         ]
       },
-      "/home/brian/SOA_assignment/SOA2023_transound/lib/episode.rb": {
+      "/home/tsaiadrian/transound/lib/episode.rb": {
         "lines": [
           null,
           null,
@@ -199,7 +199,7 @@
           null
         ]
       },
-      "/home/brian/SOA_assignment/SOA2023_transound/lib/show.rb": {
+      "/home/tsaiadrian/transound/lib/show.rb": {
         "lines": [
           null,
           null,
@@ -230,6 +230,6 @@
         ]
       }
     },
-    "timestamp": 1697474831
+    "timestamp": 1697611059
   }
 }

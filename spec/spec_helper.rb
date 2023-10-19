@@ -19,7 +19,12 @@ SHOW_TYPE = 'shows'
 EPISODE_ID = '7vwvbU1pDkv0IuWPY8SZyz'
 SHOW_ID = '5Vv32KtHB3peVZ8TeacUty'
 MARKET = 'TW'
-TEMP_TOKEN = TranSound::Token.new.get
+
+SECRET_PATH = 'config/secrets.yml'
+CONFIG = YAML.safe_load_file(SECRET_PATH)
+CLIENT_ID = CONFIG['spotify_Client_ID']
+CLIENT_SECRET = CONFIG['spotify_Client_secret']
+TEMP_TOKEN = TranSound::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET).get
 EPISODE_CORRECT = YAML.safe_load_file('spec/fixtures/episode_results.yml')
 SHOW_CORRECT = YAML.safe_load_file('spec/fixtures/show_results.yml')
 

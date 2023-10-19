@@ -19,6 +19,7 @@ SHOW_TYPE = 'shows'
 EPISODE_ID = '7vwvbU1pDkv0IuWPY8SZyz'
 SHOW_ID = '5Vv32KtHB3peVZ8TeacUty'
 MARKET = 'TW'
+
 TEMP_TOKEN = TranSound::Token.new.get
 EPISODE_CORRECT = YAML.safe_load_file('spec/fixtures/episode_results.yml')
 SHOW_CORRECT = YAML.safe_load_file('spec/fixtures/show_results.yml')

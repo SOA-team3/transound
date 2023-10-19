@@ -73,18 +73,20 @@ module TranSound
 
   # Apply token or Get token
   class Token
-    def initialize
-      @secret_path = 'config/secrets.yml'
-      @config = YAML.safe_load_file(@secret_path)
+    def initialize(secret_path, config, client_id, client_secret)
+      @secret_path = secret_path
+      @config = config
+      @client_id = client_id
+      @client_secret = client_secret
     end
 
     def get
       # puts "Time_difference_of_getting_token: #{TokenTime.time_difference_of_get_token}"
       if TokenTime.new(@config).time_difference_of_get_token >= 55
-        access_token = ApplyForNewTempToken.new(@config['spotify_Client_ID'],
-                                                @config['spotify_Client_secret']).apply_for_new_temp_token
+        access_token = ApplyForNewTempToken.new(@client_id,
+                                                @client_secret).apply_for_new_temp_token
         # save the temp token
-        SaveTempToken.new(@secret_path, @config).save_temp_token(access_token)
+        SaveTempToken.new(@secret_path, config).save_temp_token(access_token)
         return access_token
       end
 

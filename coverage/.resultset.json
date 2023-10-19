@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/tsaiadrian/transound/lib/podcast_api.rb": {
+      "/home/brian/SOA_assignment/SOA2023_transound/lib/podcast_api.rb": {
         "lines": [
           null,
           null,
@@ -88,38 +88,13 @@
           1,
           null,
           1,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          null,
           1,
-          null,
-          null,
           null,
           null,
           1,
           1,
-          0,
-          0,
           null,
           null,
-          null,
-          1,
-          null,
-          0,
-          null,
-          null,
-          null,
-          null,
-          0,
-          null,
-          null,
-          0,
-          null,
-          0,
           0,
           null,
           null,
@@ -127,17 +102,42 @@
           null,
           1,
           1,
-          0,
-          0,
-          0,
+          1,
+          1,
+          null,
           null,
           null,
           1,
           null,
-          0,
-          0,
+          1,
           null,
-          0,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
           null,
           null,
           null,
@@ -180,7 +180,7 @@
           null
         ]
       },
-      "/home/tsaiadrian/transound/lib/episode.rb": {
+      "/home/brian/SOA_assignment/SOA2023_transound/lib/episode.rb": {
         "lines": [
           null,
           null,
@@ -218,7 +218,7 @@
           null
         ]
       },
-      "/home/tsaiadrian/transound/lib/show.rb": {
+      "/home/brian/SOA_assignment/SOA2023_transound/lib/show.rb": {
         "lines": [
           null,
           null,
@@ -249,6 +249,6 @@
         ]
       }
     },
-    "timestamp": 1697716973
+    "timestamp": 1697727848
   }
 }

@@ -86,7 +86,7 @@ module TranSound
         access_token = ApplyForNewTempToken.new(@client_id,
                                                 @client_secret).apply_for_new_temp_token
         # save the temp token
-        SaveTempToken.new(@secret_path, config).save_temp_token(access_token)
+        SaveTempToken.new(@secret_path, @config).save_temp_token(access_token)
         return access_token
       end
 

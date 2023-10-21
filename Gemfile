@@ -5,10 +5,10 @@ source 'https://rubygems.org'
 # Networking
 gem 'http', '~> 5.1'
 
-#data preprocessing
-gem 'yaml'
+# data preprocessing
 gem 'json'
 gem 'tzinfo'
+gem 'yaml'
 
 # Development
 gem 'rubocop'

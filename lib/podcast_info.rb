@@ -50,7 +50,7 @@ def apply_for_new_temp_token
   # puts response.body
   json_body = JSON.parse(response.body)
   access_token = json_body['access_token']
-  #save the temp token
+  # save the temp token
   save_temp_token(access_token)
   access_token
   # puts "access_token: #{access_token}"

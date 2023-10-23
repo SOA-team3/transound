@@ -22,7 +22,7 @@ describe 'Tests Podcast API library' do
 
   describe 'Episode information' do
     it 'HAPPY: should provide correct episode information' do
-      episode = TranSound::PodcastApi.new(TEMP_TOKEN).episode(EPISODE_TYPE, EPISODE_ID, MARKET)
+      episode = TranSound::Podcast::EpisodeMapper.new(TEMP_TOKEN).find(EPISODE_TYPE, EPISODE_ID, MARKET)
       _(episode.description).must_equal EPISODE_CORRECT['description']
       _(episode.images).must_equal EPISODE_CORRECT['images']
       _(episode.language).must_equal EPISODE_CORRECT['language']
@@ -33,20 +33,20 @@ describe 'Tests Podcast API library' do
 
     it 'SAD: should raise exception on incorrect project' do
       _(proc do
-        TranSound::PodcastApi.new(TEMP_TOKEN).episode(EPISODE_TYPE, 'BAD_ID', MARKET)
-      end).must_raise TranSound::Request::Response::BadRequest
+        TranSound::Podcast::EpisodeMapper.new(TEMP_TOKEN).find(EPISODE_TYPE, 'BAD_ID', MARKET)
+      end).must_raise TranSound::Podcast::Api::Response::BadRequest
     end
 
     it 'SAD: should raise exception when unauthorized' do
       _(proc do
-        TranSound::PodcastApi.new('BAD_TOKEN').episode(EPISODE_TYPE, EPISODE_ID, MARKET)
-      end).must_raise TranSound::Request::Response::Unauthorized
+        TranSound::Podcast::EpisodeMapper.new('BAD_TOKEN').find(EPISODE_TYPE, EPISODE_ID, MARKET)
+      end).must_raise TranSound::Podcast::Api::Response::Unauthorized
     end
   end
 
   describe 'Show information' do
     it 'HAPPY: should provide correct episode information' do
-      show = TranSound::PodcastApi.new(TEMP_TOKEN).show(SHOW_TYPE, SHOW_ID, MARKET)
+      show = TranSound::Podcast::ShowMapper.new(TEMP_TOKEN).find(SHOW_TYPE, SHOW_ID, MARKET)
       _(show.description).must_equal SHOW_CORRECT['description']
       _(show.images).must_equal SHOW_CORRECT['images']
       _(show.name).must_equal SHOW_CORRECT['name']
@@ -55,14 +55,14 @@ describe 'Tests Podcast API library' do
 
     it 'SAD: should raise exception on incorrect project' do
       _(proc do
-        TranSound::PodcastApi.new(TEMP_TOKEN).show(SHOW_TYPE, 'BAD_ID', MARKET)
-      end).must_raise TranSound::Request::Response::BadRequest
+        TranSound::Podcast::ShowMapper.new(TEMP_TOKEN).find(SHOW_TYPE, 'BAD_ID', MARKET)
+      end).must_raise TranSound::Podcast::Api::Response::BadRequest
     end
 
     it 'SAD: should raise exception when unauthorized' do
       _(proc do
-        TranSound::PodcastApi.new('BAD_TOKEN').show(SHOW_TYPE, SHOW_ID, MARKET)
-      end).must_raise TranSound::Request::Response::Unauthorized
+        TranSound::Podcast::ShowMapper.new('BAD_TOKEN').find(SHOW_TYPE, SHOW_ID, MARKET)
+      end).must_raise TranSound::Podcast::Api::Response::Unauthorized
     end
   end
 end

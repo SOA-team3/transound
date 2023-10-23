@@ -1,21 +1,17 @@
-# frozen_string_literal: true
+# frozen_string_literal: false
 
 module TranSound
   module Podcast
-    # Data Mapper: Podcast episode -> Episode
-    class EpisodeMapper
-<<<<<<< HEAD
-      def initialize(token, gateway_class)
-=======
+    # Data Mapper: Github repo -> Project entity
+    class ShowMapper
       def initialize(token, gateway_class = Podcast::Api)
->>>>>>> 6980dbc1078283c122bbe1dbcf6ed0b8a93d8467
         @spot_token = token
         @gateway_class = gateway_class
-        @gateway = gateway_class.new(@spot_token)
+        @gateway = @gateway_class.new(@spot_token)
       end
 
       def find(type, id, market)
-        data = @gateway.episode_data(type, id, market)
+        data = @gateway.show_data(type, id, market)
         build_entity(data)
       end
 
@@ -26,44 +22,34 @@ module TranSound
       # Extracts entity specific elements from data structure
       class DataMapper
         def initialize(data, token, gateway_class)
-          @episode = data
+          @show = data
           @spot_token = token
           @gateway_class = gateway_class
         end
 
         def build_entity
-          TranSound::Entity::Episode.new(
+          TranSound::Entity::Show.new(
             description:,
             images:,
-            language:,
             name:,
-            release_date:,
-            type:
+            publisher:
           )
         end
 
         def description
-          @episode['description']
+          @show['description']
         end
 
         def images
-          @episode['images']
-        end
-
-        def language
-          @episode['language']
+          @show['images']
         end
 
         def name
-          @episode['name']
+          @show['name']
         end
 
-        def release_date
-          @episode['release_date']
-        end
-
-        def type
-          @episode['type']
+        def publisher
+          @show['publisher']
         end
       end
     end

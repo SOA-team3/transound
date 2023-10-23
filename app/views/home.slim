@@ -1,0 +1,18 @@
+.container
+  form role="form" action="/episode" method='POST' id='show-episode-form'
+    .row.vertical-align.query-bar
+      .col-md-2.col-sm-3
+        .text-right Github URL:
+      .col-md-8.col-sm-6
+        input {
+          type='text' name='spotify_url'
+          id='spotify_url_input' class="form-control"
+          placeholder="e.g. https://api.spotify.com/v1/episode/<id>?market=TW or https://api.spotify.com/v1/show/<id>?market=TW"
+        }
+      .col-md-2.col-sm-3
+        button {
+          type='submit' id='podcast_info-form-submit' class='submit'
+          value='submit' class="btn btn-success"
+        } Show Podcast Information
+    .row
+      .col-md-12.blank-row

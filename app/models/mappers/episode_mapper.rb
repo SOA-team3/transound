@@ -11,7 +11,9 @@ module TranSound
       end
 
       def find(type, id, market)
+        puts [type, id, market]
         data = @gateway.episode_data(type, id, market)
+        puts "ERRORs Data:\n#{data}"
         build_entity(data)
       end
 

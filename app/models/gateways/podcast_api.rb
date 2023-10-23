@@ -14,6 +14,7 @@ module TranSound
       end
 
       def episode_data(type, id, market)
+        puts [type, id, market, @spot_token]
         Request.new(@spot_token).info(type, id, market).parse
       end
 
@@ -31,14 +32,18 @@ module TranSound
 
         def info(type, id, market)
           # "https://api.spotify.com/v1/#{type}/#{id}?market=#{market}"
+          puts POD_PATH + "#{type}/#{id}?market=#{market}"
           get(POD_PATH + "#{type}/#{id}?market=#{market}")
         end
 
         def get(url)
+          puts "podcast_api.rb: #{@token}"
+          puts "podcast_api.rb: #{url}"
           http_response = HTTP.headers(
             'Authorization' => "Bearer #{@token}"
           ).get(url)
           Response.new(http_response).tap do |response|
+            puts "ERROR: #{response.error}"
             raise(response.error) unless response.successful?
           end
         end
@@ -76,7 +81,7 @@ module TranSound
         end
 
         def get
-          # puts "Time_difference_of_getting_token: #{TokenTime.time_difference_of_get_token}"
+          puts "Time_difference_of_getting_token: #{TokenTime.new(@config).time_difference_of_get_token}"
           if TokenTime.new(@config).time_difference_of_get_token >= 55
             access_token = ApplyForNewTempToken.new(@client_id,
                                                     @client_secret).apply_for_new_temp_token

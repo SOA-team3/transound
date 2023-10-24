@@ -12,21 +12,28 @@ h1 {
     font-size: 1.2em;
   }
 
-  .episode.attribute {
+  .episode.attribute, .show.attribute{
     font-weight: bold;
   }
 
-  .episode.type {
+  .episode.type, .show.type {
     font-weight: bold
   }
 
-  .episode.name {
+  .episode.name, .show.name {
 
   }
 
-  .episode.description, .episode.images,  .episode.language, .episode.release_date{
+  .episode.description, .episode.language, .episode.release_date, .show.description, .show.publisher, .show.episodes, .show.items{
     color: grey;
   }
+
+  img {
+    color: grey;
+    width: 500px;
+    height: 500px;
+  }
+
 
   .vcenter {
     display: inline-block;

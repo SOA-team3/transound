@@ -1,13 +1,13 @@
 .container
-  form role="form" action="/episode" method='POST' id='show-episode-form'
+  form role="form" action="/podcast_info" method='POST' id='show-episode-form'
     .row.vertical-align.query-bar
       .col-md-2.col-sm-3
-        .text-right Github URL:
+        .text-right Spotify URL:
       .col-md-8.col-sm-6
         input {
           type='text' name='spotify_url'
           id='spotify_url_input' class="form-control"
-          placeholder="e.g. https://api.spotify.com/v1/episode/<id>?market=TW or https://api.spotify.com/v1/show/<id>?market=TW"
+          placeholder="e.g. https://open.spotify.com/episode/<unique_id> or https://open.spotify.com/show/<unique_id>"
         }
       .col-md-2.col-sm-3
         button {
@@ -16,3 +16,24 @@
         } Show Podcast Information
     .row
       .col-md-12.blank-row
+
+  script type="text/javascript".
+    $(document).ready(function() {
+      $('#show-episode-form').on('submit', function(e) {
+        e.preventDefault();
+
+        var spotifyUrl = $('#spotify_url_input').val();
+        var actionUrl;
+
+        if (spotifyUrl.includes('episode')) {
+          actionUrl = '/episode';
+        } else if (spotifyUrl.includes('show')) {
+          actionUrl = '/show';
+        } else {
+          actionUrl = '/default';
+        }
+
+        $(this).attr('action', actionUrl);
+        this.submit();
+      });
+    });

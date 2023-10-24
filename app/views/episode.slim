@@ -2,7 +2,7 @@
   .row
     h2
       span.episode.type
-        = episode.type
+        = episode.type.capitalize + ":"
       span.episode.name style="padding-left:20px"
         = episode.name
   .container
@@ -18,9 +18,10 @@
         span.episode.attribute Images:
       .col-lg-11.col-md-10.col-sm-6
         .row
-          - episode.images.each do |image|
-            .col-sm-12
-              a.episode.detail href=image['url'] #{image['url']}
+          / - episode.images.each_with_index do |image, index|
+          .col-sm-12
+            - image = episode.images[1]
+            img.episode.images[src = image['url'] alt = "#{image['url']}"]
 
     .row.top-buffer
       .col-lg-1.col-md-2.col-sm-2
@@ -31,7 +32,7 @@
 
     .row.top-buffer
       .col-lg-1.col-md-2.col-sm-2
-        span.episode.attribute release_date:
+        span.episode.attribute Release_date:
       .col-lg-11.col-md-10.col-sm-6
         span.episode.release_date
           = episode.release_date

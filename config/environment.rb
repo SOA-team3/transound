@@ -15,6 +15,5 @@ module TranSound
   # Configuration for the App
   class App < Roda
     TEMP_TOKEN = TranSound::Podcast::Api::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET).get
-    puts "environment.rb: #{TEMP_TOKEN}"
   end
 end

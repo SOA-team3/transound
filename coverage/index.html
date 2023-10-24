@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2023-10-23T23:50:37+08:00">2023-10-23T23:50:37+08:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2023-10-24T17:09:26+08:00">2023-10-24T17:09:26+08:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="green">
-  91.58%
+  91.75%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.5
+         1.49
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>202</b> relevant lines,
-    <span class="green"><b>185</b> lines covered</span> and
+    <b>206</b> relevant lines,
+    <span class="green"><b>189</b> lines covered</span> and
     <span class="red"><b>17</b> lines missed. </span>
     (<span class="green">
-  91.58%
+  91.75%
 </span>
 )
   </div>
@@ -95,7 +95,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#e01f2df9520cff8ee655fdd1e5ec322fe900abc9" class="src_link" title="app/models/entities/show.rb">app/models/entities/show.rb</a></td>
             <td class="green strong cell--number t-file__coverage">91.67 %</td>
-            <td class="cell--number">20</td>
+            <td class="cell--number">21</td>
             <td class="cell--number">12</td>
             <td class="cell--number">11</td>
             <td class="cell--number">1</td>
@@ -106,11 +106,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#2a88307d4cb7e38ac4c2c1a25a7d08defcb7ebe9" class="src_link" title="app/models/gateways/podcast_api.rb">app/models/gateways/podcast_api.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">177</td>
-            <td class="cell--number">79</td>
-            <td class="cell--number">79</td>
+            <td class="cell--number">180</td>
+            <td class="cell--number">83</td>
+            <td class="cell--number">83</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">2.19</td>
+            <td class="cell--number">2.13</td>
             
           </tr>
         
@@ -1133,13 +1133,13 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="11">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="11">
+            
             
 
             
 
-            <code class="ruby">      attribute :description, Strict::String</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -1150,7 +1150,7 @@
 
             
 
-            <code class="ruby">      attribute :images, Strict::Array</code>
+            <code class="ruby">      attribute :description, Strict::String</code>
           </li>
         </div>
       
@@ -1161,7 +1161,7 @@
 
             
 
-            <code class="ruby">      attribute :name, Strict::String</code>
+            <code class="ruby">      attribute :images, Strict::Array</code>
           </li>
         </div>
       
@@ -1172,7 +1172,7 @@
 
             
 
-            <code class="ruby">      attribute :publisher, Strict::String</code>
+            <code class="ruby">      attribute :name, Strict::String</code>
           </li>
         </div>
       
@@ -1183,12 +1183,23 @@
 
             
 
+            <code class="ruby">      attribute :publisher, Strict::String</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="16">
+            <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">      def show_num?</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="16">
+          <li class="missed" data-hits="0" data-linenumber="17">
             
             
 
@@ -1199,7 +1210,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="17">
+          <li class="never" data-hits="" data-linenumber="18">
             
             
 
@@ -1210,7 +1221,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="18">
+          <li class="never" data-hits="" data-linenumber="19">
             
             
 
@@ -1221,7 +1232,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="19">
+          <li class="never" data-hits="" data-linenumber="20">
             
             
 
@@ -1232,7 +1243,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="20">
+          <li class="never" data-hits="" data-linenumber="21">
             
             
 
@@ -1261,8 +1272,8 @@
     
 
     <div class="t-line-summary">
-      <b>79</b> relevant lines.
-      <span class="green"><b>79</b> lines covered</span> and
+      <b>83</b> relevant lines.
+      <span class="green"><b>83</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -1456,7 +1467,7 @@
 
             
 
-            <code class="ruby">        puts [type, id, market, @spot_token]</code>
+            <code class="ruby">        puts &quot;podcast_api.rb episode_data para: #{[type, id, market, @spot_token]}\n&quot;</code>
           </li>
         </div>
       
@@ -1654,7 +1665,7 @@
 
             
 
-            <code class="ruby">          puts POD_PATH + &quot;#{type}/#{id}?market=#{market}&quot;</code>
+            <code class="ruby">          puts &quot;podcast_api.rb api_link: #{POD_PATH}#{type}/#{id}?market=#{market}&quot;</code>
           </li>
         </div>
       
@@ -1709,7 +1720,7 @@
 
             
 
-            <code class="ruby">          puts &quot;podcast_api.rb: #{@token}&quot;</code>
+            <code class="ruby">          puts &quot;podcast_api.rb token: #{@token}&quot;</code>
           </li>
         </div>
       
@@ -1720,7 +1731,7 @@
 
             
 
-            <code class="ruby">          puts &quot;podcast_api.rb: #{url}&quot;</code>
+            <code class="ruby">          puts &quot;podcast_api.rb api_url: #{url}&quot;</code>
           </li>
         </div>
       
@@ -1775,7 +1786,7 @@
 
             
 
-            <code class="ruby">            puts &quot;ERROR: #{response.error}&quot;</code>
+            <code class="ruby">            puts &quot;Podcast_api ERROR response: #{response.error}&quot;</code>
           </li>
         </div>
       
@@ -3056,13 +3067,13 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="163">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="163">
+            <span class="hits">1</span>
             
 
-            <code class="ruby"># TYPE = &#39;episodes&#39;</code>
+            
+
+            <code class="ruby">TYPE = &#39;episodes&#39;</code>
           </li>
         </div>
       
@@ -3078,24 +3089,24 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="165">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="165">
+            <span class="hits">1</span>
             
 
-            <code class="ruby"># MARKET = &#39;TW&#39;</code>
+            
+
+            <code class="ruby">ID = &#39;7elPsgSqR0DjMvMyLKSiM8&#39;</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="166">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="166">
+            <span class="hits">1</span>
             
 
-            <code class="ruby"># TEMP_TOKEN = TranSound::Token.new.get</code>
+            
+
+            <code class="ruby">MARKET = &#39;TW&#39;</code>
           </li>
         </div>
       
@@ -3117,18 +3128,18 @@
 
             
 
-            <code class="ruby"># project = TranSound::PodcastApi.new( TEMP_TOKEN ).episode(TYPE, ID, MARKET)</code>
+            <code class="ruby"># TranSound::Podcast::Api::Token.new(secret_path, config, client_id, client_secret).get</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="169">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="169">
+            <span class="hits">1</span>
             
 
-            <code class="ruby"># puts project.description</code>
+            
+
+            <code class="ruby">TEMP_TOKEN = &#39;BQAfu5YW1mDxpP2nqlprjnXYTsSt6mLkl9MriKAXerRV-4YcvNPJL8j19jXvf3NyspKvSIyyN8YLHKs5fbtQ4dc-l0t2WqraMPAzB5FQiofCE_cg8aI&#39;</code>
           </li>
         </div>
       
@@ -3139,7 +3150,7 @@
 
             
 
-            <code class="ruby"># puts TranSound::Request::Response::BadRequest</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -3150,7 +3161,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby"># project = TranSound::Podcast::Api.new( TEMP_TOKEN ).episode_data(TYPE, ID, MARKET)</code>
           </li>
         </div>
       
@@ -3161,7 +3172,7 @@
 
             
 
-            <code class="ruby"># TYPE = &#39;shows&#39;</code>
+            <code class="ruby"># puts project.class</code>
           </li>
         </div>
       
@@ -3172,7 +3183,7 @@
 
             
 
-            <code class="ruby"># ID = &#39;5Vv32KtHB3peVZ8TeacUty&#39;</code>
+            <code class="ruby"># puts TranSound::Request::Response::BadRequest</code>
           </li>
         </div>
       
@@ -3183,7 +3194,7 @@
 
             
 
-            <code class="ruby"># MARKET = &#39;TW&#39;</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -3194,7 +3205,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby"># TYPE = &#39;shows&#39;</code>
           </li>
         </div>
       
@@ -3205,12 +3216,45 @@
 
             
 
-            <code class="ruby"># show = TranSound::PodcastApi.new(TranSound::Token.new.get).episode(TYPE, ID, MARKET)</code>
+            <code class="ruby"># ID = &#39;5Vv32KtHB3peVZ8TeacUty&#39;</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="177">
+            
+            
+
+            
+
+            <code class="ruby"># MARKET = &#39;TW&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="178">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="179">
+            
+            
+
+            
+
+            <code class="ruby"># show = TranSound::PodcastApi.new(TranSound::Token.new.get).episode(TYPE, ID, MARKET)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="180">
             
             
 
@@ -3302,7 +3346,7 @@
 
             
 
-            <code class="ruby">    # Data Mapper: Podcast episode -&gt; Episode</code>
+            <code class="ruby">    # Data Mapper: Podcast episode -&gt; Episode entity</code>
           </li>
         </div>
       
@@ -3401,7 +3445,7 @@
 
             
 
-            <code class="ruby">        puts [type, id, market]</code>
+            <code class="ruby">        puts &quot;episodemapper.find: \n#{[type, id, market]}&quot;</code>
           </li>
         </div>
       
@@ -3423,7 +3467,7 @@
 
             
 
-            <code class="ruby">        puts &quot;ERROR:\n#{data}&quot;</code>
+            <code class="ruby">        puts &quot;ERRORs Data by &lt;find&gt;\n#{data}&quot;</code>
           </li>
         </div>
       
@@ -4092,7 +4136,7 @@
 
             
 
-            <code class="ruby">    # Data Mapper: Github repo -&gt; Project entity</code>
+            <code class="ruby">    # Data Mapper: Podcast episode -&gt; Episode entity</code>
           </li>
         </div>
       

@@ -167,7 +167,7 @@ CLIENT_SECRET = CONFIG['spotify_Client_secret']
 
 TEMP_TOKEN = TranSound::Podcast::Api::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET).get
 
-TranSound::Podcast::Api.new(TEMP_TOKEN).episode_data(EPISODE_TYPE, EPISODE_ID, MARKET)
+# TranSound::Podcast::Api.new(TEMP_TOKEN).episode_data(EPISODE_TYPE, EPISODE_ID, MARKET)
 # puts project['description']
 
 show = TranSound::Podcast::Api.new(TEMP_TOKEN).show_data(SHOW_TYPE, SHOW_ID, MARKET)

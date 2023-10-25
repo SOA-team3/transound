@@ -4,11 +4,7 @@ module TranSound
   module Podcast
     # Data Mapper: Podcast episode -> Episode
     class EpisodeMapper
-<<<<<<< HEAD
-      def initialize(token, gateway_class)
-=======
       def initialize(token, gateway_class = Podcast::Api)
->>>>>>> 6980dbc1078283c122bbe1dbcf6ed0b8a93d8467
         @spot_token = token
         @gateway_class = gateway_class
         @gateway = gateway_class.new(@spot_token)

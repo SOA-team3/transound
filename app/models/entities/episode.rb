@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-<<<<<<< HEAD
-=======
 require 'dry-types'
 require 'dry-struct'
 
->>>>>>> 6980dbc1078283c122bbe1dbcf6ed0b8a93d8467
 module TranSound
   module Entity
     # Domain entity for any podcast episode

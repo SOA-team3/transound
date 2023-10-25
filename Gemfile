@@ -2,6 +2,11 @@
 
 source 'https://rubygems.org'
 
+# Web Application
+gem 'puma', '~> 5'
+gem 'roda', '~> 3'
+gem 'slim', '~> 4'
+
 # Validation
 gem 'dry-struct', '~> 1'
 gem 'dry-types', '~> 1'
@@ -29,7 +34,3 @@ gem 'webmock', '~> 3'
 gem 'flog'
 gem 'reek'
 gem 'rubocop'
-
-# Valadation
-gem 'dry-struct'
-gem 'dry-types'

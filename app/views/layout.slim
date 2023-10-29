@@ -1,23 +1,24 @@
 doctype html
 html
   head
+    meta charset="UTF-8"
     title TranSound
 
     / Bootstrap CSS and theme (United Theme)
     link{
       href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.2/dist/cerulean/bootstrap.min.css"
-      rel="stylesheet" 
+      rel="stylesheet"
       crossorigin="anonymous"
     }
-    
+
     / Custom CSS
     / link rel='stylesheet' href='/presentation/assets/css/style.css'
     == assets(:css)
   body
     / Popper
-    script{ 
+    script{
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-      crossorigin="anonymous" 
+      crossorigin="anonymous"
     }
 
     / Bootstrap
@@ -30,7 +31,7 @@ html
       section
         .row style="vertical-align: middle;"
           .col-12
-            h1 
+            h1
               a.text-underline-hover href="/" TranSound
 
       section

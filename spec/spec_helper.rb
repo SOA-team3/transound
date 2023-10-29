@@ -12,7 +12,7 @@ require 'vcr'
 require 'webmock'
 
 # get TranSound::Token class
-require_relative '../lib/gateways/podcast_api'
+require_relative '../app/models/gateways/podcast_api'
 
 require_relative '../require_app'
 require_app

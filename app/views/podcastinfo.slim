@@ -1,22 +1,22 @@
 .container
   .row
     h2
-      span.project.owner
-        = project.owner.username
-      span.project.name style="padding-left:20px"
-        = project.name
+      span.podcastinfo.owner
+        = podcastinfo.owner.username
+      span.podcastinfo.name style="padding-left:20px"
+        = podcastinfo.name
   .container
     .row
       .col-lg-1.col-md-2.col-sm-2
-        span.project.attribute Repo:
+        span.podcastinfo.attribute Repo:
       .col-lg-11.col-md-10.col-sm-6
-        span.project.detail
-          = project.git_url
+        span.podcastinfo.detail
+          = podcastinfo.git_url
     .row.top-buffer
       .col-lg-1.col-md-2.col-sm-2
-        span.project.attribute Members:
+        span.podcastinfo.attribute Members:
       .col-lg-11.col-md-10.col-sm-6
         .row
-          - project.members.each do |member|
+          - podcastinfo.members.each do |member|
             .col-sm-12
-              a.project.detail href="https://github.com/#{member.username}" #{member.username}
+              a.podcastinfo.detail href="https://github.com/#{member.username}" #{member.username}

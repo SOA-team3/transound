@@ -41,21 +41,21 @@ module TranSound
 
         routing.on String, String do |type, id|
           # GET /episode/id
-          if type == 'episode'
-            spotify_episode = TranSound::Podcast::EpisodeMapper
-              .new(TEMP_TOKEN)
-              .find("#{type}s", id, 'TW')
-            view 'episode', locals: { episode: spotify_episode }
-          elsif type == 'show'
-            spotify_show = TranSound::Podcast::ShowMapper
-              .new(TEMP_TOKEN)
-              .find("#{type}s", id, 'TW')
-            view 'show', locals: { show: spotify_show }
-          else
-            # 处理未知的type
-            routing.redirect '/unknown'
-          end
+          route_based_on_type(routing, type, id)
         end
+      end
+    end
+
+    def route_based_on_type(routing, type, id)
+      if type == 'episode'
+        spotify_episode = TranSound::Podcast::EpisodeMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
+        view 'episode', locals: { episode: spotify_episode }
+      elsif type == 'show'
+        spotify_show = TranSound::Podcast::ShowMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
+        view 'show', locals: { show: spotify_show }
+      else
+        # Handle unknown URLs (unknown type)
+        routing.redirect '/'
       end
     end
   end

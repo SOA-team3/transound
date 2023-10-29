@@ -2,7 +2,7 @@
 
 module TranSound
   module Podcast
-    # Data Mapper: Github repo -> Project entity
+    # Data Mapper: Podcast episode -> Episode entity
     class ShowMapper
       def initialize(token, gateway_class = Podcast::Api)
         @spot_token = token
@@ -32,7 +32,9 @@ module TranSound
             description:,
             images:,
             name:,
-            publisher:
+            publisher:,
+            type:,
+            episodes:
           )
         end
 
@@ -50,6 +52,14 @@ module TranSound
 
         def publisher
           @show['publisher']
+        end
+
+        def type
+          @show['type']
+        end
+
+        def episodes
+          @show['episodes']
         end
       end
     end

@@ -11,7 +11,11 @@ require 'minitest/rg'
 require 'vcr'
 require 'webmock'
 
-require_relative '../lib/podcast_api'
+# get TranSound::Token class
+require_relative '../app/models/gateways/podcast_api'
+
+require_relative '../require_app'
+require_app
 
 # should contain CONST that pass into spec(podcast_info)
 EPISODE_TYPE = 'episodes'
@@ -24,7 +28,7 @@ SECRET_PATH = 'config/secrets.yml'
 CONFIG = YAML.safe_load_file(SECRET_PATH)
 CLIENT_ID = CONFIG['spotify_Client_ID']
 CLIENT_SECRET = CONFIG['spotify_Client_secret']
-TEMP_TOKEN = TranSound::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET).get
+TEMP_TOKEN = TranSound::Podcast::Api::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET).get
 EPISODE_CORRECT = YAML.safe_load_file('spec/fixtures/episode_results.yml')
 SHOW_CORRECT = YAML.safe_load_file('spec/fixtures/show_results.yml')
 

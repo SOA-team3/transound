@@ -1,9 +1,55 @@
 # frozen_string_literal: true
 
+require 'net/http'
+
 module TranSound
   module Podcast
-    # Data Mapper: Podcast episode -> Episode
+    # Utiliy of handle Audio data
+    module AudioDataUtils
+      # Download Audio Data
+      class AudioDownloader
+        def download_audio(data)
+          mp3_url = data['audio_preview_url']
+          local_file_path = "app/models/mappers/audio_data_download/#{data['name']}.mp3"
+
+          response = send_http_get_request(mp3_url)
+
+          if response.is_a?(Net::HTTPSuccess)
+            write_to_file(local_file_path, response.body)
+          else
+            DownloadFailureHandler.new(response).handle
+          end
+        end
+
+        private
+
+        def send_http_get_request(url)
+          uri = URI(url)
+          Net::HTTP.get_response(uri)
+        end
+
+        def write_to_file(file_path, content)
+          File.binwrite(file_path, content)
+          puts "下載完成：#{file_path}"
+        end
+      end
+
+      # Handle downloading failure
+      class DownloadFailureHandler
+        def initialize(response)
+          @response = response
+        end
+
+        def handle
+          puts "下載失敗：#{@response.code} - #{@response.message}"
+        end
+      end
+    end
+
+    # Data Mapper: Podcast episode -> Episode entity
     class EpisodeMapper
+      include AudioDataUtils
+
       def initialize(token, gateway_class = Podcast::Api)
         @spot_token = token
         @gateway_class = gateway_class
@@ -12,6 +58,7 @@ module TranSound
 
       def find(type, id, market)
         data = @gateway.episode_data(type, id, market)
+        AudioDownloader.new.download_audio(data)
         build_entity(data)
       end
 

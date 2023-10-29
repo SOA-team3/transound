@@ -1,10 +1,14 @@
 ---
 # Apply latest Ruby style guide and newly introduced cops
 AllCops:
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.2
   NewCops: enable
   Exclude:
-    - '_snippets/*'
+    - '_snippets/**/*'
+  Include:
+  - 'Gemfile'
+  - 'Rakefile'
+  - '**/*.rb'
 
 # ignore block length in test code only
 Metrics/BlockLength:
@@ -12,8 +16,7 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
 
-# allow unsafe YAML loading in test code only
-Security/YAMLLoad:
+# See: https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Layout/MultilineMethodCallIndentation
+Layout/MultilineMethodCallIndentation:
   Enabled: true
-  Exclude:
-    - 'spec/**/*'
+  EnforcedStyle: indented

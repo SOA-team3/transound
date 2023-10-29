@@ -76,7 +76,6 @@ module TranSound
         end
 
         def get
-          # puts "Time_difference_of_getting_token: #{TokenTime.time_difference_of_get_token}"
           if TokenTime.new(@config).time_difference_of_get_token >= 55
             access_token = ApplyForNewTempToken.new(@client_id,
                                                     @client_secret).apply_for_new_temp_token
@@ -155,18 +154,23 @@ module TranSound
   end
 end
 
-# TYPE = 'episodes'
+EPISODE_TYPE = 'episodes'
 # ID = '7vwvbU1pDkv0IuWPY8SZyz'
-# MARKET = 'TW'
-# TEMP_TOKEN = TranSound::Token.new.get
+EPISODE_ID = '7elPsgSqR0DjMvMyLKSiM8'
+SHOW_TYPE = 'shows'
+SHOW_ID = '5Vv32KtHB3peVZ8TeacUty'
+MARKET = 'TW'
+SECRET_PATH = 'config/secrets.yml'
+CONFIG = YAML.safe_load_file(SECRET_PATH)
+CLIENT_ID = CONFIG['spotify_Client_ID']
+CLIENT_SECRET = CONFIG['spotify_Client_secret']
 
-# project = TranSound::PodcastApi.new( TEMP_TOKEN ).episode(TYPE, ID, MARKET)
-# puts project.description
-# puts TranSound::Request::Response::BadRequest
+TEMP_TOKEN = TranSound::Podcast::Api::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET).get
 
-# TYPE = 'shows'
-# ID = '5Vv32KtHB3peVZ8TeacUty'
-# MARKET = 'TW'
+# TranSound::Podcast::Api.new(TEMP_TOKEN).episode_data(EPISODE_TYPE, EPISODE_ID, MARKET)
+# puts project['description']
 
-# show = TranSound::PodcastApi.new(TranSound::Token.new.get).episode(TYPE, ID, MARKET)
-# # puts show.description
+show = TranSound::Podcast::Api.new(TEMP_TOKEN).show_data(SHOW_TYPE, SHOW_ID, MARKET)
+output = show['episodes']['items'][0]['html_description']
+
+File.write('podcast_api_test_output.txt', output)

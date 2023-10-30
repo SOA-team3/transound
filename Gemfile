@@ -3,6 +3,7 @@
 source 'https://rubygems.org'
 
 # Web Application
+gem 'figaro'
 gem 'puma', '~> 6'
 gem 'roda', '~> 3'
 gem 'slim', '~> 5'

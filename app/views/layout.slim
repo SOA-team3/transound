@@ -39,7 +39,8 @@ html
 
       footer
         = "TranSound is made for demonstration purposes. We cannot warrant full correctness of all content. TranSound may use cookies for sessions but does not track users."
-
+        
+        / not yet
         - require 'yaml'
           CONFIG = YAML.safe_load_file('config/secrets.yml')
           TOKENTIME = CONFIG[spotify_gettoken_time]

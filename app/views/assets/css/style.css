@@ -20,7 +20,7 @@ h1 {
     font-weight: bold
   }
 
-  .episode.name, .show.name {
+  .episode.name,.show.name {
 
   }
 
@@ -40,12 +40,10 @@ h1 {
     vertical-align: middle;
     float: none;
   }
-
   .vertical-align {
     display: flex;
     flex-direction: row;
   }
-
   .vertical-align > [class^="col-"],
   .vertical-align > [class*=" col-"] {
     display: flex;
@@ -64,7 +62,6 @@ h1 {
     background-color: #EEEEEE;
     padding: 5px 5px 5px 5px;
   }
-
   footer {
     padding: 0.5in;
     font-size:11px;

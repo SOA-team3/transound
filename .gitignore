@@ -2,3 +2,4 @@ config/secrets.yml
 _snippets/
 coverage/*
 !coverage/.resultset.json
+podcast_api_test_output.txt

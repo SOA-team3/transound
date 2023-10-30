@@ -62,6 +62,28 @@ module TranSound
         build_entity(data)
       end
 
+      def save_audio_data(data)
+        require 'net/http'
+
+        # MP3 文件的 URL
+        mp3_url = data['audio_preview_url']
+        puts "mp3_url: #{mp3_url}"
+
+        local_file_path = "app/models/mappers/audio_data_download/#{data['name']}.mp3"
+
+        # 發送 HTTP GET 請求
+        uri = URI(mp3_url)
+        response = Net::HTTP.get_response(uri)
+        if response.is_a?(Net::HTTPSuccess)
+          # 寫入檔案
+          File.binwrite(local_file_path, response.body)
+
+          puts "下載完成：#{local_file_path}"
+        else
+          puts "下載失败：#{response.code} - #{response.message}"
+        end
+      end
+
       def build_entity(data)
         DataMapper.new(data, @spot_token, @gateway_class).build_entity
       end

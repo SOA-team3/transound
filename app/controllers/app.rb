@@ -33,7 +33,7 @@ module TranSound
             if %w[episode show].include?(type)
               routing.redirect "podcast_info/#{type}/#{id}"
             else
-              # 處理未知網址
+              # handle unknown spotify_url
               routing.redirect '/'
             end
           end

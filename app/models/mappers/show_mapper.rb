@@ -29,6 +29,7 @@ module TranSound
 
         def build_entity
           TranSound::Entity::Show.new(
+            origin_id:,
             description:,
             images:,
             name:,
@@ -36,6 +37,10 @@ module TranSound
             type:,
             episodes:
           )
+        end
+
+        def origin_id
+          @show['id']
         end
 
         def description

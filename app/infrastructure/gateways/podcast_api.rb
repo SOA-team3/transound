@@ -154,23 +154,24 @@ module TranSound
   end
 end
 
-EPISODE_TYPE = 'episodes'
-# ID = '7vwvbU1pDkv0IuWPY8SZyz'
-EPISODE_ID = '7elPsgSqR0DjMvMyLKSiM8'
-SHOW_TYPE = 'shows'
-SHOW_ID = '5Vv32KtHB3peVZ8TeacUty'
-MARKET = 'TW'
-SECRET_PATH = 'config/secrets.yml'
-CONFIG = YAML.safe_load_file(SECRET_PATH)
-CLIENT_ID = CONFIG['spotify_Client_ID']
-CLIENT_SECRET = CONFIG['spotify_Client_secret']
+# EPISODE_TYPE = 'episodes'
+# # ID = '7vwvbU1pDkv0IuWPY8SZyz'
+# EPISODE_ID = '7elPsgSqR0DjMvMyLKSiM8'
+# SHOW_TYPE = 'shows'
+# SHOW_ID = '5Vv32KtHB3peVZ8TeacUty'
+# MARKET = 'TW'
+# SECRET_PATH = 'config/secrets.yml'
+# CONFIG = YAML.safe_load_file(SECRET_PATH)
+# CLIENT_ID = CONFIG['spotify_Client_ID']
+# CLIENT_SECRET = CONFIG['spotify_Client_secret']
+# puts "CONFIG: #{CONFIG}"
 
-TEMP_TOKEN = TranSound::Podcast::Api::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET).get
+# TEMP_TOKEN = TranSound::Podcast::Api::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET).get
 
 # TranSound::Podcast::Api.new(TEMP_TOKEN).episode_data(EPISODE_TYPE, EPISODE_ID, MARKET)
 # puts project['description']
 
-show = TranSound::Podcast::Api.new(TEMP_TOKEN).show_data(SHOW_TYPE, SHOW_ID, MARKET)
-output = show['episodes']['items'][0]['html_description']
+# show = TranSound::Podcast::Api.new(TEMP_TOKEN).show_data(SHOW_TYPE, SHOW_ID, MARKET)
+# output = show['episodes']['items'][0]['html_description']
 
-File.write('podcast_api_test_output.txt', output)
+# File.write('podcast_api_test_output.txt', output)

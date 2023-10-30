@@ -9,12 +9,19 @@ module TranSound
     class Episode < Dry::Struct
       include Dry.Types
 
+      attribute :id, Integer.optional
+      attribute :origin_id, Strict::String
       attribute :description, Strict::String
       attribute :images, Strict::Array
       attribute :language, Strict::String
       attribute :name, Strict::String
       attribute :release_date, Strict::String
       attribute :type, Strict::String
+
+      def to_attr_hash
+        # to_hash.reject { |key, _| %i[id owner contributors].include? key }
+        to_hash.except(:id)
+      end
     end
   end
 end

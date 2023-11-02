@@ -29,13 +29,22 @@ module TranSound
                                     (spot_url.split('/').count >= 3)
             type, id = spot_url.split('/')[-2..]
 
-            # routing.redirect "episode/#{type}/#{id}"
-            if %w[episode show].include?(type)
-              routing.redirect "podcast_info/#{type}/#{id}"
+            # if %w[episode show].include?(type)
+            #   routing.redirect "podcast_info/#{type}/#{id}"
+            if type == 'episode'
+              # Get podcast_info from Spotify
+              podcast_info = TranSound::Podcast::EpisodeMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
+            elsif type == 'show'
+              podcast_info = TranSound::Podcast::ShowMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
             else
               # handle unknown spotify_url
               routing.redirect '/'
             end
+
+            # Add project to database
+            # Repository::For.entity(podcast_info).create(podcast_info)
+
+            routing.redirect "podcast_info/#{type}/#{id}"
           end
         end
 

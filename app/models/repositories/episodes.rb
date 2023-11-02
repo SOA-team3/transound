@@ -4,6 +4,10 @@ module TranSound
   module Repository
     # Repository for Episode Entities
     class Episodes
+      def self.find(entity)
+        find_origin_id(entity.origin_id)
+      end
+
       def self.find_id(id)
         db_record = Database::EpisodeOrm.first(id:)
         rebuild_entity(db_record)
@@ -11,6 +15,13 @@ module TranSound
 
       def self.find_origin_id(origin_id)
         db_record = Database::EpisodeOrm.first(origin_id:)
+        rebuild_entity(db_record)
+      end
+
+      def self.create(entity)
+        raise 'Episode already exists' if find(entity)
+
+        db_record = Database::EpisodeOrm.create(entity.to_attr_hash)
         rebuild_entity(db_record)
       end
 

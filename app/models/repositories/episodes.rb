@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'members'
-
 module TranSound
   module Repository
     # Repository for Episode Entities

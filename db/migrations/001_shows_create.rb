@@ -10,7 +10,7 @@ Sequel.migration do
       String :name
       String :publisher
       String :type
-      Hash :episodes
+      # Hash :episodes
 
       DateTime :created_at
       DateTime :updated_at

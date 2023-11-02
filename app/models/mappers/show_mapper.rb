@@ -29,6 +29,7 @@ module TranSound
 
         def build_entity
           TranSound::Entity::Show.new(
+            id: nil,
             origin_id:,
             description:,
             images:,

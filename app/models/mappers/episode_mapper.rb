@@ -76,6 +76,7 @@ module TranSound
 
         def build_entity
           TranSound::Entity::Episode.new(
+            id: nil,
             origin_id:,
             description:,
             images:,

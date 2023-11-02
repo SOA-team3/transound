@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'members'
-require_relative 'projects'
+require_relative 'episodes'
+require_relative 'shows'
 
 module TranSound
   module Repository

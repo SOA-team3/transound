@@ -5,4 +5,4 @@
 require_relative 'require_app'
 require_app
 
-def app = CodePraise::App
+def app = TranSound::App

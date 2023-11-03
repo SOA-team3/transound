@@ -42,7 +42,7 @@ module TranSound
             end
 
             # Add project to database
-            # Repository::For.entity(podcast_info).create(podcast_info)
+            Repository::For.entity(podcast_info).create(podcast_info)
 
             routing.redirect "podcast_info/#{type}/#{id}"
           end
@@ -59,6 +59,12 @@ module TranSound
       if type == 'episode'
         spotify_episode = TranSound::Podcast::EpisodeMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
         view 'episode', locals: { episode: spotify_episode }
+
+        # Get project from database
+        # episode = Repository::For.klass(Entity::Episode)
+        #   .find_podcast_info(origin_id)
+        # view 'episode', locals: { episode: }
+
       elsif type == 'show'
         spotify_show = TranSound::Podcast::ShowMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
         view 'show', locals: { show: spotify_show }

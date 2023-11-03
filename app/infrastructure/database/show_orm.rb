@@ -11,10 +11,6 @@ module TranSound
                   key: :show_id
 
       plugin :timestamps, update_on_create: true
-
-      def self.find_or_create(show_info)
-        first(name: show_info[:name]) || create(show_info)
-      end
     end
   end
 end

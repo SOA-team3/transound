@@ -20,8 +20,9 @@
         .row
           / - episode.images.each_with_index do |image, index|
           .col-sm-12
-            - image = episode.images[1]
-            img.episode.images[src = image['url'] alt = "#{image['url']}"]
+            / - image = episode.images[1]
+            / img.episode.images[src = image['url'] alt = "#{image['url']}"]
+            img.episode.images[src = episode.images alt = "#{episode.images}"]
 
     .row.top-buffer
       .col-lg-1.col-md-2.col-sm-2

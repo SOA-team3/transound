@@ -8,7 +8,7 @@ Sequel.migration do
 
       String :description
       String :origin_id, unique: true
-      Array :images
+      String :images
       String :language
       String :name
       String :release_date

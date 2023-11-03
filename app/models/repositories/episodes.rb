@@ -4,6 +4,17 @@ module TranSound
   module Repository
     # Repository for Episode Entities
     class Episodes
+
+      def self.find_podcast_info(origin_id)
+        # SELECT * FROM `episodes` LEFT JOIN `shows`
+        # ON (`shows`.`origin_id` = `episodes`.`show_id`)
+        # WHERE ((`type` = 'type') AND (`origin_id` = 'origin_id'))
+        db_project = Database::EpisodeOrm          #.left_join(:members, id: :owner_id)
+          .where(origin_id: origin_id)
+          .first
+        rebuild_entity(db_project)
+      end
+
       def self.find(entity)
         find_origin_id(entity.origin_id)
       end
@@ -44,10 +55,6 @@ module TranSound
         db_records.map do |db_episode|
           Episodes.rebuild_entity(db_episode)
         end
-      end
-
-      def self.db_find_or_create(entity)
-        Database::EpisodeOrm.find_or_create(entity.to_attr_hash)
       end
     end
   end

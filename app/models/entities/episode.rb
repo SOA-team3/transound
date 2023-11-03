@@ -12,7 +12,7 @@ module TranSound
       attribute :id, Integer.optional
       attribute :origin_id, Strict::String
       attribute :description, Strict::String
-      attribute :images, Strict::Array
+      attribute :images, Strict::String # Array
       attribute :language, Strict::String
       attribute :name, Strict::String
       attribute :release_date, Strict::String

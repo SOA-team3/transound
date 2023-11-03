@@ -30,10 +30,6 @@ module TranSound
           Shows.rebuild_entity(db_show)
         end
       end
-
-      def self.db_find_or_create(entity)
-        Database::ShowOrm.find_or_create(entity.to_attr_hash)
-      end
     end
   end
 end

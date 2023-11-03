@@ -4,11 +4,11 @@ require_relative 'spec_helper'
 require_relative 'helpers/vcr_helper'
 require_relative 'helpers/database_helper'
 
-describe 'Integration Tests of Github API and Database' do
+describe 'Integration Tests of Spotify API and Database' do
   VcrHelper.setup_vcr
 
   before do
-    VcrHelper.configure_vcr_for_github
+    VcrHelper.configure_vcr_for_podcast
   end
 
   after do
@@ -20,7 +20,7 @@ describe 'Integration Tests of Github API and Database' do
       DatabaseHelper.wipe_database
     end
 
-    it 'HAPPY: should be able to save *episode* from Spotify to database' do
+    it 'HAPPY: should be able to save *episode* from Spotify API to database' do
       episode = TranSound::Podcast::EpisodeMapper.new(TEMP_TOKEN).find(EPISODE_TYPE, EPISODE_ID, MARKET)
 
       rebuilt = TranSound::Repository::For.entity(episode).create(episode)

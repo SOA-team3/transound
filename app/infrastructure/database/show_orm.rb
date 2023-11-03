@@ -4,9 +4,9 @@ require 'sequel'
 
 module TranSound
   module Database
-    # Object-Relational Mapper for Shows
+    # Object-Relational Mapper for Show Entities
     class ShowOrm < Sequel::Model(:shows)
-      one_to_many :episodes,
+      one_to_many :episode,
                   class: :'TranSound::Database::ShowOrm',
                   key: :show_id
 

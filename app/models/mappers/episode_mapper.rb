@@ -96,9 +96,7 @@ module TranSound
         end
 
         def images
-          # @episode['images']
-          puts @episode['images'][0]['url']
-          puts @episode['images'][0]['url'].class
+          # @episode['images'] ## if images-type == Array
           @episode['images'][0]['url']
         end
 

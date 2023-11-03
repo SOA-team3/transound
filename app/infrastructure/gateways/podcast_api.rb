@@ -70,7 +70,7 @@ module TranSound
       class Token
         def initialize(secret_path, config, client_id, client_secret)
           @secret_path = secret_path
-          @config = config
+          @config = config['test'] # config['test']
           @client_id = client_id
           @client_secret = client_secret
         end
@@ -84,7 +84,7 @@ module TranSound
             return access_token
           end
 
-          @config['test']['spotify_temp_token']
+          @config['spotify_temp_token']
         end
       end
 
@@ -117,14 +117,14 @@ module TranSound
       class SaveTempToken
         def initialize(secret_path, config)
           @secret_path = secret_path
-          @config = config
+          @config = config['test']
           @taipei_timezone = TZInfo::Timezone.get('Asia/Taipei')
         end
 
         def save_temp_token(access_token)
           # Modify the value of spotify_gettoken_time and spotify_temp_token
-          @config['test']['spotify_gettoken_time'] = @taipei_timezone.now.strftime('%Y%m%d%H%M%S')
-          @config['test']['spotify_temp_token'] = access_token
+          @config['spotify_gettoken_time'] = @taipei_timezone.now.strftime('%Y%m%d%H%M%S')
+          @config['spotify_temp_token'] = access_token
           # Save the updated YAML back to the file
           File.write(@secret_path, @config.to_yaml)
         end
@@ -134,7 +134,7 @@ module TranSound
       class TokenTime
         def initialize(config)
           @config = config
-          @gettoken_time = @config['test']['spotify_gettoken_time']
+          @gettoken_time = @config['spotify_gettoken_time']
           @taipei_timezone = TZInfo::Timezone.get('Asia/Taipei')
         end
 

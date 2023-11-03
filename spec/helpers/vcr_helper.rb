@@ -17,8 +17,8 @@ module VcrHelper
 
   def self.configure_vcr_for_podcast
     VCR.configure do |c|
-      c.filter_sensitive_data('<SPOTIFY_TOKEN>') { SPOTIFY_TOKEN }
-      c.filter_sensitive_data('<SPOTIFY_TOKEN_ESC>') { CGI.escape(SPOTIFY_TOKEN) }
+      c.filter_sensitive_data('<SPOTIFY_TOKEN>') { TEMP_TOKEN }
+      c.filter_sensitive_data('<SPOTIFY_TOKEN_ESC>') { CGI.escape(TEMP_TOKEN) }
     end
 
     VCR.insert_cassette(

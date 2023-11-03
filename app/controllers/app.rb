@@ -7,12 +7,16 @@ module TranSound
   # Application inherits from Roda
   class App < Roda
     plugin :render, engine: 'slim', views: 'app/views'
-    plugin :assets, css: 'style.css', path: 'app/views/assets'
+    plugin :public, root: 'app/views/public'
+    plugin :assets, path: 'app/views/assets',
+                    css: 'style.css'
     plugin :common_logger, $stderr
     plugin :halt
 
     route do |routing|
       routing.assets # load custom CSS
+      response['Content-Type'] = 'text/html; charset=utf-8'
+      routing.public
 
       # GET /
       routing.root do
@@ -29,8 +33,6 @@ module TranSound
                                     (spot_url.split('/').count >= 3)
             type, id = spot_url.split('/')[-2..]
 
-            # if %w[episode show].include?(type)
-            #   routing.redirect "podcast_info/#{type}/#{id}"
             if type == 'episode'
               # Get podcast_info from Spotify
               podcast_info = TranSound::Podcast::EpisodeMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
@@ -41,7 +43,7 @@ module TranSound
               routing.redirect '/'
             end
 
-            # Add project to database
+            # Add data to database
             Repository::For.entity(podcast_info).create(podcast_info)
 
             routing.redirect "podcast_info/#{type}/#{id}"
@@ -49,28 +51,24 @@ module TranSound
         end
 
         routing.on String, String do |type, id|
-          # GET /episode/id
-          route_based_on_type(routing, type, id)
+          # GET /episode/id or /show/id
+          if type == 'episode'
+            # Get project from database
+            spotify_episode = Repository::For.klass(Entity::Episode).find_podcast_info(id)
+            view 'episode', locals: { episode: spotify_episode }
+
+          elsif type == 'show'
+            # Get data from API
+            # spotify_show = TranSound::Podcast::ShowMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
+
+            # Get data from database
+            spotify_show = Repository::For.klass(Entity::Show).find_podcast_info(id)
+            view 'show', locals: { show: spotify_show }
+          else
+            # Handle unknown URLs (unknown type)
+            routing.redirect '/'
+          end
         end
-      end
-    end
-
-    def route_based_on_type(routing, type, id)
-      if type == 'episode'
-        spotify_episode = TranSound::Podcast::EpisodeMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
-        view 'episode', locals: { episode: spotify_episode }
-
-        # Get project from database
-        # episode = Repository::For.klass(Entity::Episode)
-        #   .find_podcast_info(origin_id)
-        # view 'episode', locals: { episode: }
-
-      elsif type == 'show'
-        spotify_show = TranSound::Podcast::ShowMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
-        view 'show', locals: { show: spotify_show }
-      else
-        # Handle unknown URLs (unknown type)
-        routing.redirect '/'
       end
     end
   end

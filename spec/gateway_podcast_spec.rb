@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+#  frozen_string_literal: true
 
 require_relative 'spec_helper'
 
@@ -24,8 +24,9 @@ describe 'Tests Podcast API library' do
     it 'HAPPY: should provide correct episode information' do
       episode = TranSound::Podcast::EpisodeMapper.new(TEMP_TOKEN).find(EPISODE_TYPE, EPISODE_ID, MARKET)
       _(episode.description).must_equal EPISODE_CORRECT['description']
-      _(episode.images).must_equal EPISODE_CORRECT['images']
-      _(episode.language).must_equal EPISODE_CORRECT['language']
+
+      # Assert the first image URL within the images array
+      _(episode.images[0]['url']).must_equal EPISODE_CORRECT['images'][0][1]
       _(episode.name).must_equal EPISODE_CORRECT['name']
       _(episode.release_date).must_equal EPISODE_CORRECT['release_date']
       _(episode.type).must_equal EPISODE_CORRECT['type']

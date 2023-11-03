@@ -35,8 +35,8 @@ module TranSound
             images:,
             name:,
             publisher:,
-            type:,
-            episodes:
+            type:
+            # episodes:
           )
         end
 
@@ -49,7 +49,8 @@ module TranSound
         end
 
         def images
-          @show['images']
+          # @show['images'] ## if images-type == Array
+          @show['images'][0]['url']
         end
 
         def name

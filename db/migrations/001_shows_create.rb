@@ -6,7 +6,7 @@ Sequel.migration do
       primary_key :id
       String :description
       String :origin_id, unique: true
-      Array :images
+      String :images # Array :images
       String :name
       String :publisher
       String :type

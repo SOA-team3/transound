@@ -76,6 +76,8 @@ module TranSound
 
         def build_entity
           TranSound::Entity::Episode.new(
+            id: nil,
+            origin_id:,
             description:,
             images:,
             language:,
@@ -85,12 +87,17 @@ module TranSound
           )
         end
 
+        def origin_id
+          @episode['id']
+        end
+
         def description
           @episode['description']
         end
 
         def images
-          @episode['images']
+          # @episode['images'] ## if images-type == Array
+          @episode['images'][0]['url']
         end
 
         def language

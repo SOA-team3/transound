@@ -29,13 +29,19 @@ module TranSound
 
         def build_entity
           TranSound::Entity::Show.new(
+            id: nil,
+            origin_id:,
             description:,
             images:,
             name:,
             publisher:,
-            type:,
-            episodes:
+            type:
+            # episodes:
           )
+        end
+
+        def origin_id
+          @show['id']
         end
 
         def description
@@ -43,7 +49,8 @@ module TranSound
         end
 
         def images
-          @show['images']
+          # @show['images'] ## if images-type == Array
+          @show['images'][0]['url']
         end
 
         def name

@@ -70,7 +70,7 @@ module TranSound
       class Token
         def initialize(secret_path, config, client_id, client_secret)
           @secret_path = secret_path
-          @config = config['test'] # config['test']
+          @config = config['test']
           @client_id = client_id
           @client_secret = client_secret
         end
@@ -117,7 +117,7 @@ module TranSound
       class SaveTempToken
         def initialize(secret_path, config)
           @secret_path = secret_path
-          @config = config['test']
+          @config = config
           @taipei_timezone = TZInfo::Timezone.get('Asia/Taipei')
         end
 

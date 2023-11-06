@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+ruby File.read('.ruby-version').strip
 
 # Configuration and Utilities
 gem 'figaro', '~> 1.0'
@@ -48,4 +49,9 @@ group :development do
   gem 'reek'
   gem 'rerun', '~> 0.0'
   gem 'rubocop', '~> 1.0'
+end
+
+# Production
+group :production do
+  gem 'pg'
 end

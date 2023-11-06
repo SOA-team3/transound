@@ -70,7 +70,7 @@ module TranSound
       class Token
         def initialize(secret_path, config, client_id, client_secret)
           @secret_path = secret_path
-          @config = config['test']
+          @config = config
           @client_id = client_id
           @client_secret = client_secret
         end

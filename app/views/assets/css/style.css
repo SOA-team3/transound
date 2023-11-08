@@ -54,6 +54,18 @@ h1 {
 
   .top-buffer { margin-top:20px; }
 
+  .jc-left{
+    justify-content: left !important;
+  }
+  .table-row {
+    cursor: pointer;
+  }
+  .decoration {
+    border-left: 0.4em solid rgb(0, 132, 255); 
+    padding-left: 10px; 
+    margin-left: 10px; 
+  }
+  
   .blank-row {
     height: 30px;
   }

@@ -5,24 +5,45 @@ require 'net/http'
 # 使用Open3庫來執行Python腳本
 require 'open3'
 
-# 執行Python爬蟲script
-script_file = 'app/domain/audio_datas/lib/apple_web_scraping.py'
-urls,  = Open3.capture2("python3 #{script_file}")
+def apple_web_scraping
+  # 執行Python爬蟲script
+  script_file = 'app/domain/audio_datas/lib/apple_web_scraper.py'
+  urls,  = Open3.capture2("python3 #{script_file}")
 
-mp3_url = urls.split[0]
-episode_url = urls.split[1]
+  mp3_url = urls.split[0]
+  episode_url = urls.split[1]
+  # 輸出爬下來的mp3網址
+  # puts "MP3_URL: #{mp3_url}"
+  # puts "Episode_url: #{episode_url}"
+  [mp3_url, episode_url]
+end
 
-# 輸出爬下來的mp3網址
-# puts "MP3_URL: #{mp3_url}"
-# puts "episode_url: #{episode_url}"
+def google_web_scraping
+  # 執行Python爬蟲script
+  script_file = 'app/domain/audio_datas/lib/google_pod_episode_scraper.py'
+  urls,  = Open3.capture2("python3 #{script_file}")
+
+  episode_name = urls.split("\n")[0]
+  mp3_url = urls.split("\n")[1]
+  # 輸出爬下來的mp3網址
+  puts "MP3_URL: #{mp3_url}"
+  puts "Episode_name: #{episode_name}"
+  # puts [mp3_url, episode_name]
+  [mp3_url, episode_name]
+end
 
 # Utiliy of handle Audio data
 module AudioDataUtils
   # Download Audio Data
   class AudioDownloader
-    def download_audio(mp3_url, episode_url)
-      episode_name = episode_url.split("/")[-2]
-      puts episode_name
+    def download_audio(mp3_url, episode_name)
+
+      # detect whether it is itunes API
+      if episode_name.include?('podcasts.apple.com')
+        episode_name = episode_name.split("/")[-2]
+      # puts episode_name
+      end
+
       local_file_path = "podcast_mp3_store/#{episode_name}.mp3"
 
       if File.exist?(local_file_path)
@@ -30,9 +51,10 @@ module AudioDataUtils
         return
       end
 
+      mp3_url = 'https://audio.buzzsprout.com/jy79dri9up8p9tf3h6untzbdg04m?response-content-disposition=inline&'
       response = send_http_get_request(mp3_url)
-      puts response.code
 
+      puts "302 response?: #{response}"
       uri = URI(mp3_url)
       Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
         request = Net::HTTP::Get.new(uri)
@@ -44,6 +66,7 @@ module AudioDataUtils
           new_location = response['location']
           new_uri = URI(new_location)
           response = http.get(new_uri)
+          puts new_uri
         end
       end
 
@@ -80,4 +103,10 @@ module AudioDataUtils
   end
 end
 
-AudioDataUtils::AudioDownloader.new.download_audio(mp3_url, episode_url)
+# mp3_url, episode_url = apple_web_scraping[0], apple_web_scraping[1]
+# AudioDataUtils::AudioDownloader.new.download_audio(mp3_url, episode_url)
+
+google_web_scrape_outcome = google_web_scraping
+mp3_url, episode_name = google_web_scrape_outcome[0], google_web_scrape_outcome[1]
+AudioDataUtils::AudioDownloader.new.download_audio(mp3_url, episode_name)
+

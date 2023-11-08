@@ -50,7 +50,8 @@ module TranSound
           images: db_record.images,
           language: db_record.language,
           release_date: db_record.release_date,
-          type: db_record.type
+          type: db_record.type,
+          episode_url: "https://open.spotify.com/#{db_record.type}/#{db_record.origin_id}"
         )
       end
 

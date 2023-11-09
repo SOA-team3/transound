@@ -33,3 +33,8 @@ Style/HashSyntax:
   Enabled: true
   Exclude:
     - 'Rakefile'
+
+Style/RedundantAssignment:
+  Enabled: true
+  Exclude:
+    - 'app/domain/audio_datas/entities/audio_data.rb'

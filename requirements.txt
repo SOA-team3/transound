@@ -1,0 +1,5 @@
+lxml
+requests
+bs4
+wget # to download files
+pandas

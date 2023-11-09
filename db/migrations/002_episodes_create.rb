@@ -16,7 +16,6 @@ Sequel.migration do
       String :episode_url
       String :episode_mp3_url
 
-
       DateTime :created_at
       DateTime :updated_at
     end

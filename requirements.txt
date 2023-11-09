@@ -1,0 +1,5 @@
+lxml-4.9.3
+requests
+bs4
+wget # to download files
+pandas

@@ -17,6 +17,8 @@ module TranSound
       attribute :name, Strict::String
       attribute :release_date, Strict::String
       attribute :type, Strict::String
+      attribute :episode_url, Strict::String
+      attribute :episode_mp3_url, Strict::String
 
       def to_attr_hash
         # to_hash.reject { |key, _| %i[id owner contributors].include? key }

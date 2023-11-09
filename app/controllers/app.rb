@@ -55,6 +55,7 @@ module TranSound
           if type == 'episode'
             # Get project from database
             spotify_episode = Repository::For.klass(Entity::Episode).find_podcast_info(id)
+            puts "spotify_episode: #{spotify_episode}"
             view 'episode', locals: { episode: spotify_episode }
 
           elsif type == 'show'

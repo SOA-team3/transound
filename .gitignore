@@ -7,3 +7,5 @@ podcast_api_test_output.txt
 .bundle/
 podcast_mp3_store/*
 !podcast_mp3_store/_readme.txt
+app/models/mappers/audio_data_download/*
+!app/models/mappers/audio_data_download/_readme.txt

@@ -45,3 +45,17 @@
       .col-lg-11.col-md-10.col-sm-6
         span.episode.episode_url
           = episode.episode_url
+
+    .row.top-buffer
+      .col-lg-1.col-md-2.col-sm-2
+        span.episode.attribute Episode URL:
+      .col-lg-11.col-md-10.col-sm-6
+        / span.episode.episode_url
+        /   = episode.episode_url
+        a.episode.episode_url href="#{episode.episode_url}" "Click here to visit Spotify Episode page-#{episode.name}"
+
+    .row.top-buffer
+      .col-lg-1.col-md-2.col-sm-2
+        span.episode.attribute Episode MP3 URL:
+      .col-lg-11.col-md-10.col-sm-6
+        a.episode.episode_mp3_url href="#{episode.episode_mp3_url}" "Click here to visit Spotify Episode MP3 page-#{episode.name}"

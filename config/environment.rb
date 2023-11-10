@@ -8,7 +8,7 @@ require 'yaml'
 # get TranSound::Token class
 require_relative '../app/infrastructure/gateways/podcast_api'
 
-SECRET_PATH = 'config/secrets.yml'
+# SECRET_PATH = 'config/secrets.yml'
 # CONFIG = YAML.safe_load_file(SECRET_PATH)
 # CLIENT_ID = CONFIG['test']['spotify_Client_ID']
 # CLIENT_SECRET = CONFIG['test']['spotify_Client_secret']
@@ -41,7 +41,7 @@ module TranSound
       @db = Sequel.connect(ENV.fetch('DATABASE_URL'))
       def self.db = @db # rubocop:disable Style/TrivialAccessors
 
-      TranSound::Podcast::Api::Token.new(SECRET_PATH, App.config, App.config.spotify_Client_ID,
+      TEMP_TOKEN = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
                                          App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
     end
   end

@@ -3,8 +3,8 @@
 require 'roda'
 require 'slim'
 
-# TEMP_TOKEN_PATH = 'config/temp_token.yml'
-# TEMP_TOKEN_CONFIG = YAML.safe_load_file(TEMP_TOKEN_PATH)
+TEMP_TOKEN_PATH = 'config/temp_token.yml'
+TEMP_TOKEN_CONFIG = YAML.safe_load_file(TEMP_TOKEN_PATH)
 
 module TranSound
   # Application inherits from Roda
@@ -15,9 +15,6 @@ module TranSound
                     css: 'style.css'
     plugin :common_logger, $stderr
     plugin :halt
-
-    # TEMP_TOKEN = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
-    #                                                 App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
 
     route do |routing|
       routing.assets # load custom CSS
@@ -38,12 +35,14 @@ module TranSound
             routing.halt 400 unless (spot_url.include? 'open.spotify.com') &&
                                     (spot_url.split('/').count >= 3)
             type, id = spot_url.split('/')[-2..]
+            temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
+                                                            App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
 
             if type == 'episode'
               # Get podcast_info from Spotify
-              podcast_info = TranSound::Podcast::EpisodeMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
+              podcast_info = TranSound::Podcast::EpisodeMapper.new(temp_token).find("#{type}s", id, 'TW')
             elsif type == 'show'
-              podcast_info = TranSound::Podcast::ShowMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
+              podcast_info = TranSound::Podcast::ShowMapper.new(temp_token).find("#{type}s", id, 'TW')
             else
               # handle unknown spotify_url
               routing.redirect '/'

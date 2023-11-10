@@ -133,8 +133,8 @@ module TranSound
           # Create a temporary config
           # temp_config = YAML.safe_load_file(@secret_path)
           # puts "Temp_Token_CONFIG: #{YAML.safe_load_file(@secret_path)}"
-          @secret_path['spotify_gettoken_time'] = @taipei_timezone.now.strftime('%Y%m%d%H%M%S')
-          @secret_path['spotify_temp_token'] = access_token
+          @config['spotify_gettoken_time'] = @taipei_timezone.now.strftime('%Y%m%d%H%M%S')
+          @config['spotify_temp_token'] = access_token
 
           # Save the updated YAML back to the file
           # File.write(@secret_path, temp_config.to_yaml)

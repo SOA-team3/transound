@@ -78,14 +78,14 @@ module TranSound
         def get
           # puts "Temp_Token_CONFIG: #{@config}"
           # if TokenTime.new(@config).time_difference_of_get_token >= 55
-          if TokenTime.new(@temp_token_config).time_difference_of_get_token >= 55
-            access_token = ApplyForNewTempToken.new(@client_id,
-                                                    @client_secret).apply_for_new_temp_token
-            # save the temp token
-            # SaveTempToken.new(@secret_path, @config).save_temp_token(access_token)
-            SaveTempToken.new(@config, @temp_token_config).save_temp_token(access_token)
-            return access_token
-          end
+          # if TokenTime.new(@temp_token_config).time_difference_of_get_token >= 55
+          access_token = ApplyForNewTempToken.new(@client_id,
+                                                  @client_secret).apply_for_new_temp_token
+          # save the temp token
+          # SaveTempToken.new(@secret_path, @config).save_temp_token(access_token)
+          SaveTempToken.new(@config, @temp_token_config).save_temp_token(access_token)
+          return access_token
+          # end
 
           # @config['spotify_temp_token']
           @temp_token_config['spotify_temp_token']

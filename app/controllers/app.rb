@@ -3,8 +3,8 @@
 require 'roda'
 require 'slim'
 
-TEMP_TOKEN_PATH = 'config/temp_token.yml'
-TEMP_TOKEN_CONFIG = YAML.safe_load_file(TEMP_TOKEN_PATH)
+# TEMP_TOKEN_PATH = 'config/temp_token.yml'
+# TEMP_TOKEN_CONFIG = YAML.safe_load_file(TEMP_TOKEN_PATH)
 
 module TranSound
   # Application inherits from Roda
@@ -16,8 +16,8 @@ module TranSound
     plugin :common_logger, $stderr
     plugin :halt
 
-    TEMP_TOKEN = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
-                                                    App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
+    # TEMP_TOKEN = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
+    #                                                 App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
 
     route do |routing|
       routing.assets # load custom CSS

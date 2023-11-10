@@ -9,9 +9,9 @@ require 'yaml'
 require_relative '../app/infrastructure/gateways/podcast_api'
 
 SECRET_PATH = 'config/secrets.yml'
-CONFIG = YAML.safe_load_file(SECRET_PATH)
-CLIENT_ID = CONFIG['test']['spotify_Client_ID']
-CLIENT_SECRET = CONFIG['test']['spotify_Client_secret']
+# CONFIG = YAML.safe_load_file(SECRET_PATH)
+# CLIENT_ID = CONFIG['test']['spotify_Client_ID']
+# CLIENT_SECRET = CONFIG['test']['spotify_Client_secret']
 # puts "CONFIG: #{CONFIG}"
 # puts "CLIENT_SECRET: #{CLIENT_SECRET}"
 
@@ -22,8 +22,6 @@ TEMP_TOKEN_CONFIG = YAML.safe_load_file(TEMP_TOKEN_PATH)
 module TranSound
   # Configuration for the App
   class App < Roda
-    TEMP_TOKEN = TranSound::Podcast::Api::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET,
-                                                    TEMP_TOKEN_CONFIG).get
     plugin :environments
 
     configure do
@@ -42,6 +40,9 @@ module TranSound
       # Database Setup
       @db = Sequel.connect(ENV.fetch('DATABASE_URL'))
       def self.db = @db # rubocop:disable Style/TrivialAccessors
+
+      TranSound::Podcast::Api::Token.new(SECRET_PATH, App.config, App.config.spotify_Client_ID,
+                                         App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
     end
   end
 end

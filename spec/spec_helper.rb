@@ -30,7 +30,7 @@ SECRET_PATH = 'config/secrets.yml'
 CONFIG = YAML.safe_load_file(SECRET_PATH)
 CLIENT_ID = CONFIG['spotify_Client_ID']
 CLIENT_SECRET = CONFIG['spotify_Client_secret']
-TEMP_TOKEN = TranSound::Podcast::Api::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET).get
+TEMP_TOKEN = TranSound::Podcast::Api::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET, TEMP_TOKEN_CONFIG).get
 EPISODE_CORRECT = YAML.safe_load_file('spec/fixtures/episode_results.yml')
 SHOW_CORRECT = YAML.safe_load_file('spec/fixtures/show_results.yml')
 

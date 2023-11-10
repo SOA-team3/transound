@@ -1,4 +1,4 @@
-lxml-4.9.3
+lxml
 requests
 bs4
 wget # to download files

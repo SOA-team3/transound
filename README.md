@@ -1,6 +1,6 @@
 # TranSound
 
-Application that allows *podcast-users* to get the podcast's advanced information such as *translation*, *transcription*, *recommendation*, or *summarization*.
+Application that allows *podcast-users* to get the podcast's advanced information such as *audio-data downloading*, *translation*, *transcription*, or *summarization*.
 
 ## Overview
 

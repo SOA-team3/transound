@@ -20,8 +20,10 @@
         .row
           / - show.images.each_with_index do |image, index|
           .col-sm-12
-            - image = show.images[1]
-            img.show.images[src = image['url'] alt = "#{image['url']}"]
+            / Using the first image of the image-array
+            / - image = show.images[1]
+            / img.show.images[src = image['url'] alt = "#{image['url']}"]
+            img.show.images[src = show.images alt = "#{show.images}"]
 
     .row.top-buffer
       .col-lg-1.col-md-2.col-sm-2
@@ -30,7 +32,7 @@
         span.show.publisher
           = show.publisher
 
-    .row.top-buffer
+    / .row.top-buffer
       .col-lg-1.col-md-2.col-sm-2
         span.show.attribute Top-5 Recommedation:
       .col-lg-11.col-md-10.col-sm-6

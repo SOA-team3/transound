@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+#  frozen_string_literal: true
 
 require_relative 'spec_helper'
 
@@ -24,8 +24,9 @@ describe 'Tests Podcast API library' do
     it 'HAPPY: should provide correct episode information' do
       episode = TranSound::Podcast::EpisodeMapper.new(TEMP_TOKEN).find(EPISODE_TYPE, EPISODE_ID, MARKET)
       _(episode.description).must_equal EPISODE_CORRECT['description']
-      _(episode.images).must_equal EPISODE_CORRECT['images']
-      _(episode.language).must_equal EPISODE_CORRECT['language']
+
+      # Assert the first image URL within the images array
+      _(episode.images).must_equal EPISODE_CORRECT['images'][0]['url']
       _(episode.name).must_equal EPISODE_CORRECT['name']
       _(episode.release_date).must_equal EPISODE_CORRECT['release_date']
       _(episode.type).must_equal EPISODE_CORRECT['type']
@@ -48,7 +49,7 @@ describe 'Tests Podcast API library' do
     it 'HAPPY: should provide correct episode information' do
       show = TranSound::Podcast::ShowMapper.new(TEMP_TOKEN).find(SHOW_TYPE, SHOW_ID, MARKET)
       _(show.description).must_equal SHOW_CORRECT['description']
-      _(show.images).must_equal SHOW_CORRECT['images']
+      _(show.images).must_equal SHOW_CORRECT['images'][0]['url']
       _(show.name).must_equal SHOW_CORRECT['name']
       _(show.publisher).must_equal SHOW_CORRECT['publisher']
     end

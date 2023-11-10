@@ -51,8 +51,8 @@ module TranSound
           language: db_record.language,
           release_date: db_record.release_date,
           type: db_record.type,
-          episode_url: "https://open.spotify.com/#{db_record.type}/#{db_record.origin_id}",
-          episode_mp3_url: TranSound::Podcast::WebScrapingUtils::WebScraper.new.google_web_scraping(db_record.name)
+          episode_url: db_record.episode_url, # "https://open.spotify.com/#{db_record.type}/#{db_record.origin_id}",
+          episode_mp3_url: db_record.episode_mp3_url # TranSound::Podcast::WebScrapingUtils::WebScraper.new.google_web_scraping(db_record.name)
         )
       end
 

@@ -72,7 +72,7 @@ module TranSound
           # Execute Python Scraping script
           script_file = 'app/domain/audio_datas/lib/google_pod_episode_scraper.py'
           # Open Python Script and write in "google_pod_url" as stdin
-          mp3_url = Open3.popen2("python3 #{script_file}") do |stdin, stdout, _wait_thr|
+          Open3.popen2("python3 #{script_file}") do |stdin, stdout, _wait_thr|
             stdin.puts(google_pod_url)
             # Save the stdin in Py script and close
             stdin.close
@@ -83,7 +83,6 @@ module TranSound
             output
           end
           # Must return again for the value of google_web_scraping method
-          mp3_url
         end
       end
     end
@@ -163,12 +162,12 @@ module TranSound
         end
 
         def episode_url
-          "https://open.spotify.com/#{@episode['type']}/#{@episode['id']}"
+          "https://open.spotify.com/#{type}/#{origin_id}"
         end
 
         def episode_mp3_url
-          puts @episode['name']
-          WebScraper.new.google_web_scraping(@episode['name'])
+          puts name
+          WebScraper.new.google_web_scraping(name)
         end
       end
     end

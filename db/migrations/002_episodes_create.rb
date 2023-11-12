@@ -13,6 +13,7 @@ Sequel.migration do
       String :name
       String :release_date
       String :type
+      String :episode_url
 
       DateTime :created_at
       DateTime :updated_at

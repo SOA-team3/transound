@@ -3,14 +3,19 @@ html
   head
     meta charset="UTF-8"
     title TranSound
-
+    / Bootstrap Icons CSS 
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css", rel="stylesheet")
     / Bootstrap CSS and theme (United Theme)
     link{
       href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.2/dist/cerulean/bootstrap.min.css"
       rel="stylesheet"
       crossorigin="anonymous"
     }
-
+    link{
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.19.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    }
     / Custom CSS
     / link rel='stylesheet' href='/presentation/assets/css/style.css'
     == assets(:css)
@@ -19,6 +24,17 @@ html
     script{
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
       crossorigin="anonymous"
+    }
+     script{
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    }
+     script{
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      crossorigin="anonymous"
+    }
+    script {
+      src="/public/scripts.js"
     }
 
     / Bootstrap
@@ -29,7 +45,7 @@ html
 
     .container id='html_body'
       section
-        .row style="vertical-align: middle;"
+        .row style="vertical-align: middle"
           .col-12
             h1
               a.text-underline-hover href="/" TranSound

@@ -12,6 +12,9 @@ module TranSound
           mp3_url = data['audio_preview_url']
           local_file_path = "app/models/mappers/audio_data_download/#{data['name']}.mp3"
 
+          # mp3_url = data
+          # local_file_path = "app/models/mappers/audio_data_download/test.mp3"
+
           response = send_http_get_request(mp3_url)
 
           if response.is_a?(Net::HTTPSuccess)
@@ -83,7 +86,8 @@ module TranSound
             language:,
             name:,
             release_date:,
-            type:
+            type:,
+            episode_url:
           )
         end
 
@@ -114,6 +118,10 @@ module TranSound
 
         def type
           @episode['type']
+        end
+
+        def episode_url
+          "https://open.spotify.com/#{@episode['type']}/#{@episode['id']}"
         end
       end
     end

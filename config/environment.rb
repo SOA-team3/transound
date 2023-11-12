@@ -15,14 +15,15 @@ CLIENT_SECRET = CONFIG['test']['spotify_Client_secret']
 # puts "CONFIG: #{CONFIG}"
 # puts "CLIENT_SECRET: #{CLIENT_SECRET}"
 
-#Temp ENV handle
+# Temp ENV handle
 TEMP_TOKEN_PATH = 'config/temp_token.yml'
 TEMP_TOKEN_CONFIG = YAML.safe_load_file(TEMP_TOKEN_PATH)
 
 module TranSound
   # Configuration for the App
   class App < Roda
-    TEMP_TOKEN = TranSound::Podcast::Api::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET, TEMP_TOKEN_CONFIG).get
+    TEMP_TOKEN = TranSound::Podcast::Api::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET,
+                                                    TEMP_TOKEN_CONFIG).get
     plugin :environments
 
     configure do

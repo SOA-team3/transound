@@ -1,12 +1,13 @@
+hr
 .container
   form role="form" action="/podcast_info" method='POST' id='show-episode-form'
-    .row.vertical-align.query-bar
+    .row.vertical-align.query-bar 
       .col-md-2.col-3
         .text-right Spotify URL :
-      .col-md-8.col-6
+      .col-md-8.col-6.input_border
         input {
           type='text' name='spotify_url'
-          id='spotify_url_input' class="form-control"
+          id='spotify_url_input' class="form-control small-placeholder"
           placeholder="e.g. https://open.spotify.com/episode/<unique_id> or https://open.spotify.com/show/<unique_id>"
         }
       .col-md-2.col-3
@@ -20,19 +21,19 @@
   .col-md-3.jc-left
     .decoration
       | History Episode :
-  .col-md-3
+  .col-md-3.input_border
     input {
       type='text' name='spotify_url'
-      id='spotify_url_input' class="form-control"
+      id='spotify_url_input' class="form-control small-placeholder"
       placeholder="Episode Global Search"
     }
   .col-md-3.jc-left
     .decoration
       | History Show :
-  .col-md-3
+  .col-md-3.input_border
     input {
       type='text' name='spotify_url'
-      id='spotify_url_input' class="form-control"
+      id='spotify_url_input' class="form-control small-placeholder"
       placeholder="Show Global Search"
     }
 .row
@@ -49,22 +50,24 @@
         tr 
           td 
             span 
-              = "icon 百靈果 EP01" 
+              / img.show.images[src = show.images alt = "#{show.images}"]
+              ="百靈果 EP01" 
           td 
             span 
-              a href="episode.http_url"
-              ="episode.http_url"
+              a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
+                | Click to visit Spotify Episode page
           td 
             span 
-              = "Thr 1:43"
+              = "Thr 1:42"
         tr
           td 
-            span 
-              = "百靈果 EP01" 
+            span
+              / img.episode.images[src=episode.images alt=episode.images]
+              ="百靈果 EP01"
           td 
             span 
-              a href="episode.http_url"
-              ="episode.http_url"
+              a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
+                | Click to visit Spotify Episode page
           td 
             span 
               = "Thr 1:43"
@@ -82,8 +85,8 @@
               = "百靈果" 
           td 
             span 
-              a href="show.http_url"
-              ="show.http_url"
+              a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
+                | Click to visit Spotify Episode page
           td 
             span 
               = "English"
@@ -93,8 +96,8 @@
               = "百靈果" 
           td 
             span 
-              a href="show.http_url"
-              ="show.http_url"
+              a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
+                | Click to visit Spotify Episode page
           td 
             span 
               = "English"

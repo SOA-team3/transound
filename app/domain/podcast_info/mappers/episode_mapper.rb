@@ -50,42 +50,43 @@ module TranSound
     end
 
     # Utiliy of web scraping
-    module WebScrapingUtils
-      # Handle for different web scrapping pattern
-      class WebScraper
-        def apple_web_scraping
-          # 執行Python爬蟲script
-          script_file = 'app/domain/audio_datas/lib/apple_web_scraper.py'
-          urls, = Open3.capture2("python3 #{script_file} ")
+    # module WebScrapingUtils
+    #   # Handle for different web scrapping pattern
+    #   class WebScraper
+    #     def apple_web_scraping
+    #       # 執行Python爬蟲script
+    #       script_file = 'app/domain/audio_datas/lib/apple_web_scraper.py'
+    #       urls = Open3.capture2("python3 #{script_file} ").split
 
-          mp3_url = urls.split[0]
-          episode_url = urls.split[1]
-          # Return scraped mp3_url of Python script
-          # puts "MP3_URL: #{mp3_url}"
-          # puts "Episode_url: #{episode_url}"
-          [mp3_url, episode_url]
-        end
+    #       mp3_url = urls[0]
+    #       episode_url = urls[1]
+    #       # Return scraped mp3_url of Python script
+    #       # puts "MP3_URL: #{mp3_url}"
+    #       # puts "Episode_url: #{episode_url}"
+    #       [mp3_url, episode_url]
+    #     end
 
-        def google_web_scraping(episode_name)
-          google_pod_url = "https://podcasts.google.com/search/#{episode_name}"
+    #     def google_web_scraping(episode_name)
+    #       google_pod_url = "https://podcasts.google.com/search/#{episode_name}"
 
-          # Execute Python Scraping script
-          script_file = 'app/domain/audio_datas/lib/google_pod_episode_scraper.py'
-          # Open Python Script and write in "google_pod_url" as stdin
-          Open3.popen2("python3 #{script_file}") do |stdin, stdout, _wait_thr|
-            stdin.puts(google_pod_url)
-            # Save the stdin in Py script and close
-            stdin.close
-            output = stdout.read
-            # puts "Python script output: #{output}"
+    #       # Execute Python Scraping script
+    #       script_file = 'app/domain/audio_datas/lib/google_pod_episode_scraper.py'
+    #       # Open Python Script and write in "google_pod_url" as stdin
+    #       Open3.popen2("python3 #{script_file}") do |stdin, stdout, _wait_thr|
+    #         stdin.puts(google_pod_url)
+    #         # Save the stdin in Py script and close
+    #         stdin.close
+    #         stdout.read
+    #         # puts "Python script output: #{output}"
 
-            # Return scraped mp3_url of Python script
-            output
-          end
-          # Must return again for the value of google_web_scraping method
-        end
-      end
-    end
+    #         # Return scraped mp3_url of Python script
+    #         # output = stdout.read
+    #         # output
+    #       end
+    #       # Must return again for the value of google_web_scraping method
+    #     end
+    #   end
+    # end
 
     # Data Mapper: Podcast episode -> Episode entity
     class EpisodeMapper
@@ -167,7 +168,7 @@ module TranSound
 
         def episode_mp3_url
           puts name
-          WebScraper.new.google_web_scraping(name)
+          TranSound::Podcast::WebScrapingUtils::GoogleWebScraping.new(name).scrap
         end
       end
     end

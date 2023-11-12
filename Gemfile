@@ -53,5 +53,6 @@ end
 
 # Production
 group :production do
-  gem 'pg'
+  gem 'pg', '1.5.4'
+
 end

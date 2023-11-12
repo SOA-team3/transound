@@ -8,37 +8,49 @@
     p Some text lorem ipsum.
     p Some text lorem ipsum.
     button.btn.btn-secondary(type="button") A Button
+/episode content start
 hr
 .container
   .row
     .left-sidebar.col-lg-5.d-flex.flex-column.align-items-center.mr-4
       h2.mt-4
         span.decoration
-          | Episode_Info
+          | Episode Information
         div.center
           img.episode.images[src=episode.images alt="#{episode.images}" style="width: 80%; height: auto; margin: 10%; border-radius: 50%;"]
         h4.episode.name.mt-4
           =episode.name
-        p.episode.release_date = episode.release_date
-        p.episode.language = episode.language
-        .episode-description.mt-4
-          span.episode.description = episode.description
+
+        span.show.attribute
+          | Release_date :
+          = episode.release_date
+        span.show.attribute
+          | Language :
+          = episode.language
+        span.show.attribute.p-4
+          | Description :
+          = episode.description
           // button.collapse-button(type="button") Show/Hide Description
           // .collapsible-content
+        span.episode.attribute Episode URL:
+        a.episode.episode_url href="#{episode.episode_url}" "Click here to visit Spotify Episode page-#{episode.name}"
+        span.episode.attribute Episode MP3 URL:
+        a.episode.episode_mp3_url href="#{episode.episode_mp3_url}" "Click here to visit Spotify Episode MP3 page-#{episode.name}"
 
     .right-sidebar.col-lg-6
       .scrollable-content
         h2.title_txt
           i.bi.bi-bookmarks-fill Transcript
         div.row
-          .col.d-flex.text-right
-            h2.title_txt.mr-3
-              button.btn.btn-primary.mt-4 Translate
-            span.h2.title_txt
-              button.btn.btn-primary.mt-4
-                i.bi.bi-download
+        .col.d-flex.text-right
+          h2.title_txt.mr-3
+            button.btn.btn-primary.mt-4 Click to Translate
+          span.h2.title_txt
+            button.btn.btn-primary.mt-4.download-btn data-toggle="tooltip" data-placement="top" title="Download"
+              i.bi.bi-download
+
           hr
-        div.list-group
+        div.list-group.transcript-content
           div.row
             div.col-md-9
               | This is a transcript content........
@@ -59,7 +71,7 @@ hr
         button.btn.btn-primary.mt-4
           | Generate Summary & Outline &nbsp;
           span.i.bi.bi-arrow-right
-/off canvas javascript
+/off canvas
 script.
   | document.addEventListener('DOMContentLoaded', function () {
   |   var offcanvas = new bootstrap.Offcanvas(document.getElementById('demo'));

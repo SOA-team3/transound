@@ -1,7 +1,11 @@
 {
   "RSpec": {
     "coverage": {
+<<<<<<< HEAD
+      "/home/ella/SOA_HK/transound/app/infrastructure/gateways/podcast_api.rb": {
+=======
       "/home/brian/SOA_assignment/SOA2023_transound/app/infrastructure/gateways/podcast_api.rb": {
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
         "lines": [
           null,
           null,
@@ -15,6 +19,56 @@
           null,
           1,
           1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          null,
+          0,
+          null,
+          null,
+          1,
+<<<<<<< HEAD
+=======
+          8,
+          null,
+          null,
+          8,
+          8,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
           8,
           null,
           null,
@@ -22,54 +76,6 @@
           4,
           null,
           null,
-          1,
-          4,
-          null,
-          null,
-          null,
-          1,
-          1,
-          null,
-          1,
-          8,
-          null,
-          null,
-          1,
-          null,
-          8,
-          null,
-          null,
-          1,
-          8,
-          null,
-          null,
-          8,
-          8,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          null,
-          1,
-          null,
-          1,
-          null,
-          1,
-          null,
-          1,
-          null,
-          null,
-          null,
-          1,
-          8,
-          null,
-          null,
-          1,
-          4,
-          null,
-          null,
           null,
           null,
           1,
@@ -85,6 +91,7 @@
           null,
           null,
           2,
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
           0,
           null,
           null,
@@ -93,6 +100,8 @@
           0,
           null,
           null,
+<<<<<<< HEAD
+=======
           null,
           2,
           null,
@@ -103,47 +112,27 @@
           1,
           0,
           0,
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
           null,
           null,
           null,
           1,
           null,
-          0,
+          1,
           null,
+          1,
           null,
+          1,
           null,
-          null,
-          0,
-          null,
-          null,
-          0,
-          null,
-          0,
-          0,
-          null,
+          1,
           null,
           null,
           null,
           1,
-          1,
-          0,
-          0,
           0,
           null,
           null,
           1,
-          null,
-          0,
-          0,
-          null,
-          null,
-          0,
-          null,
-          0,
-          0,
-          null,
-          null,
-          null,
           0,
           null,
           null,
@@ -151,21 +140,106 @@
           null,
           1,
           1,
-          2,
-          2,
-          2,
-          null,
-          null,
-          null,
           1,
-          2,
-          null,
-          2,
+          1,
+          1,
+          1,
+          1,
           null,
           null,
           1,
           null,
-          2,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          0,
+          null,
+          0,
+          0,
+          null,
+          null,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
           null,
           null,
           null,
@@ -195,7 +269,11 @@
           null
         ]
       },
+<<<<<<< HEAD
+      "/home/ella/SOA_HK/transound/require_app.rb": {
+=======
       "/home/brian/SOA_assignment/SOA2023_transound/require_app.rb": {
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
         "lines": [
           null,
           null,
@@ -216,7 +294,11 @@
           null
         ]
       },
+<<<<<<< HEAD
+      "/home/ella/SOA_HK/transound/config/environment.rb": {
+=======
       "/home/brian/SOA_assignment/SOA2023_transound/config/environment.rb": {
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
         "lines": [
           null,
           null,
@@ -267,7 +349,11 @@
           null
         ]
       },
+<<<<<<< HEAD
+      "/home/ella/SOA_HK/transound/app/infrastructure/database/episode_orm.rb": {
+=======
       "/home/brian/SOA_assignment/SOA2023_transound/app/infrastructure/database/episode_orm.rb": {
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
         "lines": [
           null,
           null,
@@ -283,10 +369,15 @@
           1,
           null,
           null,
+          null,
           null
         ]
       },
+<<<<<<< HEAD
+      "/home/ella/SOA_HK/transound/app/infrastructure/database/show_orm.rb": {
+=======
       "/home/brian/SOA_assignment/SOA2023_transound/app/infrastructure/database/show_orm.rb": {
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
         "lines": [
           null,
           null,
@@ -306,7 +397,11 @@
           null
         ]
       },
+<<<<<<< HEAD
+      "/home/ella/SOA_HK/transound/app/models/entities/episode.rb": {
+=======
       "/home/brian/SOA_assignment/SOA2023_transound/app/models/entities/episode.rb": {
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
         "lines": [
           null,
           null,
@@ -330,7 +425,7 @@
           1,
           1,
           null,
-          1,
+          0,
           null,
           0,
           null,
@@ -339,7 +434,11 @@
           null
         ]
       },
+<<<<<<< HEAD
+      "/home/ella/SOA_HK/transound/app/models/entities/show.rb": {
+=======
       "/home/brian/SOA_assignment/SOA2023_transound/app/models/entities/show.rb": {
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
         "lines": [
           null,
           null,
@@ -366,14 +465,18 @@
           null,
           null,
           1,
-          1,
+          0,
           null,
           null,
           null,
           null
         ]
       },
+<<<<<<< HEAD
+      "/home/ella/SOA_HK/transound/app/models/mappers/episode_mapper.rb": {
+=======
       "/home/brian/SOA_assignment/SOA2023_transound/app/models/mappers/episode_mapper.rb": {
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
         "lines": [
           null,
           null,
@@ -389,11 +492,16 @@
           0,
           0,
           null,
+<<<<<<< HEAD
+          0,
+          null,
+=======
           null,
           null,
           null,
           0,
           null,
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
           0,
           0,
           null,
@@ -470,68 +578,83 @@
           1,
           null,
           1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          1,
+<<<<<<< HEAD
+          0,
+          0,
+          0,
+=======
           4,
-          4,
-          4,
+          null,
+          2,
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
           null,
           null,
           1,
-          4,
-          null,
-          2,
-          null,
-          null,
-          1,
-          2,
+          0,
           null,
           null,
           null,
           1,
           1,
-          null,
-          1,
-          2,
-          2,
-          2,
-          null,
+<<<<<<< HEAD
+          0,
+          0,
+          0,
+=======
           null,
           1,
           2,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
           2,
-          null,
-          null,
-          1,
           2,
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
           null,
           null,
           1,
           null,
-          2,
+          0,
           null,
           null,
           1,
-          2,
+          0,
           null,
           null,
           1,
-          2,
+          0,
           null,
           null,
           1,
+<<<<<<< HEAD
+          0,
+=======
           2,
           null,
           null,
@@ -620,6 +743,7 @@
           null,
           1,
           2,
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
           null,
           null,
           1,
@@ -631,7 +755,89 @@
           null
         ]
       },
+<<<<<<< HEAD
+      "/home/ella/SOA_HK/transound/app/models/mappers/show_mapper.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          1,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          null,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/home/ella/SOA_HK/transound/app/models/repositories/episodes.rb": {
+=======
       "/home/brian/SOA_assignment/SOA2023_transound/app/models/repositories/episodes.rb": {
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
         "lines": [
           null,
           null,
@@ -676,10 +882,15 @@
           null,
           1,
           0,
+<<<<<<< HEAD
+          null,
+          0,
+=======
           null,
           0,
           null,
           null,
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
           null,
           null,
           null,
@@ -701,7 +912,11 @@
           null
         ]
       },
+<<<<<<< HEAD
+      "/home/ella/SOA_HK/transound/app/models/repositories/for.rb": {
+=======
       "/home/brian/SOA_assignment/SOA2023_transound/app/models/repositories/for.rb": {
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
         "lines": [
           null,
           null,
@@ -722,14 +937,22 @@
           null,
           null,
           1,
+<<<<<<< HEAD
+          0,
+=======
           1,
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
           null,
           null,
           null,
           null
         ]
       },
+<<<<<<< HEAD
+      "/home/ella/SOA_HK/transound/app/models/repositories/shows.rb": {
+=======
       "/home/brian/SOA_assignment/SOA2023_transound/app/models/repositories/shows.rb": {
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
         "lines": [
           null,
           null,
@@ -748,7 +971,7 @@
           null,
           null,
           1,
-          1,
+          0,
           null,
           null,
           1,
@@ -756,23 +979,23 @@
           null,
           null,
           1,
-          1,
+          0,
           null,
           null,
           1,
           null,
-          1,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
           null,
           1,
-          1,
-          1,
-          1,
+          0,
           null,
-          null,
-          1,
-          2,
-          null,
-          1,
+          0,
           null,
           null,
           null,
@@ -793,7 +1016,11 @@
           null
         ]
       },
+<<<<<<< HEAD
+      "/home/ella/SOA_HK/transound/app/controllers/app.rb": {
+=======
       "/home/brian/SOA_assignment/SOA2023_transound/app/controllers/app.rb": {
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
         "lines": [
           null,
           null,
@@ -872,6 +1099,11 @@
           null,
           null
         ]
+<<<<<<< HEAD
+      }
+    },
+    "timestamp": 1699378683
+=======
       },
       "/home/brian/SOA_assignment/SOA2023_transound/spec/helpers/vcr_helper.rb": {
         "lines": [
@@ -1002,5 +1234,6 @@
       }
     },
     "timestamp": 1699518218
+>>>>>>> 8f400119698c847c02e628648aa7c9f4c9455603
   }
 }

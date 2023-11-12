@@ -161,7 +161,7 @@ DEPENDENCIES
   json
   minitest (~> 5.0)
   minitest-rg (~> 5.0)
-  pg
+  pg (= 1.5.4)
   pry
   puma (~> 6)
   rake

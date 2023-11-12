@@ -5,7 +5,7 @@ require 'roda'
 require 'sequel'
 require 'yaml'
 
-# get TranSound::Token class
+# Get TranSound::Token class
 require_relative '../app/infrastructure/gateways/podcast_api'
 
 # SECRET_PATH = 'config/secrets.yml'

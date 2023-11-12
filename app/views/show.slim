@@ -4,29 +4,27 @@ hr
       .left-sidebar.col-lg-5.d-flex.flex-column.align-items-center.mr-4
         h2.mt-4
           span.decoration
-            | Show_Info
+            | Show Information
           div.center
             img.show.images[src = show.images alt = "#{show.images}" style="width: 80%; height: auto;margin:10%;border-radius: 50%;"]
         / .show.type
         / = show.type.capitalize + ":"
         h3.show.name.mt-4 style="padding-left:20px"
           = show.name
-        .show-publisher.mt-4
-          span.show.publisher
-            = show.publisher
-        / .show-attribute
-        / span.show.attribute
-        .show-description.mt-4
-          span.show.description
-            = show.description
-            = show.description
-        / .show-attribute
-        / span.show.attribute Publisher:
+        span.show.attribute 
+          | Publisher : 
+          = show.publisher
+        / .show-publisher.mt-4
+        /   span.show.publisher
+        span.show.attribute.p-4
+          | Description : 
+          = show.description
+
       .right-sidebar.col-lg-6
         .scrollable-content
           h2.title_txt 
             i.bi.bi-bookmarks-fill
-            |  Episodes
+            |  Latest Episodes
           hr
           
            div.list-group
@@ -85,7 +83,7 @@ hr
                       | description3
                   div.col-md-3.d-flex.flex-column.align-items-end.justify-content-center
                     i.bi.bi-chevron-right
-            button.btn.btn-primary.mt-4 Load more...
+            button.btn.btn-primary.mt-4 Click to Load more...
 
 /to make the group list-items none-duplicated
 / - items = [

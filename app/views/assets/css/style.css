@@ -8364,7 +8364,7 @@ a[data-toggle="collapse"] {
 
   }
 
-  .episode.description, .episode.language, .episode.release_date, .episode.episode_url, .show.description, .show.publisher, .show.episodes, .show.items{
+  .episode.description, .episode.language, .episode.release_date, .episode.episode_url, .episode.episode_mp3_url, .show.description, .show.publisher, .show.episodes, .show.items{
     color: grey;
   }
 

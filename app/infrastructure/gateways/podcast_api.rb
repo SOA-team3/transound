@@ -68,9 +68,8 @@ module TranSound
 
       # Apply token or Get token
       class Token
-        def initialize(secret_path, config, client_id, client_secret, temp_token_config)
-          @secret_path = secret_path
-          @config = config['test']
+        def initialize(config, client_id, client_secret, temp_token_config)
+          @config = config # ['test']
           @client_id = client_id
           @client_secret = client_secret
           @temp_token_config = temp_token_config
@@ -84,7 +83,7 @@ module TranSound
                                                     @client_secret).apply_for_new_temp_token
             # save the temp token
             # SaveTempToken.new(@secret_path, @config).save_temp_token(access_token)
-            SaveTempToken.new(@secret_path, @temp_token_config).save_temp_token(access_token)
+            SaveTempToken.new(@config, @temp_token_config).save_temp_token(access_token)
             return access_token
           end
 
@@ -132,10 +131,10 @@ module TranSound
           @config['spotify_temp_token'] = access_token
 
           # Create a temporary config
-          temp_config = YAML.safe_load_file(@secret_path)
+          # temp_config = YAML.safe_load_file(@secret_path)
           # puts "Temp_Token_CONFIG: #{YAML.safe_load_file(@secret_path)}"
-          temp_config['test']['spotify_gettoken_time'] = @taipei_timezone.now.strftime('%Y%m%d%H%M%S')
-          temp_config['test']['spotify_temp_token'] = access_token
+          # @config['spotify_gettoken_time'] = @taipei_timezone.now.strftime('%Y%m%d%H%M%S')
+          # @config['spotify_temp_token'] = access_token
 
           # Save the updated YAML back to the file
           # File.write(@secret_path, temp_config.to_yaml)

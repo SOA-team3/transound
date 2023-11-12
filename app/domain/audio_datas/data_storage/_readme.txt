@@ -1,0 +1,1 @@
+This folder holds queried podcast show name.

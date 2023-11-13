@@ -3,8 +3,7 @@
 require 'roda'
 require 'slim'
 
-TEMP_TOKEN_PATH = 'config/temp_token.yml'
-TEMP_TOKEN_CONFIG = YAML.safe_load_file(TEMP_TOKEN_PATH)
+TEMP_TOKEN_CONFIG = YAML.safe_load_file('config/temp_token.yml')
 
 module TranSound
   # Application inherits from Roda
@@ -20,6 +19,8 @@ module TranSound
       routing.assets # load custom CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
       routing.public
+      temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
+                                                      App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
 
       # GET /
       routing.root do
@@ -28,6 +29,8 @@ module TranSound
 
       # podcast_info
       routing.on 'podcast_info' do
+        puts TEMP_TOKEN_CONFIG
+
         routing.is do
           # POST /episode/
           routing.post do
@@ -35,8 +38,6 @@ module TranSound
             routing.halt 400 unless (spot_url.include? 'open.spotify.com') &&
                                     (spot_url.split('/').count >= 3)
             type, id = spot_url.split('/')[-2..]
-            temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
-                                                            App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
 
             if type == 'episode'
               # Get podcast_info from Spotify

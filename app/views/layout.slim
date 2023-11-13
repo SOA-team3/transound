@@ -3,7 +3,7 @@ html
   head
     meta charset="UTF-8"
     title TranSound
-    / Bootstrap Icons CSS 
+    / Bootstrap Icons CSS
     link(href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css", rel="stylesheet")
     / Bootstrap CSS and theme (United Theme)
     link{
@@ -71,7 +71,7 @@ html
       crossorigin="anonymous"
     }
     script {
-      src="/public/scripts.js"
+      src="/assets/js/scripts.js"
     }
 
     / Bootstrap
@@ -92,7 +92,7 @@ html
 
       footer
         = "TranSound is made for demonstration purposes. We cannot warrant full correctness of all content. TranSound may use cookies for sessions but does not track users."
-        
+
         / not yet
         - require 'yaml'
           CONFIG = YAML.safe_load_file('config/secrets.yml')

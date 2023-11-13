@@ -19,6 +19,8 @@ module TranSound
       routing.assets # load custom CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
       routing.public
+      temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
+                                                      App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
 
       # GET /
       routing.root do
@@ -27,8 +29,6 @@ module TranSound
 
       # podcast_info
       routing.on 'podcast_info' do
-        temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
-                                                        App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
         puts TEMP_TOKEN_CONFIG
 
         routing.is do

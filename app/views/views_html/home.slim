@@ -1,7 +1,7 @@
 hr
 .container
   form role="form" action="/podcast_info" method='POST' id='show-episode-form'
-    .row.vertical-align.query-bar 
+    .row.vertical-align.query-bar
       .col-md-2.col-3
         .text-right Spotify URL :
       .col-md-8.col-6.input_border
@@ -47,29 +47,29 @@ hr
           th URL
           th Release Date
       tbody
-        tr 
-          td 
-            span 
+        tr
+          td
+            span
               / img.show.images[src = show.images alt = "#{show.images}"]
-              ="百靈果 EP01" 
-          td 
-            span 
+              ="百靈果 EP01"
+          td
+            span
               a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
                 | Click to visit Spotify Episode page
-          td 
-            span 
+          td
+            span
               = "Thr 1:42"
         tr
-          td 
+          td
             span
               / img.episode.images[src=episode.images alt=episode.images]
               ="百靈果 EP01"
-          td 
-            span 
+          td
+            span
               a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
                 | Click to visit Spotify Episode page
-          td 
-            span 
+          td
+            span
               = "Thr 1:43"
   .col-md-6
     table class="table table-hover table-bordered" id="shows_table"
@@ -79,31 +79,31 @@ hr
           th URL
           th Language
       tbody
-        tr 
+        tr
           td id='td_name'
-            span 
-              = "百靈果" 
-          td 
-            span 
+            span
+              = "百靈果"
+          td
+            span
               a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
-                | Click to visit Spotify Episode page
-          td 
-            span 
+                | Click to visit Spotify Show page
+          td
+            span
               = "English"
-        tr 
+        tr
           td id='td_name'
-            span 
-              = "百靈果" 
-          td 
-            span 
+            span
+              = "百靈果"
+          td
+            span
               a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
-                | Click to visit Spotify Episode page
-          td 
-            span 
+                | Click to visit Spotify Show page
+          td
+            span
               = "English"
 
-   
-  
+
+
   script type="text/javascript".
     $(document).ready(function() {
       $('#show-episode-form').on('submit', function(e) {

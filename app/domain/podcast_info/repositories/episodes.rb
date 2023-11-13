@@ -5,7 +5,7 @@ module TranSound
     # Repository for Episode Entities
     class Episodes
       def self.find_podcast_info(origin_id)
-        # SELECT * FROM `episodes` LEFT JOIN `shows`
+        # SELECT * FROM episodes LEFT JOIN shows
         # ON (`shows`.`origin_id` = `episodes`.`show_id`)
         # WHERE (`origin_id` = 'origin_id')
         # .left_join(:members, id: :owner_id)

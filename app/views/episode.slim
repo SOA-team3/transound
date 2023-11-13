@@ -14,32 +14,32 @@ hr
   .row
     .left-sidebar.col-lg-5.d-flex.flex-column.align-items-center.mr-4
       h2.mt-4
-        span.decoration 
+        span.decoration
           | Episode Information
         div.center
           img.episode.images[src=episode.images alt="#{episode.images}" style="width: 80%; height: auto; margin: 10%; border-radius: 50%;"]
         h4.episode.name.mt-4
           =episode.name
-        
+
         span.show.attribute
-          | Release_date : 
+          | Release_date :
           = episode.release_date
         span.show.attribute
           | Language :
           = episode.language
         span.show.attribute.p-4
-          | Description :  
+          | Description :
           = episode.description
           // button.collapse-button(type="button") Show/Hide Description
           // .collapsible-content
         span.episode.attribute Episode URL:
         a.episode.episode_url href="#{episode.episode_url}" "Click here to visit Spotify Episode page-#{episode.name}"
         span.episode.attribute Episode MP3 URL:
-        a.episode.episode_mp3_url href="#{episode.episode_mp3_url}" "Click here to visit Spotify Episode MP3 page-#{episode.name}"    
-    
+        a.episode.episode_mp3_url href="#{episode.episode_mp3_url}" "Click here to visit Spotify Episode MP3 page-#{episode.name}"
+
     .right-sidebar.col-lg-6
       .scrollable-content
-        h2.title_txt 
+        h2.title_txt
           i.bi.bi-bookmarks-fill Transcript
         div.row
         .col.d-flex.text-right
@@ -53,25 +53,25 @@ hr
         div.list-group.transcript-content
           div.row
             div.col-md-9
-              | This is a transcript content........ 
+              | This is a transcript content........
           div.row
             div.col-md-9
-              div.small.text-gray 
+              div.small.text-gray
                 span.bi.bi-person-circle &nbsp;
-                | Speaker A 
-                span . 01:36 
-              div This is a transcript content........ 
+                | Speaker A
+                span . 01:36
+              div This is a transcript content........
           div.row
             div.col-md-9
-              div.small.text-gray 
+              div.small.text-gray
                 span.bi.bi-person-circle &nbsp;
-                | Speaker B 
+                | Speaker B
                 span . 02:59
-              div This is a transcript content........            
-        button.btn.btn-primary.mt-4 
+              div This is a transcript content........
+        button.btn.btn-primary.mt-4
           | Generate Summary & Outline &nbsp;
           span.i.bi.bi-arrow-right
-/off canvas 
+/off canvas
 script.
   | document.addEventListener('DOMContentLoaded', function () {
   |   var offcanvas = new bootstrap.Offcanvas(document.getElementById('demo'));
@@ -87,7 +87,7 @@ script.
 /           span.sr-only
 /       div.p-4.pt-5
 /         h1
-/           a.logo href="/" Splash 
+/           a.logo href="/" Splash
 /         ul.list-unstyled.components.mb-5
 /           li.active
 /             a.dropdown-toggle href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" Home
@@ -153,8 +153,8 @@ script.
 /             = episode.language
 /       / .episode.type
 /       / = episode.type.capitalize + ":"
-/       .episode.name.mt-4 
-/         a(href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty") 
+/       .episode.name.mt-4
+/         a(href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty")
 /           = episode.name
 /       .episode-description.mt-4
 /           button.collapse-button(type="button")
@@ -167,13 +167,13 @@ script.
 /       / span.episode.attribute Publisher:
 /     .right-sidebar.col-lg-9.col-md-9
 /       .scrollable-content
-/         h2 
+/         h2
 /           i.bi.bi-bookmarks-fill
 /           |  Transcript
 /         hr
-        
+
 /           div.list-group
-/           a.list-group-item.list-group-item-action href="#" 
+/           a.list-group-item.list-group-item-action href="#"
 /             div.row
 /               div.col-md-9
 /                 div.small.text-gray
@@ -184,7 +184,7 @@ script.
 /                   | description1
 /               div.col-md-3.d-flex.flex-column.align-items-end.justify-content-center
 /                 i.bi.bi-chevron-right
-/           a.list-group-item.list-group-item-action href="#" 
+/           a.list-group-item.list-group-item-action href="#"
 /             div.row
 /               div.col-md-9
 /                 div.small.text-gray
@@ -194,8 +194,8 @@ script.
 /                 div
 /                   | description2
 /               div.col-md-3.d-flex.flex-column.align-items-end.justify-content-center
-/                 i.bi.bi-chevron-right   
-/           a.list-group-item.list-group-item-action href="#" 
+/                 i.bi.bi-chevron-right
+/           a.list-group-item.list-group-item-action href="#"
 /               div.row
 /                 div.col-md-9
 /                   div.small.text-gray
@@ -206,7 +206,7 @@ script.
 /                     | description3
 /                 div.col-md-3.d-flex.flex-column.align-items-end.justify-content-center
 /                   i.bi.bi-chevron-right
-/           a.list-group-item.list-group-item-action href="#" 
+/           a.list-group-item.list-group-item-action href="#"
 /               div.row
 /                 div.col-md-9
 /                   div.small.text-gray
@@ -217,7 +217,7 @@ script.
 /                     | description3
 /                 div.col-md-3.d-flex.flex-column.align-items-end.justify-content-center
 /                   i.bi.bi-chevron-right
-/           a.list-group-item.list-group-item-action href="#" 
+/           a.list-group-item.list-group-item-action href="#"
 /               div.row
 /                 div.col-md-9
 /                   div.small.text-gray

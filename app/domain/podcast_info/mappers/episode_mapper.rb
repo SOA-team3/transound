@@ -119,18 +119,15 @@ module TranSound
         end
 
         def build_entity
-          TranSound::Entity::Episode.new(
-            id: nil,
-            origin_id:,
-            description:,
-            images:,
-            language:,
-            name:,
-            release_date:,
-            type:,
-            episode_url:,
-            episode_mp3_url:
-          )
+          TranSound::Entity::Episode.new(id: nil, origin_id:,
+                                         description:,
+                                         images:,
+                                         language:,
+                                         name:,
+                                         release_date:,
+                                         type:,
+                                         episode_url:,
+                                         episode_mp3_url:)
         end
 
         def origin_id

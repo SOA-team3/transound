@@ -27,6 +27,25 @@ module TranSound
 
       # GET /
       routing.root do
+        # # Get cookie viewer's previously seen projects
+        # session[:watching] ||= []
+
+        # # Load previously viewed episodes
+        # episodes = Repository::For.klass(Entity::Episode)
+        #   .find_full_names(session[:watching])
+        # shows = Repository::For.klass(Entity::Show)
+        #   .find_full_names(session[:watching])
+
+        # session[:watching] = episodes.map(&:fullname)
+
+        # if episodes.none?
+        #   flash.now[:notice] = 'Add a Spotify Podcast episode to get started'
+        # end
+
+        # viewable_episodes = Views::EpisodesList.new(episodes)
+        # viewable_shows = Views::ShowsList.new(shows)
+
+        # view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
         view 'home'
       end
 
@@ -38,8 +57,13 @@ module TranSound
           # POST /episode/
           routing.post do
             spot_url = routing.params['spotify_url']
-            routing.halt 400 unless (spot_url.include? 'open.spotify.com') &&
-                                    (spot_url.split('/').count >= 3)
+            unless (spot_url.include? 'open.spotify.com') &&
+                   (spot_url.split('/').count >= 3)
+              flash[:error] = 'Invalid URL for a Spotify page (Require for a Spotify Episode or a Spotify Show)'
+              response.status = 400
+              routing.redirect '/'
+            end
+
             type, id = spot_url.split('/')[-2..]
 
             if type == 'episode'
@@ -53,8 +77,14 @@ module TranSound
             end
 
             # Add data to database
-            Repository::For.entity(podcast_info).create(podcast_info)
+            begin
+              Repository::For.entity(podcast_info).create(podcast_info)
+            rescue StandardError
+              flash[:error] = 'Podcast information already exists'
+              routing.redirect '/'
+            end
 
+            # Redirect viewer to episode page or show page
             routing.redirect "podcast_info/#{type}/#{id}"
           end
         end

@@ -44,7 +44,10 @@ module TranSound
       # Database Setup
       @db = Sequel.connect(ENV.fetch('DATABASE_URL'))
       def self.db = @db # rubocop:disable Style/TrivialAccessors
-
+      
+      # Logger Setup
+      @logger = Logger.new($stderr)
+      def self.logger = @logger
       # TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
       #                                    App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
     end

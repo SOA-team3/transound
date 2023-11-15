@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+
+require_relative 'show'
+
+module Views
+  # View for a a list of show entities
+  class ShowsList
+    def initialize(shows)
+      @shows = shows.map.with_index { |show, i| show.new(show, i) }
+    end
+
+    def each(&show)
+      @shows.each do |proj|
+        show.call proj
+      end
+    end
+
+    def any?
+      @shows.any?
+    end
+  end
+end

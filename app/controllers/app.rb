@@ -24,7 +24,9 @@ module TranSound
       routing.public
       temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
                                                       App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
-
+        
+        viewable_shows = Views::ShowsList.new(shows)
+        view 'home', locals: { projects: viewable_shows }
       # GET /
       routing.root do
         # # Get cookie viewer's previously seen projects

@@ -33,8 +33,8 @@ module TranSound
       end
 
       def self.create(entity)
-        # raise 'Show already exists' if find(entity)
-        return if find(entity)
+        raise 'Show already exists' if find(entity)
+        # return if find(entity)
 
         db_record = Database::ShowOrm.create(entity.to_attr_hash)
         puts "Create db_record: #{db_record}"

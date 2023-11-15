@@ -42,8 +42,8 @@ module TranSound
         session[:watching] = shows.map(&:origin_id)
         puts "Session: #{session[:watching]}"
         puts "Episodes: #{episodes}"
-        puts "Session: #{session[:watching]}"
-        puts "Shows: #{shows}"
+        # puts "Session: #{session[:watching]}"
+        # puts "Shows: #{shows}"
 
         if episodes.none?
           flash.now[:notice] = 'Add a Spotify Podcast Episode to get started'
@@ -57,7 +57,7 @@ module TranSound
         viewable_episodes = Views::EpisodesList.new(episodes)
         viewable_shows = Views::ShowsList.new(shows)
 
-        view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
+        view 'home', locals: { episodes: viewable_episodes , shows: viewable_shows }
         # view 'home'
       end
 
@@ -92,7 +92,7 @@ module TranSound
             begin
               Repository::For.entity(podcast_info).create(podcast_info)
             rescue StandardError
-              flash[:error] = 'Podcast information already exists'
+              flash[:error] = "Podcast #{type} information already exists"
               routing.redirect '/'
             end
 

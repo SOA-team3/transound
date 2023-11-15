@@ -42,8 +42,8 @@ module TranSound
         session[:watching] = shows.map(&:origin_id)
         puts "Session: #{session[:watching]}"
         puts "Episodes: #{episodes}"
-        puts "Session: #{session[:watching]}"
-        puts "Shows: #{shows}"
+        # puts "Session: #{session[:watching]}"
+        # puts "Shows: #{shows}"
 
         if episodes.none?
           flash.now[:notice] = 'Add a Spotify Podcast Episode to get started'
@@ -119,7 +119,6 @@ module TranSound
             spotify_episode = Repository::For.klass(Entity::Episode).find_podcast_info(id)
             puts "spotify_episode: #{spotify_episode}"
             view 'episode', locals: { episode: spotify_episode }
-
 
           elsif type == 'show'
             # Get data from API

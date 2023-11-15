@@ -10,7 +10,7 @@ module Views
     end
 
     def each(&show)
-      @shows.each do |shoow| #typo on purpose
+      @shows.each do |shoow| # typo on purpose
         show.call shoow
       end
     end

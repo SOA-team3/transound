@@ -16,20 +16,23 @@ module TranSound
 
       def self.find_podcast_infos(origin_ids)
         origin_ids.map do |origin_id|
-          find_full_name(origin_id)
+        find_podcast_info(origin_id)
         end.compact
       end
+
       
       def self.find(entity)
         find_origin_id(entity.origin_id)
       end
 
       def self.find_id(id)
-        rebuild_entity Database::ShowOrm.first(id:)
+        db_record = Database::EpisodeOrm.first(id:)
+        rebuild_entity(db_record)
       end
 
       def self.find_origin_id(origin_id)
-        rebuild_entity Database::ShowOrm.first(origin_id:)
+        db_record = Database::EpisodeOrm.first(origin_id:)
+        rebuild_entity(db_record)
       end
 
       def self.create(entity)

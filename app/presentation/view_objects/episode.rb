@@ -17,7 +17,7 @@ module Views
     end
 
     def index_str
-      "project[#{@index}]"
+      "episode[#{@index}]"
     end
 
     def name

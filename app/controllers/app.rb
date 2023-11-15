@@ -35,17 +35,19 @@ module TranSound
         # Load previously viewed episodes
         episodes = Repository::For.klass(Entity::Episode)
           .find_podcast_infos(session[:watching])
-
         shows = Repository::For.klass(Entity::Show)
-          .find_podcast_info(session[:watching])
+          .find_podcast_infos(session[:watching])
 
         session[:watching] = episodes.map(&:origin_id)
+        session[:watching] = shows.map(&:origin_id)
         puts "Session: #{session[:watching]}"
         puts "Episodes: #{episodes}"
 
         if episodes.none?
-          flash.now[:notice] = 'Add a Spotify Podcast episode to get started'
-          puts "episodes = none"
+          flash.now[:notice] = 'Add a Spotify Podcast Episode to get started~'
+        end
+        if shows.none?
+          flash.now[:notice] = 'Add a Spotify Podcast Show to get started~'
         end
 
         viewable_episodes = Views::EpisodesList.new(episodes)
@@ -90,18 +92,30 @@ module TranSound
               routing.redirect '/'
             end
 
+            # Add new episode or show to watched set in cookies
+            session[:watching].insert(0, podcast_info.origin_id).uniq!
+
             # Redirect viewer to episode page or show page
             routing.redirect "podcast_info/#{type}/#{id}"
           end
         end
 
         routing.on String, String do |type, id|
+          # DELETE /podcast_info/{type}/{id}
+          routing.delete do
+            fullname = "#{owner_name}/#{project_name}"
+            session[:watching].delete(fullname)
+
+            routing.redirect '/'
+          end
+
           # GET /episode/id or /show/id
           if type == 'episode'
             # Get project from database
             spotify_episode = Repository::For.klass(Entity::Episode).find_podcast_info(id)
             puts "spotify_episode: #{spotify_episode}"
             view 'episode', locals: { episode: spotify_episode }
+
 
           elsif type == 'show'
             # Get data from API

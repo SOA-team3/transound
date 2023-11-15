@@ -27,25 +27,23 @@ module TranSound
 
       # GET /
       routing.root do
-        # # Get cookie viewer's previously seen projects
-        # session[:watching] ||= []
+        # Get cookie viewer's previously seen projects
+        session[:watching] ||= []
 
-        # # Load previously viewed episodes
-        # episodes = Repository::For.klass(Entity::Episode)
-        #   .find_full_names(session[:watching])
-        # shows = Repository::For.klass(Entity::Show)
-        #   .find_full_names(session[:watching])
+        # Load previously viewed episodes
+        episodes = Repository::For.klass(Entity::Episode)
+          .find_podcast_info(session[:watching])
+        shows = Repository::For.klass(Entity::Show)
+          .find_podcast_info(session[:watching])
 
-        # session[:watching] = episodes.map(&:fullname)
+        session[:watching] = episodes.map(&:origin_id)
 
-        # if episodes.none?
-        #   flash.now[:notice] = 'Add a Spotify Podcast episode to get started'
-        # end
+        flash.now[:notice] = 'Add a Spotify Podcast episode to get started' if episodes.none?
 
-        # viewable_episodes = Views::EpisodesList.new(episodes)
-        # viewable_shows = Views::ShowsList.new(shows)
+        viewable_episodes = Views::EpisodesList.new(episodes)
+        viewable_shows = Views::ShowsList.new(shows)
 
-        # view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
+        view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
         view 'home'
       end
 

@@ -38,6 +38,37 @@ hr
     }
 .row
       .col-md-12.blank-row
+
+
+- if episodes.any?
+  table class="table table-hover table-bordered" id="episode_table"
+      thead
+        tr
+          th 
+          th Name
+          th URL
+          th Release Date
+      tbody
+
+  - episodes.each do |episode|
+    tr class="table-row episode_row" data-href=episode.link id="#{episode.index_str}.row"
+      td id='delete_project'
+        form role='form' method='post' action=episode.link
+          input type='hidden' name='_method' value='delete'
+          button type="submit" class="btn btn-sm btn-link" id="#{episode.index_str}.delete"
+            i class="fas fa-trash-alt"
+      td id='td_name'
+        span class="episode_table_name" id="#{episode.index_str}.name"
+        = episode.name 
+      td id='td_episode_url'
+        span class="episode_url" id="#{episode.index_str}.episode_url"
+        a href=episode.episode_url id="#{episode.index_str}.link"  #{episode.episode_url}
+      td id='release_date'
+        span class="episode_table_release_date" id="#{episode.index_str}.release_date"
+        = episode.release_date  
+
+
+
 .row.vertical-align
   .col-md-6
     table class="table table-hover table-bordered" id="episode_table"

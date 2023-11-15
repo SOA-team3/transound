@@ -28,9 +28,9 @@ module Views
       @show.origin_id
     end
 
-    # def show_url
-    #   @show.show_url
-    # end
+    def show_url
+      @show.show_url
+    end
 
     def publisher
       @show.publisher

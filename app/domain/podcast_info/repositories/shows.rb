@@ -52,7 +52,8 @@ module TranSound
           name: db_record.name,
           images: db_record.images,
           publisher: db_record.publisher,
-          type: db_record.type
+          type: db_record.type,
+          show_url: db_record.show_url
         )
       end
 

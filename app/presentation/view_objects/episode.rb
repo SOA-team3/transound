@@ -20,6 +20,10 @@ module Views
       "episode[#{@index}]"
     end
 
+    def origin_id
+      @episode.origin_id
+    end
+
     def name
       @episode.name
     end

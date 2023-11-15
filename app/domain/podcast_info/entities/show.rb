@@ -16,6 +16,7 @@ module TranSound
       attribute :name, Strict::String
       attribute :publisher, Strict::String
       attribute :type, Strict::String
+      attribute :show_url, Strict::String
       # attribute :episodes, Strict::Hash
 
       def show_num?

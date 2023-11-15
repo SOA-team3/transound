@@ -44,16 +44,18 @@ module TranSound
         puts "Episodes: #{episodes}"
 
         if episodes.none?
-          flash.now[:notice] = 'Add a Spotify Podcast Episode to get started~'
+          flash.now[:notice] = 'Add a Spotify Podcast Episode to get started'
+          puts 'episodes = none'
         end
         if shows.none?
-          flash.now[:notice] = 'Add a Spotify Podcast Show to get started~'
+          flash.now[:notice] = 'Add a Spotify Podcast Show to get started'
+          puts 'episodes = none'
         end
 
         viewable_episodes = Views::EpisodesList.new(episodes)
-        # viewable_shows = Views::ShowsList.new(shows)
+        viewable_shows = Views::ShowsList.new(shows)
 
-        view 'home', locals: { episodes: viewable_episodes} #, shows: viewable_shows }
+        view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
         # view 'home'
       end
 
@@ -92,7 +94,7 @@ module TranSound
               routing.redirect '/'
             end
 
-            # Add new episode or show to watched set in cookies
+            # Add new project to watched set in cookies
             session[:watching].insert(0, podcast_info.origin_id).uniq!
 
             # Redirect viewer to episode page or show page

@@ -18,6 +18,8 @@ module TranSound
                     css: 'style.css', js: 'scripts.js'
     plugin :common_logger, $stderr
 
+    use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
+
     route do |routing|
       routing.assets # load custom CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
@@ -33,18 +35,24 @@ module TranSound
         # Load previously viewed episodes
         episodes = Repository::For.klass(Entity::Episode)
           .find_podcast_infos(session[:watching])
-        # shows = Repository::For.klass(Entity::Show)
-        #   .find_podcast_infos(session[:watching])
+
+        shows = Repository::For.klass(Entity::Show)
+          .find_podcast_info(session[:watching])
 
         session[:watching] = episodes.map(&:origin_id)
+        puts "Session: #{session[:watching]}"
+        puts "Episodes: #{episodes}"
 
-        flash.now[:notice] = 'Add a Spotify Podcast episode to get started' if episodes.none?
+        if episodes.none?
+          flash.now[:notice] = 'Add a Spotify Podcast episode to get started'
+          puts "episodes = none"
+        end
 
         viewable_episodes = Views::EpisodesList.new(episodes)
         # viewable_shows = Views::ShowsList.new(shows)
 
-        view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
-        view 'home'
+        view 'home', locals: { episodes: viewable_episodes} #, shows: viewable_shows }
+        # view 'home'
       end
 
       # podcast_info

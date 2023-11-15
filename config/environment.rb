@@ -47,9 +47,7 @@ module TranSound
 
       # Logger Setup
       @logger = Logger.new($stderr)
-      class << self
-        attr_reader :logger
-      end
+      def self.logger = @logger # rubocop:disable Style/TrivialAccessors
 
       # TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
       #                                    App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get

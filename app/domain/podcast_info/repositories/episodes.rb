@@ -36,8 +36,8 @@ module TranSound
       end
 
       def self.create(entity)
-        # raise 'Episode already exists' if find(entity)
-        return if find(entity)
+        raise 'Episode already exists' if find(entity)
+        # return if find(entity)
 
         db_record = Database::EpisodeOrm.create(entity.to_attr_hash)
         puts "Create db_record: #{db_record}"

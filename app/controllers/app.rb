@@ -35,7 +35,6 @@ module TranSound
         # Load previously viewed episodes
         episodes = Repository::For.klass(Entity::Episode)
           .find_podcast_infos(session[:watching])
-
         shows = Repository::For.klass(Entity::Show)
           .find_podcast_infos(session[:watching])
 
@@ -43,16 +42,22 @@ module TranSound
         session[:watching] = shows.map(&:origin_id)
         puts "Session: #{session[:watching]}"
         puts "Episodes: #{episodes}"
+        # puts "Session: #{session[:watching]}"
+        # puts "Shows: #{shows}"
 
         if episodes.none?
-          flash.now[:notice] = 'Add a Spotify Podcast episode to get started'
+          flash.now[:notice] = 'Add a Spotify Podcast Episode to get started'
           puts 'episodes = none'
+        end
+        if shows.none?
+          flash.now[:notice] = 'Add a Spotify Podcast Show to get started'
+          puts 'shows = none'
         end
 
         viewable_episodes = Views::EpisodesList.new(episodes)
         viewable_shows = Views::ShowsList.new(shows)
 
-        view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
+        view 'home', locals: { episodes: viewable_episodes , shows: viewable_shows }
         # view 'home'
       end
 
@@ -73,8 +78,8 @@ module TranSound
 
             type, id = spot_url.split('/')[-2..]
 
+            # Get podcast_info from Spotify
             if type == 'episode'
-              # Get podcast_info from Spotify
               podcast_info = TranSound::Podcast::EpisodeMapper.new(temp_token).find("#{type}s", id, 'TW')
             elsif type == 'show'
               podcast_info = TranSound::Podcast::ShowMapper.new(temp_token).find("#{type}s", id, 'TW')
@@ -87,7 +92,7 @@ module TranSound
             begin
               Repository::For.entity(podcast_info).create(podcast_info)
             rescue StandardError
-              flash[:error] = 'Podcast information already exists'
+              flash[:error] = "Podcast #{type} information already exists"
               routing.redirect '/'
             end
 
@@ -100,12 +105,21 @@ module TranSound
         end
 
         routing.on String, String do |type, id|
+          # DELETE /podcast_info/{type}/{id}
+          routing.delete do
+            fullname = "#{owner_name}/#{project_name}"
+            session[:watching].delete(fullname)
+
+            routing.redirect '/'
+          end
+
           # GET /episode/id or /show/id
           if type == 'episode'
             # Get project from database
             spotify_episode = Repository::For.klass(Entity::Episode).find_podcast_info(id)
             puts "spotify_episode: #{spotify_episode}"
             view 'episode', locals: { episode: spotify_episode }
+
 
           elsif type == 'show'
             # Get data from API

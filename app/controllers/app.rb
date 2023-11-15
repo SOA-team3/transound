@@ -35,7 +35,7 @@ module TranSound
         # Load previously viewed episodes
         episodes = Repository::For.klass(Entity::Episode)
           .find_podcast_infos(session[:watching])
-        puts session[:watching]
+
         shows = Repository::For.klass(Entity::Show)
           .find_podcast_info(session[:watching])
 

@@ -38,7 +38,8 @@ hr
     }
 .row
       .col-md-12.blank-row
-
+.row.vertical-align
+  .col-md-6
 
 - if episodes.any?
   table class="table table-hover table-bordered" id="episode_table"
@@ -49,7 +50,6 @@ hr
           th URL
           th Release Date
       tbody
-
   - episodes.each do |episode|
     tr class="table-row episode_row" data-href=episode.link id="#{episode.index_str}.row"
       td id='delete_project'
@@ -66,6 +66,29 @@ hr
       td id='release_date'
         span class="episode_table_release_date" id="#{episode.index_str}.release_date"
         = episode.release_date
+
+.col-md-6
+- if shows.any?
+  table class="table table-hover table-bordered" id="show_table"
+      thead
+        tr
+            th Name
+            / th URL
+            th Publisher 
+        tbody
+  - shows.each do |show|
+        tr class="table-row show_row" data-href=show.link id="#{show.index_str}.row"
+          td id='delete_project'
+            form role='form' method='post' action=show.link
+              input type='hidden' name='_method' value='delete'
+              button type="submit" class="btn btn-sm btn-link" id="#{show.index_str}.delete"
+                i class="fas fa-trash-alt"
+          td id='td_name'
+            span class="show_table_name" id="#{show.index_str}.name"
+            = show.name 
+          td id='td_publisher'
+            span class="publisher" id="#{show.index_str}.publisher"
+            a href=show.publisher  id="#{show.index_str}.link"  #{show.publisher}
 
 
 

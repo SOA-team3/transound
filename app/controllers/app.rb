@@ -26,7 +26,7 @@ module TranSound
       routing.public
       temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
                                                       App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
-        
+
       # GET /
       routing.root do
         # Get cookie viewer's previously seen projects
@@ -40,19 +40,19 @@ module TranSound
           .find_podcast_infos(session[:watching])
 
         session[:watching] = episodes.map(&:origin_id)
+        session[:watching] = shows.map(&:origin_id)
         puts "Session: #{session[:watching]}"
         puts "Episodes: #{episodes}"
 
         if episodes.none?
           flash.now[:notice] = 'Add a Spotify Podcast episode to get started'
-          puts "episodes = none"
+          puts 'episodes = none'
         end
 
         viewable_episodes = Views::EpisodesList.new(episodes)
         viewable_shows = Views::ShowsList.new(shows)
 
-        view 'home', locals: { episodes: viewable_episodes} #, shows: viewable_shows }
-        view 'home', locals: { shows: viewable_shows} #, shows: viewable_shows }
+        view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
         # view 'home'
       end
 
@@ -90,6 +90,9 @@ module TranSound
               flash[:error] = 'Podcast information already exists'
               routing.redirect '/'
             end
+
+            # Add new project to watched set in cookies
+            session[:watching].insert(0, podcast_info.origin_id).uniq!
 
             # Redirect viewer to episode page or show page
             routing.redirect "podcast_info/#{type}/#{id}"

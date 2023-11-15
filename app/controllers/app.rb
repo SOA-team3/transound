@@ -2,18 +2,21 @@
 
 require 'roda'
 require 'slim'
+require 'slim/include'
 
 TEMP_TOKEN_CONFIG = YAML.safe_load_file('config/temp_token.yml')
 
 module TranSound
   # Application inherits from Roda
   class App < Roda
-    plugin :render, engine: 'slim', views: 'app/views'
-    plugin :public, root: 'app/views/public'
-    plugin :assets, path: 'app/views/assets',
-                    css: 'style.css'
-    plugin :common_logger, $stderr
     plugin :halt
+    plugin :flash
+    plugin :all_verbs # allows HTTP verbs beyond GET/POST (e.g., DELETE)
+    plugin :render, engine: 'slim', views: 'app/presentation/views_html'
+    plugin :public, root: 'app/presentation/public'
+    plugin :assets, path: 'app/presentation/assets',
+                    css: 'style.css', js: 'scripts.js'
+    plugin :common_logger, $stderr
 
     route do |routing|
       routing.assets # load custom CSS

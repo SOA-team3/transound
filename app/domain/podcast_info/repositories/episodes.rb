@@ -17,7 +17,7 @@ module TranSound
 
       def self.find_podcast_infos(origin_ids)
         origin_ids.map do |origin_id|
-          find_full_name(origin_id)
+          find_podcast_info(origin_id)
         end.compact
       end
 

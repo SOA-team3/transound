@@ -6,12 +6,12 @@ module Views
   # View for a a list of show entities
   class ShowsList
     def initialize(shows)
-      @shows = shows.map.with_index { |show, i| show.new(show, i) }
+      @shows = shows.map.with_index { |show, i| Show.new(show, i) }
     end
 
-    def each(&show)
-      @shows.each do |proj|
-        show.call proj
+    def each(&episode)
+      @shows.each do |episode|
+        episode.call show
       end
     end
 
@@ -20,3 +20,5 @@ module Views
     end
   end
 end
+
+

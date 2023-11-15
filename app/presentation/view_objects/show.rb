@@ -12,32 +12,24 @@ module Views
         @show
       end
   
-      def praise_link
-        "/show/#{fullname}"
+      def link
+        "/podcast_info/show/#{origin_id}"
       end
   
       def index_str
         "show[#{@index}]"
       end
-  
-      def contributor_names
-        @show.contributors.map(&:username).join(', ')
-      end
-  
-      def owner_name
-        @show.owner.username
-      end
-  
-      def fullname
-        "#{owner_name}/#{name}"
-      end
-  
-      def http_url
-        @show.http_url
-      end
-  
+
       def name
         @show.name
+      end
+  
+      def show_url
+        @show.show_url
+      end
+
+      def language
+        @show.language
       end
     end
   end

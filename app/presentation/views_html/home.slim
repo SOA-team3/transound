@@ -38,69 +38,116 @@ hr
     }
 .row
       .col-md-12.blank-row
+
 .row.vertical-align
   .col-md-6
-    table class="table table-hover table-bordered" id="episode_table"
-      thead
-        tr
-          th Name
-          th URL
-          th Release Date
-      tbody
-        tr
-          td
-            span
-              / img.show.images[src = show.images alt = "#{show.images}"]
-              ="百靈果 EP01"
-          td
-            span
-              a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
-                | Click to visit Spotify Episode page
-          td
-            span
-              = "Thr 1:42"
-        tr
-          td
-            span
-              / img.episode.images[src=episode.images alt=episode.images]
-              ="百靈果 EP01"
-          td
-            span
-              a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
-                | Click to visit Spotify Episode page
-          td
-            span
-              = "Thr 1:43"
+    - if episodes.any?
+      table class="table table-hover table-bordered" id="episode_table"
+          thead
+            tr
+              th 
+              th Name
+              th URL
+              th Release Date
+          tbody
+
+      - episodes.each do |episode|
+        tr class="table-row episode_row" data-href=episode.link id="#{episode.index_str}.row"
+          td id='delete_project'
+            form role='form' method='post' action=episode.link
+              input type='hidden' name='_method' value='delete'
+              button type="submit" class="btn btn-sm btn-link" id="#{episode.index_str}.delete"
+                i class="fas fa-trash-alt"
+          td id='td_name'
+            span class="episode_table_name" id="#{episode.index_str}.name"
+            = episode.name 
+          td id='td_episode_url'
+            span class="episode_url" id="#{episode.index_str}.episode_url"
+            a href=episode.episode_url id="#{episode.index_str}.link"  #{episode.episode_url}
+          td id='release_date'
+            span class="episode_table_release_date" id="#{episode.index_str}.release_date"
+            = episode.release_date  
+
   .col-md-6
-    table class="table table-hover table-bordered" id="shows_table"
-      thead
-        tr
-          th Name
-          th URL
-          th Language
-      tbody
-        tr
+    - if shows.any?
+      table class="table table-hover table-bordered" id="show_table"
+        thead
+          tr
+            th Name
+            th URL
+            th Language
+        tbody
+
+      - shows.each do |show|
+        tr class="table-row show_row" data-href=show.link id="#{show.index_str}.row"
+          td id='delete_project'
+            form role='form' method='post' action=show.link
+              input type='hidden' name='_method' value='delete'
+              button type="submit" class="btn btn-sm btn-link" id="#{show.index_str}.delete"
+                i class="fas fa-trash-alt"
           td id='td_name'
-            span
-              = "百靈果"
-          td
-            span
-              a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
-                | Click to visit Spotify Show page
-          td
-            span
-              = "English"
-        tr
-          td id='td_name'
-            span
-              = "百靈果"
-          td
-            span
-              a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
-                | Click to visit Spotify Show page
-          td
-            span
-              = "English"
+            span class="show_table_name" id="#{show.index_str}.name"
+            = show.name 
+          td id='td_show_url'
+            span class="show_url" id="#{show.index_str}.show_url"
+            a href=show.show_url id="#{show.index_str}.link"  #{show.show_url}
+          td id='language'
+            span class="show_table_language" id="#{show.index_str}.language"
+            = show.language 
+  /       tr
+  /         td
+  /           span
+  /             / img.show.images[src = show.images alt = "#{show.images}"]
+  /             ="百靈果 EP01"
+  /         td
+  /           span
+  /             a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
+  /               | Click to visit Spotify Episode page
+  /         td
+  /           span
+  /             = "Thr 1:42"
+  /       tr
+  /         td
+  /           span
+  /             / img.episode.images[src=episode.images alt=episode.images]
+  /             ="百靈果 EP01"
+  /         td
+  /           span
+  /             a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
+  /               | Click to visit Spotify Episode page
+  /         td
+  /           span
+  /             = "Thr 1:43"
+  / .col-md-6
+  /   table class="table table-hover table-bordered" id="shows_table"
+  /     thead
+  /       tr
+  /         th Name
+  /         th URL
+  /         th Language
+  /     tbody
+  /       tr
+  /         td id='td_name'
+  /           span
+  /             = "百靈果"
+  /         td
+  /           span
+  /             a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
+  /               | Click to visit Spotify Show page
+  /         td
+  /           span
+  /             = "English"
+  /       tr
+  /         td id='td_name'
+  /           span
+  /             = "百靈果"
+  /         td
+  /           span
+  /             a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
+  /               | Click to visit Spotify Show page
+  /         td
+  /           span
+  /             = "English"
 
 
 

@@ -15,6 +15,12 @@ module TranSound
         rebuild_entity(db_project)
       end
 
+      def self.find_podcast_infos(origin_ids)
+        origin_ids.map do |origin_id|
+          find_podcast_info(origin_id)
+        end.compact
+      end
+
       def self.find(entity)
         find_origin_id(entity.origin_id)
       end

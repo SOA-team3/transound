@@ -44,7 +44,7 @@ hr
   table class="table table-hover table-bordered" id="episode_table"
       thead
         tr
-          th 
+          th
           th Name
           th URL
           th Release Date
@@ -59,13 +59,13 @@ hr
             i class="fas fa-trash-alt"
       td id='td_name'
         span class="episode_table_name" id="#{episode.index_str}.name"
-        = episode.name 
+        = episode.name
       td id='td_episode_url'
         span class="episode_url" id="#{episode.index_str}.episode_url"
         a href=episode.episode_url id="#{episode.index_str}.link"  #{episode.episode_url}
       td id='release_date'
         span class="episode_table_release_date" id="#{episode.index_str}.release_date"
-        = episode.release_date  
+        = episode.release_date
 
 
 

@@ -56,7 +56,8 @@ hr
                 form role='form' method='post' action=episode.link
                   input type='hidden' name='_method' value='delete'
                   button type="submit" class="btn btn-sm btn-link" id="#{episode.index_str}.delete"
-                    i class="fas fa-trash-alt"
+                  i.bi.bi-trash
+                    / i class="fas fa-trash-alt"
             td id='td_name'
               span class="episode_table_name" id="#{episode.index_str}.name"
               = episode.name
@@ -73,6 +74,10 @@ hr
     table class="table table-hover table-bordered" id="show_table"
         thead
           tr
+<<<<<<< HEAD
+=======
+              th
+>>>>>>> b18094bd0ec8a72318b53bf79511b72c108bfe08
               th Name
               th URL
               th Publisher
@@ -81,10 +86,18 @@ hr
         - shows.each do |show|
           tr class="table-row show_row" data-href=show.link id="#{show.index_str}.row"
             td id='delete_project'
+<<<<<<< HEAD
               form role='form' method='post' action=show.link
                 input type='hidden' name='_method' value='delete'
                 button type="submit" class="btn btn-sm btn-link" id="#{show.index_str}.delete"
                   i class="fas fa-trash-alt"
+=======
+              span
+                form role='form' method='post' action=show.link
+                  input type='hidden' name='_method' value='delete'
+                  button type="submit" class="btn btn-sm btn-link" id="#{show.index_str}.delete"
+                    i.bi.bi-trash
+>>>>>>> b18094bd0ec8a72318b53bf79511b72c108bfe08
             td id='td_name'
               span class="show_table_name" id="#{show.index_str}.name"
               = show.name

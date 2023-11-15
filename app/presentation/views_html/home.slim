@@ -135,26 +135,68 @@ hr
       tbody
         tr
           td id='td_name'
-            span
-              = "百靈果"
-          td
-            span
-              a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
-                | Click to visit Spotify Show page
-          td
-            span
-              = "English"
-        tr
-          td id='td_name'
-            span
-              = "百靈果"
-          td
-            span
-              a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
-                | Click to visit Spotify Show page
-          td
-            span
-              = "English"
+            span class="show_table_name" id="#{show.index_str}.name"
+            = show.name 
+          td id='td_show_url'
+            span class="show_url" id="#{show.index_str}.show_url"
+            a href=show.show_url id="#{show.index_str}.link"  #{show.show_url}
+          td id='language'
+            span class="show_table_language" id="#{show.index_str}.language"
+            = show.language 
+  /       tr
+  /         td
+  /           span
+  /             / img.show.images[src = show.images alt = "#{show.images}"]
+  /             ="百靈果 EP01"
+  /         td
+  /           span
+  /             a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
+  /               | Click to visit Spotify Episode page
+  /         td
+  /           span
+  /             = "Thr 1:42"
+  /       tr
+  /         td
+  /           span
+  /             / img.episode.images[src=episode.images alt=episode.images]
+  /             ="百靈果 EP01"
+  /         td
+  /           span
+  /             a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
+  /               | Click to visit Spotify Episode page
+  /         td
+  /           span
+  /             = "Thr 1:43"
+  / .col-md-6
+  /   table class="table table-hover table-bordered" id="shows_table"
+  /     thead
+  /       tr
+  /         th Name
+  /         th URL
+  /         th Language
+  /     tbody
+  /       tr
+  /         td id='td_name'
+  /           span
+  /             = "百靈果"
+  /         td
+  /           span
+  /             a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
+  /               | Click to visit Spotify Show page
+  /         td
+  /           span
+  /             = "English"
+  /       tr
+  /         td id='td_name'
+  /           span
+  /             = "百靈果"
+  /         td
+  /           span
+  /             a[href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"]
+  /               | Click to visit Spotify Show page
+  /         td
+  /           span
+  /             = "English"
 
 
 

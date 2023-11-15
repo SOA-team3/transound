@@ -42,6 +42,8 @@ module TranSound
         session[:watching] = shows.map(&:origin_id)
         puts "Session: #{session[:watching]}"
         puts "Episodes: #{episodes}"
+        puts "Session: #{session[:watching]}"
+        puts "Shows: #{shows}"
 
         if episodes.none?
           flash.now[:notice] = 'Add a Spotify Podcast Episode to get started'
@@ -49,7 +51,7 @@ module TranSound
         end
         if shows.none?
           flash.now[:notice] = 'Add a Spotify Podcast Show to get started'
-          puts 'episodes = none'
+          puts 'shows = none'
         end
 
         viewable_episodes = Views::EpisodesList.new(episodes)
@@ -76,8 +78,8 @@ module TranSound
 
             type, id = spot_url.split('/')[-2..]
 
+            # Get podcast_info from Spotify
             if type == 'episode'
-              # Get podcast_info from Spotify
               podcast_info = TranSound::Podcast::EpisodeMapper.new(temp_token).find("#{type}s", id, 'TW')
             elsif type == 'show'
               podcast_info = TranSound::Podcast::ShowMapper.new(temp_token).find("#{type}s", id, 'TW')

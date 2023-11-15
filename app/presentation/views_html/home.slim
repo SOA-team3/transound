@@ -73,7 +73,7 @@ hr
       thead
         tr
             th Name
-            / th URL
+            th URL
             th Publisher
         tbody
   - shows.each do |show|
@@ -86,9 +86,12 @@ hr
           td id='td_name'
             span class="show_table_name" id="#{show.index_str}.name"
             = show.name
+          td id='mp3_url'
+            span class="show_table_name" id="#{show.index_str}.show_url"
+            a href=show.show_url id="#{show.index_str}.link"  #{show.show_url}
           td id='td_publisher'
             span class="publisher" id="#{show.index_str}.publisher"
-            a href=show.publisher  id="#{show.index_str}.link"  #{show.publisher}
+            = show.publisher
 
 
 

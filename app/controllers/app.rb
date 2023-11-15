@@ -32,16 +32,16 @@ module TranSound
 
         # Load previously viewed episodes
         episodes = Repository::For.klass(Entity::Episode)
-          .find_podcast_info(session[:watching])
-        shows = Repository::For.klass(Entity::Show)
-          .find_podcast_info(session[:watching])
+          .find_podcast_infos(session[:watching])
+        # shows = Repository::For.klass(Entity::Show)
+        #   .find_podcast_infos(session[:watching])
 
         session[:watching] = episodes.map(&:origin_id)
 
         flash.now[:notice] = 'Add a Spotify Podcast episode to get started' if episodes.none?
 
         viewable_episodes = Views::EpisodesList.new(episodes)
-        viewable_shows = Views::ShowsList.new(shows)
+        # viewable_shows = Views::ShowsList.new(shows)
 
         view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
         view 'home'

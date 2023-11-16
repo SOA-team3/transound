@@ -56,7 +56,7 @@ hr
                 form role='form' method='post' action=episode.link
                   input type='hidden' name='_method' value='delete'
                   button type="submit" class="btn btn-sm btn-link" id="#{episode.index_str}.delete"
-                  i.bi.bi-trash
+                    i.bi.bi-trash
                     / i class="fas fa-trash-alt"
             td id='td_name'
               span class="episode_table_name" id="#{episode.index_str}.name"
@@ -70,7 +70,7 @@ hr
               span class="episode_table_release_date" id="#{episode.index_str}.release_date"
               = episode.release_date
 
-  .col-md-6
+  / .col-md-6
     table class="table table-hover table-bordered" id="show_table"
         thead
           tr

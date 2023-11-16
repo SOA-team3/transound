@@ -16,3 +16,4 @@ script(type="text/javascript").
        $(this).next(".collapsible-content").slideToggle();
      });
    });
+

@@ -43,18 +43,13 @@ def download_audio_data(episode_name, audio_data_url):
         # print(f"下載失敗: HTTP 狀態碼 {response.status_code}")
         pass
 
-# <<<url tests>>>
-# stack_overflow_pod_url = 'https://podcasts.google.com/feed/aHR0cHM6Ly9mZWVkcy5zaW1wbGVjYXN0LmNvbS9YQV84NTFrMw?sa=X&ved=0CAkQlvsGahcKEwjwqt2f9u3vAhUAAAAAHQAAAAAQAQ'
-# japanese_pod_url = 'https://podcasts.google.com/search/YUYU%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9EPodcast%20Vol.233%20%E3%80%90%E4%BB%95%E4%BA%8B%E3%81%AE%E3%81%93%E3%81%A8%E3%80%91%E3%81%9D%E3%82%8C%E3%81%AF%E4%BB%95%E4%BA%8B%EF%BC%9F%E4%BB%95%E4%BA%8B%E3%81%94%E3%81%A3%E3%81%93%EF%BC%9F(YUYU%20Japanese%20Podcast)'
-# TW_pod_url = 'https://podcasts.google.com/search/The%20KK%20Show%20-%20223%20小酷人-路易'
-
-# Read the stdin from ruby
+# Read the stdin from Ruby
 podcast_query_url = sys.stdin.read()
 soup = BeautifulSoup(requests.get(podcast_query_url).text, features="lxml")
 
+# Tests of save into data_storage path
 # This is the name of the episode
 title = 'test' # soup.find('a', {'class':'jJ8Epb'}).text
-
 # Create a new folder to contain podcasts from the same show
 if not os.path.exists(f'app/domain/audio_datas/data_storage/{title}'):
     os.mkdir(f'app/domain/audio_datas/data_storage/{title}')

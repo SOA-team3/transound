@@ -10,6 +10,7 @@ gem 'rake'
 
 # Web Application
 gem 'puma', '~> 6'
+gem 'rack-session', '~> 0.3'
 gem 'roda', '~> 3'
 gem 'slim', '~> 5'
 
@@ -34,6 +35,10 @@ group :development, :test do
   gem 'sqlite3', '~> 1.0'
 end
 
+group :production do
+  gem 'pg', '~> 1.2'
+end
+
 # Testing
 group :test do
   gem 'minitest', '~> 5.0'
@@ -49,9 +54,4 @@ group :development do
   gem 'reek'
   gem 'rerun', '~> 0.0'
   gem 'rubocop', '~> 1.0'
-end
-
-# Production
-group :production do
-  gem 'pg', '1.5.4'
 end

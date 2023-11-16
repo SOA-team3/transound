@@ -1,7 +1,8 @@
+// (Unused) test show and hide function
 document.addEventListener('DOMContentLoaded', function() {
     const collapseButtons = document.querySelectorAll('.collapse-button');
     const collapsibleContents = document.querySelectorAll('.collapsible-content');
-  
+
     collapseButtons.forEach((button, index) => {
       button.addEventListener('click', function() {
         collapsibleContents[index].classList.toggle('show');

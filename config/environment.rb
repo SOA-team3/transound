@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'figaro'
+require 'logger'
+require 'rack/session'
 require 'roda'
 require 'sequel'
 require 'yaml'
@@ -33,6 +35,8 @@ module TranSound
       Figaro.load
       def self.config = Figaro.env
 
+      use Rack::Session::Cookie, secret: config.SESSION_SECRET
+
       configure :development, :test do
         ENV['DATABASE_URL'] = "sqlite://#{config.DB_FILENAME}"
       end
@@ -40,6 +44,10 @@ module TranSound
       # Database Setup
       @db = Sequel.connect(ENV.fetch('DATABASE_URL'))
       def self.db = @db # rubocop:disable Style/TrivialAccessors
+
+      # Logger Setup
+      @logger = Logger.new($stderr)
+      def self.logger = @logger # rubocop:disable Style/TrivialAccessors
 
       # TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
       #                                    App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get

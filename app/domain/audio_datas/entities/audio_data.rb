@@ -10,9 +10,9 @@ module TranSound
     module WebScrapingUtils
       # Handle for different web scrapping pattern
 
-      # object for web scraping on Apple Podcast
+      # Object for web scraping on Apple Podcast
       class AppleWebScraping
-        # 執行Python爬蟲script
+        # Execute Python scraping script
         def initialize
           @script_file = 'app/domain/audio_datas/lib/apple_web_scraper.py'
           @urls = Open3.capture2("python3 #{@script_file} ").split
@@ -28,7 +28,7 @@ module TranSound
         end
       end
 
-      # object for web scraping on Google Podcast
+      # Object for web scraping on Google Podcast
       class GoogleWebScraping
         def initialize(episode_name)
           @google_pod_url = "https://podcasts.google.com/search/#{episode_name}"

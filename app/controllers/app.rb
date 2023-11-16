@@ -99,7 +99,7 @@ module TranSound
             end
 
             # Add new project to watched set in cookies
-            session[:watching].insert(0, podcast_info.link).uniq!
+            session[:watching].insert(0, podcast_info.origin_id).uniq!
 
             # Redirect viewer to episode page or show page
             routing.redirect "podcast_info/#{type}/#{id}"
@@ -109,7 +109,7 @@ module TranSound
         routing.on String, String do |type, id|
           # DELETE /podcast_info/{type}/{id}
           routing.delete do
-            fullname = "/podcast_info/{type}/#{id}"
+            fullname = "#{id}"
             session[:watching].delete(fullname)
 
             routing.redirect '/'

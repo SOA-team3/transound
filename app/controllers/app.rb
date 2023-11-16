@@ -57,7 +57,11 @@ module TranSound
         viewable_episodes = Views::EpisodesList.new(episodes)
         # viewable_shows = Views::ShowsList.new(shows)
 
+<<<<<<< HEAD
+        view 'home', locals: { episodes: viewable_episodes}#, shows: viewable_shows }
+=======
         view 'home', locals: { episodes: viewable_episodes } # , shows: viewable_shows }
+>>>>>>> 6783dcac64c1760673ce7d2e85a514e07b4fbc0f
         # view 'home'
       end
 

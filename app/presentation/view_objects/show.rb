@@ -13,7 +13,7 @@ module Views
     end
 
     def link
-      "/podcast_info/show/#{origin_id}"
+      "/podcast_info/show/#{@show.origin_id}"
     end
 
     def index_str

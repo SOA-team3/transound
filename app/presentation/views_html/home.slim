@@ -50,25 +50,26 @@ hr
         - if episodes.any?
         tbody
         - episodes.each do |episode|
-          tr class="table-row episode_row" data-href=episode.link id="#{episode.index_str}.row"
-            td id='delete_project'
-              span
-                form role='form' method='post' action=episode.link
-                  input type='hidden' name='_method' value='delete'
-                  button type="submit" class="btn btn-sm btn-link" id="#{episode.index_str}.delete"
-                  i.bi.bi-trash
-                    / i class="fas fa-trash-alt"
-            td id='td_name'
-              span class="episode_table_name" id="#{episode.index_str}.name"
-              = episode.name
-            td id='td_episode_url'
-              span class="episode_url" id="#{episode.index_str}.episode_url"
-              / a href=episode.episode_url id="#{episode.index_str}.link"  #{episode.episode_url}
-              a href=episode.episode_url id="#{episode.index_str}.link"  click
+          a href=episode.link
+            tr class="table-row episode_row" data-href=episode.link id="#{episode.index_str}.row"
+              td id='delete_project'
+                span
+                  form role='form' method='post' action=episode.link
+                    input type='hidden' name='_method' value='delete'
+                    button type="submit" class="btn btn-sm btn-link" id="#{episode.index_str}.delete"
+                    i.bi.bi-trash
+                      / i class="fas fa-trash-alt"
+              td id='td_name'
+                span class="episode_table_name" id="#{episode.index_str}.name"
+                = episode.name
+              td id='td_episode_url'
+                span class="episode_url" id="#{episode.index_str}.episode_url"
+                / a href=episode.episode_url id="#{episode.index_str}.link"  #{episode.episode_url}
+                a href=episode.episode_url id="#{episode.index_str}.link"  click
 
-            td id='release_date'
-              span class="episode_table_release_date" id="#{episode.index_str}.release_date"
-              = episode.release_date
+              td id='release_date'
+                span class="episode_table_release_date" id="#{episode.index_str}.release_date"
+                = episode.release_date
 
   .col-md-6
     table class="table table-hover table-bordered" id="show_table"
@@ -97,9 +98,7 @@ hr
               a href=show.show_url id="#{show.index_str}.link"  click
             td id='td_publisher'
               span class="publisher" id="#{show.index_str}.publisher"
-              a href=show.publisher  id="#{show.index_str}.link"  #{show.publisher}
-
-
+              = show.publisher
 
   script type="text/javascript".
     $(document).ready(function() {

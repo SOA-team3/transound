@@ -28,10 +28,6 @@ module Views
       @episode.name
     end
 
-    def origin_id
-      @episode.origin_id
-    end
-
     def episode_url
       @episode.episode_url
     end

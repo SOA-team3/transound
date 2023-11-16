@@ -16,7 +16,7 @@ module TranSound
 
       def self.find_podcast_infos(origin_ids)
         origin_ids.map do |origin_id|
-        find_podcast_info(origin_id)
+          find_podcast_info(origin_id)
         end.compact
       end
 
@@ -34,6 +34,7 @@ module TranSound
 
       def self.create(entity)
         raise 'Show already exists' if find(entity)
+
         # return if find(entity)
 
         db_record = Database::ShowOrm.create(entity.to_attr_hash)
@@ -45,16 +46,13 @@ module TranSound
       def self.rebuild_entity(db_record)
         return nil unless db_record
 
-        Entity::Show.new(
-          id: db_record.id,
-          origin_id: db_record.origin_id,
-          description: db_record.description,
-          name: db_record.name,
-          images: db_record.images,
-          publisher: db_record.publisher,
-          type: db_record.type,
-          show_url: db_record.show_url
-        )
+        Entity::Show.new(id: db_record.id, origin_id: db_record.origin_id,
+                         description: db_record.description,
+                         name: db_record.name,
+                         images: db_record.images,
+                         publisher: db_record.publisher,
+                         type: db_record.type,
+                         show_url: db_record.show_url)
       end
 
       def self.rebuild_many(db_records)

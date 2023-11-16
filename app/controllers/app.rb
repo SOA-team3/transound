@@ -15,7 +15,7 @@ module TranSound
     plugin :render, engine: 'slim', views: 'app/presentation/views_html'
     plugin :public, root: 'app/presentation/public'
     plugin :assets, path: 'app/presentation/assets',
-                    css: 'style.css', js: 'scripts.js'
+                    css: 'style.css', js: 'table_row.js'
     plugin :common_logger, $stderr
 
     use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
@@ -57,7 +57,7 @@ module TranSound
         viewable_episodes = Views::EpisodesList.new(episodes)
         viewable_shows = Views::ShowsList.new(shows)
 
-        view 'home', locals: { episodes: viewable_episodes , shows: viewable_shows }
+        view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
         # view 'home'
       end
 
@@ -107,7 +107,7 @@ module TranSound
         routing.on String, String do |type, id|
           # DELETE /podcast_info/{type}/{id}
           routing.delete do
-            fullname = "#{owner_name}/#{project_name}"
+            fullname = "#{type}/#{id}"
             session[:watching].delete(fullname)
 
             routing.redirect '/'
@@ -119,7 +119,6 @@ module TranSound
             spotify_episode = Repository::For.klass(Entity::Episode).find_podcast_info(id)
             puts "spotify_episode: #{spotify_episode}"
             view 'episode', locals: { episode: spotify_episode }
-
 
           elsif type == 'show'
             # Get data from API

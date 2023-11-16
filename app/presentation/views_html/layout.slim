@@ -16,12 +16,15 @@ html
       rel="stylesheet"
       crossorigin="anonymous"
     }
-    / Custom CSS
+    / Custom Assets
     / link rel='stylesheet' href='/presentation/assets/css/style.css'
     == assets(:css)
+    == assets(:js, defer: true)
+
     /episode download transcript
     script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha384-u7U/CqnDLyzKPgFqF76W9L8/RSJoZqU2HT4J8BAT5sa5InV6tIpm6sFZuFeF+4Sc" crossorigin="anonymous"
     script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.2/mammoth.browser.min.js" integrity="sha384-jkycEJ7VAD3c3Z8ij1Fxl04frwRd+ZBtEPzvzG/CzPC1zjAal4s6Pl1m5yxMKDvW" crossorigin="anonymous"
+
     /download episode transcript some bug still exist
     / script.
     /   $(document).ready(function(){

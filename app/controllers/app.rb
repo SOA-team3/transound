@@ -15,7 +15,7 @@ module TranSound
     plugin :render, engine: 'slim', views: 'app/presentation/views_html'
     plugin :public, root: 'app/presentation/public'
     plugin :assets, path: 'app/presentation/assets',
-                    css: 'style.css', js: 'scripts.js'
+                    css: 'style.css', js: 'table_row.js'
     plugin :common_logger, $stderr
 
     use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
@@ -57,7 +57,7 @@ module TranSound
         viewable_episodes = Views::EpisodesList.new(episodes)
         viewable_shows = Views::ShowsList.new(shows)
 
-        view 'home', locals: { episodes: viewable_episodes , shows: viewable_shows }
+        view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
         # view 'home'
       end
 

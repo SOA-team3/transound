@@ -107,7 +107,7 @@ module TranSound
         routing.on String, String do |type, id|
           # DELETE /podcast_info/{type}/{id}
           routing.delete do
-            fullname = "#{id}"
+            fullname = id.to_s
             session[:watching].delete(fullname)
 
             routing.redirect '/'

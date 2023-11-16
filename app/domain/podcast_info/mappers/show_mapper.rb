@@ -35,7 +35,8 @@ module TranSound
             images:,
             name:,
             publisher:,
-            type:
+            type:,
+            show_url:
             # episodes:
           )
         end
@@ -67,6 +68,10 @@ module TranSound
 
         def episodes
           @show['episodes']
+        end
+
+        def show_url
+          "https://open.spotify.com/#{type}/#{origin_id}"
         end
       end
     end

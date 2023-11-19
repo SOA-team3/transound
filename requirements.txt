@@ -5,4 +5,4 @@ wget # to download files
 pandas
 
 # transcribe package
-git+https://github.com/openai/whisper.git
+# git+https://github.com/openai/whisper.git

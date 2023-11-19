@@ -6,7 +6,7 @@ module Views
   # View for a a list of episode entities
   class EpisodesList
     def initialize(episodes)
-      @episodes = episodes.map.with_index { |episode, i| Episode.new(episode, i) }
+      @episodes = episodes.map.with_index { |episode, index| Episode.new(episode, index) }
     end
 
     def each(&show)

@@ -22,7 +22,6 @@ module TranSound
       attribute :transcript, Strict::String
       attribute :translation, Strict::String
 
-
       def to_attr_hash
         # to_hash.reject { |key, _| %i[id owner contributors].include? key }
         to_hash.except(:id)

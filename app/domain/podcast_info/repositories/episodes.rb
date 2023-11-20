@@ -50,16 +50,14 @@ module TranSound
         return nil unless db_record
 
         Entity::Episode.new(id: db_record.id, origin_id: db_record.origin_id, name: db_record.name,
-                            description: db_record.description,
-                            images: db_record.images,
+                            description: db_record.description, images: db_record.images,
                             language: db_record.language,
                             release_date: db_record.release_date,
                             type: db_record.type,
                             episode_url: db_record.episode_url,
                             episode_mp3_url: db_record.episode_mp3_url,
                             transcript: db_record.transcript,
-                            translation: db_record.translation
-                          )
+                            translation: db_record.translation)
       end
 
       def self.rebuild_many(db_records)

@@ -17,6 +17,7 @@ Metrics/BlockLength:
     - 'spec/**/*'
     - 'rakefile.rb'
     - 'app/controllers/app.rb'
+    - 'app/application/controllers/app.rb'
 
 # ignore method length in rebuilding entity only
 Metrics/MethodLength:

@@ -127,6 +127,7 @@ module TranSound
             # Get data from database
             spotify_show = Repository::For.klass(Entity::Show).find_podcast_info(id)
             view 'show', locals: { show: spotify_show }
+
           else
             # Handle unknown URLs (unknown type)
             routing.redirect '/'

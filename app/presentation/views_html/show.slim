@@ -9,8 +9,9 @@ hr
             img.show.images[src = show.images alt = "#{show.images}" style="width: 80%; height: auto;margin:10%;border-radius: 50%;"]
         / .show.type
         / = show.type.capitalize + ":"
-        h3.show.name.mt-4 style="padding-left:20px"
-          = show.name
+        div.text-center
+          h3.show.name.mt-4 style="padding-left:20px"
+            = show.name
         span.show.attribute
           | Publisher:&nbsp
           = show.publisher

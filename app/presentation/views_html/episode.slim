@@ -19,8 +19,7 @@ hr
         div.center
           img.episode.images[src=episode.images alt="#{episode.images}" style="width: 80%; height: auto; margin: 10%; border-radius: 50%;"]
         h4.episode.name.mt-4
-          =episode.name
-
+          = episode.name
         span.show.attribute
           | Release Date:&nbsp
           = episode.release_date
@@ -43,6 +42,13 @@ hr
           i.bi.bi-bookmarks-fill Transcript
         div.row
         .col.d-flex.text-right
+          select#sel1.form-control name="languages"
+            / optgroup label=("European")
+            option
+              | English
+            option
+              | Chinese
+
           h2.title_txt.mr-3
             button.btn.btn-primary.mt-4 Click to Translate
           span.h2.title_txt

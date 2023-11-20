@@ -17,6 +17,7 @@ gem 'slim', '~> 5'
 # Validation
 gem 'dry-struct', '~> 1'
 gem 'dry-types', '~> 1'
+gem 'dry-validation'
 
 # Networking
 gem 'http', '~> 5.1'

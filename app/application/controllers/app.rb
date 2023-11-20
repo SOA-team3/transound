@@ -4,7 +4,7 @@ require 'roda'
 require 'slim'
 require 'slim/include'
 
-TEMP_TOKEN_CONFIG = YAML.safe_load_file('config/temp_token.yml')
+# TEMP_TOKEN_CONFIG = YAML.safe_load_file('config/temp_token.yml')
 
 module TranSound
   # Application inherits from Roda
@@ -24,8 +24,8 @@ module TranSound
       routing.assets # load custom CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
       routing.public
-      TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
-                                         App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
+      # TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
+      #                                    App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
 
       # GET /
       routing.root do
@@ -42,7 +42,7 @@ module TranSound
         #   .find_podcast_infos(session[:watching])
 
         if episode_result.failure?
-          flash[:error] = result.failure
+          flash[:error] = episode_result.failure
           viewable_episodes = []
         else
           episodes = result.value!
@@ -52,7 +52,7 @@ module TranSound
         end
 
         # if show_result.failure?
-        #   flash[:error] = result.failure
+        #   flash[:error] = show_result.failure
         #   viewable_shows = []
         # else
         #   shows = result.value!
@@ -118,6 +118,25 @@ module TranSound
 
             routing.redirect '/'
           end
+        end
+
+        # GET /episode/id or /show/id
+        if type == 'episode'
+          # Get project from database
+          spotify_episode = Repository::For.klass(Entity::Episode).find_podcast_info(id)
+          puts "spotify_episode: #{spotify_episode}"
+          view 'episode', locals: { episode: spotify_episode }
+
+        elsif type == 'show'
+          # Get data from API
+          # spotify_show = TranSound::Podcast::ShowMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
+
+          # Get data from database
+          spotify_show = Repository::For.klass(Entity::Show).find_podcast_info(id)
+          view 'show', locals: { show: spotify_show }
+        else
+          # Handle unknown URLs (unknown type)
+          routing.redirect '/'
         end
       end
     end

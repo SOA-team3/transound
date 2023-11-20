@@ -11,9 +11,8 @@ module TranSound
       include Dry::Transaction
 
       def initialize
-        @type
         @temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
-          App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
+                                                         App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
       end
 
       step :parse_url
@@ -21,11 +20,11 @@ module TranSound
       step :store_podcast_info
 
       private
-      
+
       def parse_url(input)
         if input.success?
           @type, id = input[:remote_url].split('/')[-2..]
-          Success(type: @type, id: id)
+          Success(type: @type, id:)
         else
           Failure("URL #{input.errors.messages.first}")
         end
@@ -45,11 +44,10 @@ module TranSound
           else
             input[:remote_show] = show_from_github(input)
           end
-          Success(input) 
+          Success(input)
         end
-        rescue StandardError => error
-          Failure(error.to_s)
-        end
+      rescue StandardError => e
+        Failure(e.to_s)
       end
 
       def store_podcast_info(input)
@@ -73,43 +71,41 @@ module TranSound
               routing.redirect '/'
             end
           Success(show)
-      rescue StandardError => error
-        App.logger.error error.backtrace.join("\n")
+        end
+      rescue StandardError => e
+        App.logger.error e.backtrace.join("\n")
         Failure('Having trouble accessing the database')
       end
 
       # following are support methods that other services could use
 
-      def episode_from_github(input)
+      def episode_from_github(_input)
         TranSound::Podcast::EpisodeMapper
-        .new(@temp_token)
-        .find("#{@type}s", id, 'TW')    
+          .new(@temp_token)
+          .find("#{@type}s", id, 'TW')
       rescue StandardError
         raise 'Could not find that episode on Github'
       end
 
-      def show_from_github(input)
+      def show_from_github(_input)
         TranSound::Podcast::ShowMapper
-        .new(@temp_token)
-        .find("#{type}s", id, 'TW')    
+          .new(@temp_token)
+          .find("#{type}s", id, 'TW')
       rescue StandardError
         raise 'Could not find that show on Github'
       end
 
       def episode_in_database(input)
-        spotify_episode = Repository::For.klass(Entity::episode)
+        spotify_episode = Repository::For.klass(Entity.episode)
           .find_podcast_info(input[:id])
         view 'episode', locals: { episode: spotify_episode }
       end
 
       def show_in_database(input)
-        spotify_show = Repository::For.klass(Entity::show)
+        spotify_show = Repository::For.klass(Entity.show)
           .find_podcast_info(input[:id])
         view 'show', locals: { show: spotify_show }
       end
     end
   end
 end
-
-
-

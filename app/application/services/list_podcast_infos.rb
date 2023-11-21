@@ -8,10 +8,10 @@ module TranSound
     class ListEpisodes
       include Dry::Monads::Result::Mixin
 
-      def call(_episodes_list)
+      def call(episodes_list)
         # Load previously viewed episodes
         episodes = Repository::For.klass(Entity::Episode)
-          .find_podcast_infos(session[:watching])
+          .find_podcast_infos(episodes_list)
 
         Success(episodes)
       rescue StandardError
@@ -21,9 +21,9 @@ module TranSound
 
     # Retrieves array of all listed show entities
     # class ListShows
-    #   def call(_shows_list)
+    #   def call(shows_list)
     #     shows = Repository::For.klass(Entity::Show)
-    #       .find_podcast_infos(session[:watching])
+    #       .find_podcast_infos(shows_list)
 
     #     Success(shows)
     #   rescue StandardError

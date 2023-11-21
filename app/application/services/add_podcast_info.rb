@@ -79,26 +79,26 @@ module TranSound
 
       # following are support methods that other services could use
 
-      def episode_from_github(_input)
+      def episode_from_github(input)
         TranSound::Podcast::EpisodeMapper
           .new(@temp_token)
-          .find("#{@type}s", id, 'TW')
+          .find("#{@type}s", input[:id], 'TW')
       rescue StandardError
-        raise 'Could not find that episode on Github'
+        raise 'Could not find that episode on Spotify'
       end
 
       def show_from_github(_input)
         TranSound::Podcast::ShowMapper
           .new(@temp_token)
-          .find("#{type}s", id, 'TW')
+          .find("#{type}s", input[:id], 'TW')
       rescue StandardError
-        raise 'Could not find that show on Github'
+        raise 'Could not find that show on Spotify'
       end
 
       def episode_in_database(input)
         spotify_episode = Repository::For.klass(Entity.episode)
           .find_podcast_info(input[:id])
-        view 'episode', locals: { episode: spotify_episode }
+          view 'episode', locals: { episode: spotify_episode, lang_dict: languages_dict }
       end
 
       def show_in_database(input)

@@ -35,17 +35,11 @@ module TranSound
         episode_result = Service::ListEpisodes.new.call(session[:watching])
         # show_result = Service::ListShows.new.call(session[:watching])
 
-        # Load previously viewed episodes
-        # episodes = Repository::For.klass(Entity::Episode)
-        #   .find_podcast_infos(session[:watching])
-        # shows = Repository::For.klass(Entity::Show)
-        #   .find_podcast_infos(session[:watching])
-
         if episode_result.failure?
           flash[:error] = episode_result.failure
           viewable_episodes = []
         else
-          episodes = result.value!
+          episodes = episode_result.value!
           flash.now[:notice] = 'Add a Spotify Podcast Episode to get started' if episodes.none?
           session[:watching] = episodes.map(&:origin_id)
           viewable_episodes = Views::EpisodesList.new(episodes)
@@ -61,11 +55,9 @@ module TranSound
         #   viewable_shows = Views::ShowsList.new(shows)
         # end
 
-        # session[:watching] = episodes.map(&:origin_id)
-        # session[:watching] = shows.map(&:origin_id)
-        puts "Session: #{session[:watching]}"
-        puts "Episodes: #{episodes}"
-        puts "Session: #{session[:watching]}"
+        # puts "Session: #{session[:watching]}"
+        # puts "Episodes: #{episodes}"
+        # puts "Session: #{session[:watching]}"
         # puts "Shows: #{shows}"
 
         # if episodes.none?
@@ -125,7 +117,7 @@ module TranSound
           # Get project from database
           spotify_episode = Repository::For.klass(Entity::Episode).find_podcast_info(id)
           puts "spotify_episode: #{spotify_episode}"
-          view 'episode', locals: { episode: spotify_episode }
+          view 'episode', locals: { episode: spotify_episode, lang_dict: languages_dict }
 
         elsif type == 'show'
           # Get data from API

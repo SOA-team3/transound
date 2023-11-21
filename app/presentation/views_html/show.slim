@@ -9,22 +9,26 @@ hr
             img.show.images[src = show.images alt = "#{show.images}" style="width: 80%; height: auto;margin:10%;border-radius: 50%;"]
         / .show.type
         / = show.type.capitalize + ":"
-        h3.show.name.mt-4 style="padding-left:20px"
-          = show.name
+        div.text-center
+          h3.show.name.mt-4 style="padding-left:20px"
+            = show.name
         span.show.attribute
-          | Publisher :
+          | Publisher:&nbsp
           = show.publisher
         / .show-publisher.mt-4
         /   span.show.publisher
         span.show.attribute.p-4
-          | Description :
+          | Description:&nbsp
           = show.description
+        span.episode.attribute 【Show URL】&nbsp
+        a.episode.episode_url href="#{show.show_url}" Click here to visit Spotify Show page-#{show.name}
+
 
       .right-sidebar.col-lg-6
         .scrollable-content
           h2.title_txt
             i.bi.bi-bookmarks-fill
-            |  Latest Episodes
+            |  Latest Episodes:
           hr
 
            div.list-group

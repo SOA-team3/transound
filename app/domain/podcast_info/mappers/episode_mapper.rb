@@ -127,7 +127,9 @@ module TranSound
                                          release_date:,
                                          type:,
                                          episode_url:,
-                                         episode_mp3_url:)
+                                         episode_mp3_url:,
+                                         transcript:,
+                                         translation:)
         end
 
         def origin_id
@@ -167,6 +169,19 @@ module TranSound
           puts name
           TranSound::Podcast::WebScrapingUtils::GoogleWebScraping.new(name).scrap
         end
+
+        def transcript
+          audio_file_path = 'podcast_mp3_store/'
+          audio_file_name = name + '.mp3'
+          TranSound::Podcast::TranscribingUtils::SpeechRecognition.new(audio_file_path, audio_file_name).transcribe
+        end
+
+        def translation
+          translate_language = 'zh-tw'
+          text = transcript
+          TranSound::Podcast::TranslatingUtils::GoogleTranslate.new(text, translate_language).translate
+        end
+
       end
     end
   end

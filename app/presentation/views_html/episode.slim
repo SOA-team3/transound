@@ -19,30 +19,36 @@ hr
         div.center
           img.episode.images[src=episode.images alt="#{episode.images}" style="width: 80%; height: auto; margin: 10%; border-radius: 50%;"]
         h4.episode.name.mt-4
-          =episode.name
-
+          = episode.name
         span.show.attribute
-          | Release Date :
+          | Release Date:&nbsp
           = episode.release_date
         span.show.attribute
-          | Language :
+          | Language:&nbsp
           = episode.language
         span.show.attribute.p-4
-          | Description :
+          | Description:&nbsp
           = episode.description
           // button.collapse-button(type="button") Show/Hide Description
           // .collapsible-content
-        span.episode.attribute Episode URL:
+        span.episode.attribute 【Episode URL】&nbsp
         a.episode.episode_url href="#{episode.episode_url}" Click here to visit Spotify Episode page-#{episode.name}
-        span.episode.attribute Episode MP3 URL:
+        span.episode.attribute 【Episode MP3 URL】&nbsp
         a.episode.episode_mp3_url href="#{episode.episode_mp3_url}" Click here to visit Spotify Episode MP3 page-#{episode.name}
 
-    .right-sidebar.col-lg-6
+    .right-sidebar.col-lg-3
       .scrollable-content
         h2.title_txt
           i.bi.bi-bookmarks-fill Transcript
         div.row
         .col.d-flex.text-right
+          select#sel1.form-control name="languages"
+            / optgroup label=("European")
+            option
+              | English
+            option
+              | Chinese
+
           h2.title_txt.mr-3
             button.btn.btn-primary.mt-4 Click to Translate
           span.h2.title_txt
@@ -53,25 +59,41 @@ hr
         div.list-group.transcript-content
           div.row
             div.col-md-9
-              | This is a transcript content........
-          div.row
-            div.col-md-9
-              div.small.text-gray
-                span.bi.bi-person-circle &nbsp;
-                | Speaker A
-                span . 01:36
-              div This is a transcript content........
-          div.row
-            div.col-md-9
-              div.small.text-gray
-                span.bi.bi-person-circle &nbsp;
-                | Speaker B
-                span . 02:59
-              div This is a transcript content........
+              / | This is a transcript content........
+              = episode.transcript
+          / div.row
+          /   div.col-md-9
+          /     div.small.text-gray
+          /       span.bi.bi-person-circle &nbsp;
+          /       | Speaker A
+          /       span . 01:36
+          /     div This is a transcript content........
+          / div.row
+          /   div.col-md-9
+          /     div.small.text-gray
+          /       span.bi.bi-person-circle &nbsp;
+          /       | Speaker B
+          /       span . 02:59
+          /     div This is a transcript content........
         button.btn.btn-primary.mt-4
           | Generate Summary & Outline &nbsp;
           span.i.bi.bi-arrow-right
 
+
+    .right-sidebar.col-lg-3
+          .scrollable-content
+            h2.title_txt
+              i.bi.bi-bookmarks-fill Transcript
+            div.row
+            .col.d-flex.text-right
+              select#sel1.form-control name="languages"
+                / optgroup label=("European")
+            div.list-group.transcript-content
+              div.row
+                div.col-md-9
+                  / | This is a transcript content........
+                  = episode.transcript
+              
 /off canvas
 script.
   | document.addEventListener('DOMContentLoaded', function () {

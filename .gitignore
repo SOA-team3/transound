@@ -4,6 +4,7 @@ coverage/*
 coverage/assets/*
 !coverage/.resultset.json
 *.db
+*.mp3
 podcast_api_test_output.txt
 .bundle/
 podcast_mp3_store/*

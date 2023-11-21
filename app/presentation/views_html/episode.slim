@@ -44,15 +44,16 @@ hr
         .col.d-flex.text-right
           select#sel1.form-control name="languages"
             / optgroup label=("European")
-            option
-              | English
-            option
-              | Chinese
+            option(value="" disabled="" selected="")
+              | Select a language
+            - lang_dict.each do |key, value|
+              option value=key
+                = key
 
           h2.title_txt.mr-3
-            button.btn.btn-primary.mt-4 Click to Translate
+            button#translateButton.btn.btn-primary.mt-4 Click to Translate
           span.h2.title_txt
-            button.btn.btn-primary.mt-4.download-btn data-toggle="tooltip" data-placement="top" title="Download"
+            button.btn.btn-primary.mt-4.download-btn data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadTranscript()"
               i.bi.bi-download
 
           hr
@@ -83,17 +84,13 @@ hr
     .right-sidebar.col-lg-3
           .scrollable-content
             h2.title_txt
-              i.bi.bi-bookmarks-fill Transcript
-            div.row
-            .col.d-flex.text-right
-              select#sel1.form-control name="languages"
-                / optgroup label=("European")
-            div.list-group.transcript-content
+              i.bi.bi-bookmarks-fill Translation
+            div.list-group.translate-content
               div.row
-                div.col-md-9
-                  / | This is a transcript content........
-                  = episode.transcript
-              
+                div.col-md-9 data-new-content="Your new content goes here."
+                  / | This is a translation-content........
+                  = episode.translation
+
 /off canvas
 script.
   | document.addEventListener('DOMContentLoaded', function () {
@@ -249,71 +246,4 @@ script.
 /                     | Ep03
 /                   div
 /                     | description3
-/                 div.col-md-3.d-flex.flex-column.align-items-end.justify-content-center
-/                   i.bi.bi-chevron-right
-/           button.btn.btn-primary.mt-4 Load more...
-
-/original episode slim
-/ .container
-/   .row
-/     h2
-/       span.episode.type
-/         = episode.type.capitalize + ":"
-/       span.episode.name style="padding-left:20px"
-/         = episode.name
-/   .container
-/     .row
-/       .col-lg-1.col-md-2.col-sm-2
-/         span.episode.attribute Description:
-/       .col-lg-11.col-md-10.col-sm-6
-/         span.episode.description
-/           = episode.description
-
-/     .row.top-buffer
-/       .col-lg-1.col-md-2.col-sm-2
-/         span.episode.attribute Images:
-/       .col-lg-11.col-md-10.col-sm-6
-/         .row
-/           / - episode.images.each_with_index do |image, index|
-/           .col-sm-12
-/             / Using the first image of the image-array
-/             / - image = episode.images[1]
-/             / img.episode.images[src = image['url'] alt = "#{image['url']}"]
-/             img.episode.images[src = episode.images alt = "#{episode.images}"]
-
-/     .row.top-buffer
-/       .col-lg-1.col-md-2.col-sm-2
-/         span.episode.attribute Language:
-/       .col-lg-11.col-md-10.col-sm-6
-/         span.episode.language
-/           = episode.language
-
-/     .row.top-buffer
-/       .col-lg-1.col-md-2.col-sm-2
-/         span.episode.attribute Release_date:
-/       .col-lg-11.col-md-10.col-sm-6
-/         span.episode.release_date
-/           = episode.release_date
-
-/     .row.top-buffer
-/       .col-lg-1.col-md-2.col-sm-2
-/         span.episode.attribute Episode URL:
-/       .col-lg-11.col-md-10.col-sm-6
-/         span.episode.episode_url
-/           = episode.episode_url
-/ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-/ <script>
-/   $(document).ready(function() {
-/     $(".collapse-button").on("click", function() {
-/       $(this).next(".collapsible-content").slideToggle();
-/     });
-/   });
-/ </script>
-
-/button invalid
-/ script(type="text/javascript").
-/   $(document).ready(function() {
-/     $(".collapse-button").on("click", function() {
-/       $(this).next(".collapsible-content").slideToggle();
-/     });
-/   });
+/                 div.col-md

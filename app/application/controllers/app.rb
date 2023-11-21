@@ -15,7 +15,7 @@ module TranSound
     plugin :render, engine: 'slim', views: 'app/presentation/views_html'
     plugin :public, root: 'app/presentation/public'
     plugin :assets, path: 'app/presentation/assets',
-                    css: 'style.css', js: 'table_row.js'
+                    css: 'style.css', js: ['table_row.js', 'scripts.js']
     plugin :common_logger, $stderr
 
     use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
@@ -92,6 +92,7 @@ module TranSound
           # POST /episode/
           routing.post do
             url_requests = Forms::NewPodcastInfo.new.call(routing.params)
+            puts "hello" url_requests "hi"
             podcast_info_made = Service::AddPodcastInfo.new.call(url_requests)
 
             if podcast_info_made.failure?

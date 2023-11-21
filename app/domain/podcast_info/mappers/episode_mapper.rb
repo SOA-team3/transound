@@ -119,10 +119,8 @@ module TranSound
         end
 
         def build_entity
-          TranSound::Entity::Episode.new(id: nil, origin_id:,
-                                         description:,
-                                         images:,
-                                         language:,
+          TranSound::Entity::Episode.new(id: nil, origin_id:, description:,
+                                         images:, language:,
                                          name:,
                                          release_date:,
                                          type:,
@@ -172,7 +170,7 @@ module TranSound
 
         def transcript
           audio_file_path = 'podcast_mp3_store/'
-          audio_file_name = name + '.mp3'
+          audio_file_name = "#{name}.mp3"
           TranSound::Podcast::TranscribingUtils::SpeechRecognition.new(audio_file_path, audio_file_name).transcribe
         end
 
@@ -181,7 +179,6 @@ module TranSound
           text = transcript
           TranSound::Podcast::TranslatingUtils::GoogleTranslate.new(text, translate_language).translate
         end
-
       end
     end
   end

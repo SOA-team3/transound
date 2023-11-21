@@ -53,7 +53,7 @@ module TranSound
       def store_podcast_info(input)
         if @type == 'episode'
           episode =
-            if (new_episode = input[:remote_episode])
+            if input[:remote_episode]
               Repository::For.entity(podcast_info).create(podcast_info)
             else
               input[:local_episode]
@@ -63,7 +63,7 @@ module TranSound
           Success(episode)
         elsif @type == 'show'
           show =
-            if (new_show = input[:remote_show])
+            if input[:remote_show]
               Repository::For.entity(podcast_info).create(podcast_info)
             else
               input[:local_show]

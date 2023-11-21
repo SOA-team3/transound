@@ -13,7 +13,6 @@ module TranSound
           @translate_language = translate_language
           # Execute Python translating script
           @script_file = 'app/domain/audio_datas/lib/translator/google_translator.py'
-
         end
 
         def translate
@@ -32,7 +31,6 @@ module TranSound
           # Must return again for the value of translate method
         end
       end
-
     end
   end
 end

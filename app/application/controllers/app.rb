@@ -84,21 +84,21 @@ module TranSound
         routing.is do
           # POST /episode/
           routing.post do
-            # url_requests = Forms::NewPodcastInfo.new.call(routing.params['spotify_url'])
+            url_requests = Forms::NewPodcastInfo.new.call(routing.params)
             # puts "1 #{url_requests}"
             # puts "2 #{routing.params['spotify_url']}"
 
-            url_requests = routing.params['spotify_url']
-            unless (url_requests.include? 'open.spotify.com') &&
-                   (url_requests.split('/').count >= 3)
-              flash[:error] = 'Invalid URL for a Spotify page (Require for a Spotify Episode or a Spotify Show)'
-              response.status = 400
-              routing.redirect '/'
-            end
+            # spot_url = routing.params['spotify_url']
+            # unless (url_requests.include? 'open.spotify.com') &&
+            #        (url_requests.split('/').count >= 3)
+            #   flash[:error] = 'Invalid URL for a Spotify page (Require for a Spotify Episode or a Spotify Show)'
+            #   response.status = 400
+            #   routing.redirect '/'
+            # end
 
             puts "app1 #{url_requests}"
 
-            podcast_info_made = Service::AddPodcastInfo.new.parse_url(url_requests)
+            podcast_info_made = Service::AddPodcastInfo.new.call(url_requests)
 
             if podcast_info_made.failure?
               flash[:error] = podcast_info_made.failure
@@ -124,25 +124,6 @@ module TranSound
 
             routing.redirect '/'
           end
-        end
-
-        # GET /episode/id or /show/id
-        if type == 'episode'
-          # Get project from database
-          spotify_episode = Repository::For.klass(Entity::Episode).find_podcast_info(id)
-          puts "spotify_episode: #{spotify_episode}"
-          view 'episode', locals: { episode: spotify_episode, lang_dict: languages_dict }
-
-        elsif type == 'show'
-          # Get data from API
-          # spotify_show = TranSound::Podcast::ShowMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
-
-          # Get data from database
-          spotify_show = Repository::For.klass(Entity::Show).find_podcast_info(id)
-          view 'show', locals: { show: spotify_show }
-        else
-          # Handle unknown URLs (unknown type)
-          routing.redirect '/'
         end
       end
     end

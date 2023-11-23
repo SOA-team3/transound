@@ -10,11 +10,6 @@ module TranSound
     class AddPodcastInfo
       include Dry::Transaction
 
-      def initialize
-        @temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
-                                                         App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
-      end
-
       step :parse_url
       step :find_podcast_info
       step :store_podcast_info
@@ -36,14 +31,14 @@ module TranSound
           if (episode = episode_in_database(input))
             input[:local_episode] = episode
           else
-            input[:remote_episode] = episode_from_github(input)
+            input[:remote_episode] = episode_from_spotify(input)
           end
           Success(input)
         elsif @type == 'show'
           if (show = show_in_database(input))
             input[:local_show] = show
           else
-            input[:remote_show] = show_from_github(input)
+            input[:remote_show] = show_from_spotify(input)
           end
           Success(input)
         end
@@ -80,7 +75,9 @@ module TranSound
 
       # following are support methods that other services could use
 
-      def episode_from_github(input)
+      def episode_from_spotify(input)
+        @temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
+                                                         App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
         TranSound::Podcast::EpisodeMapper
           .new(@temp_token)
           .find("#{@type}s", input[:id], 'TW')
@@ -88,7 +85,9 @@ module TranSound
         raise 'Could not find that episode on Spotify'
       end
 
-      def show_from_github(_input)
+      def show_from_spotify(_input)
+        @temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
+                                                         App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
         TranSound::Podcast::ShowMapper
           .new(@temp_token)
           .find("#{type}s", input[:id], 'TW')
@@ -99,7 +98,7 @@ module TranSound
       def episode_in_database(input)
         spotify_episode = Repository::For.klass(Entity.episode)
           .find_podcast_info(input[:id])
-          view 'episode', locals: { episode: spotify_episode, lang_dict: languages_dict }
+        view 'episode', locals: { episode: spotify_episode, lang_dict: languages_dict }
       end
 
       def show_in_database(input)

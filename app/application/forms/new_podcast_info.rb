@@ -12,8 +12,6 @@ module TranSound
         required(:spotify_url).filled(:string)
       end
 
-      puts "hi #{params}"
-
       rule(:spotify_url) do
         key.failure('is an invalid address for a Spotify podcast episode or show') unless URL_REGEX.match?(value)
       end

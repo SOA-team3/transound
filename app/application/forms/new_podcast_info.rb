@@ -11,7 +11,7 @@ module TranSound
       params do
         required(:remote_url).filled(:string)
       end
-
+      puts "hi#{params}"
       rule(:remote_url) do
         key.failure('is an invalid address for a Spotify podcast episode or show') unless URL_REGEX.match?(value)
       end

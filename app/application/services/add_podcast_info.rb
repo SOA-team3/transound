@@ -49,7 +49,7 @@ module TranSound
       def store_podcast_info(input)
         if @type == 'episode'
           episode =
-            if input[:remote_episode]
+            if (podcast_info = input[:remote_episode])
               Repository::For.entity(podcast_info).create(podcast_info)
             else
               input[:local_episode]
@@ -59,7 +59,7 @@ module TranSound
           Success(episode)
         elsif @type == 'show'
           show =
-            if input[:remote_show]
+            if (podcast_info = input[:remote_show])
               Repository::For.entity(podcast_info).create(podcast_info)
             else
               input[:local_show]
@@ -85,26 +85,24 @@ module TranSound
         raise 'Could not find that episode on Spotify'
       end
 
-      def show_from_spotify(_input)
+      def show_from_spotify(input)
         @temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
                                                          App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
         TranSound::Podcast::ShowMapper
           .new(@temp_token)
-          .find("#{type}s", input[:id], 'TW')
+          .find("#{@type}s", input[:id], 'TW')
       rescue StandardError
         raise 'Could not find that show on Spotify'
       end
 
       def episode_in_database(input)
-        spotify_episode = Repository::For.klass(Entity.episode)
+        spotify_episode = Repository::For.klass(Entity::Episode)
           .find_podcast_info(input[:id])
-        view 'episode', locals: { episode: spotify_episode, lang_dict: languages_dict }
       end
 
       def show_in_database(input)
-        spotify_show = Repository::For.klass(Entity.show)
+        spotify_show = Repository::For.klass(Entity::Show)
           .find_podcast_info(input[:id])
-        view 'show', locals: { show: spotify_show }
       end
     end
   end

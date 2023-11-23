@@ -4,11 +4,13 @@ require 'roda'
 require 'slim'
 require 'slim/include'
 
-# TEMP_TOKEN_CONFIG = YAML.safe_load_file('config/temp_token.yml')
+require_relative 'helpers'
 
 module TranSound
   # Application inherits from Roda
   class App < Roda
+    include RouteHelpers
+
     plugin :halt
     plugin :flash
     plugin :all_verbs # allows HTTP verbs beyond GET/POST (e.g., DELETE)
@@ -24,12 +26,10 @@ module TranSound
       routing.assets # load custom CSS
       response['Content-Type'] = 'text/html; charset=utf-8'
       routing.public
-      # TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
-      #                                    App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
 
       # GET /
       routing.root do
-        # Get cookie viewer's previously seen projects
+        # Get cookie viewer's previously seen podcast_infos
         session[:watching] ||= []
 
         episode_result = Service::ListEpisodes.new.call(session[:watching])
@@ -87,18 +87,6 @@ module TranSound
           # POST /episode/
           routing.post do
             url_requests = Forms::NewPodcastInfo.new.call(routing.params)
-            puts "1 #{url_requests.inspect}"
-            puts "2 #{routing.params['spotify_url']}"
-
-            # url_requests = routing.params['spotify_url']
-            # unless (url_requests.include? 'open.spotify.com') &&
-            #        (url_requests.split('/').count >= 3)
-            #   flash[:error] = 'Invalid URL for a Spotify page (Require for a Spotify Episode or a Spotify Show)'
-            #   response.status = 400
-            #   routing.redirect '/'
-            # end
-
-            # puts "app1 #{url_requests}"
 
             podcast_info_made = Service::AddPodcastInfo.new.call(url_requests)
 
@@ -110,8 +98,9 @@ module TranSound
             podcast_info = podcast_info_made.value!
             type = podcast_info.type
             id = podcast_info.origin_id
+            puts "podcast_info's class: #{podcast_info.class}"
 
-            # Add new project to watched set in cookies
+            # Add new podcast_info to watched set in cookies
             session[:watching].insert(0, podcast_info.origin_id).uniq!
             flash[:notice] = 'Podcast info added to your list'
 
@@ -121,12 +110,6 @@ module TranSound
         end
 
         routing.on String, String do |type, id|
-          # puts "Redirect_podcast_info: #{podcast_info}"
-          puts "Redirect_type: #{type}"
-          puts "Redirect_id: #{id}"
-          # puts "Redirect_Podcast_info: #{podcast_info}"
-          # puts "Redirect_Podcast_info.name: #{podcast_info.name}"
-
           # DELETE /podcast_info/{type}/{id}
           routing.delete do
             fullname = id.to_s
@@ -135,6 +118,7 @@ module TranSound
             routing.redirect '/'
           end
 
+          # GET /episode/id or /show/id
           routing.get do
             path_request = PodcastInfoRequestPath.new(
               type, id, request
@@ -142,7 +126,7 @@ module TranSound
 
             session[:watching] ||= []
 
-            result = Service::ViewPodcastInfo.new.call(
+            result = Service::PodcastInfo.new.call(
               watched_list: session[:watching],
               requested: path_request
             )
@@ -152,8 +136,9 @@ module TranSound
               routing.redirect '/'
             end
 
+            podcast_info = result.value![:episode]
+
             languages_dict = Views::LanguagesList.new.lang_dict
-            # GET /episode/id or /show/id
             if type == 'episode'
               view 'episode', locals: { episode: podcast_info, lang_dict: languages_dict }
             elsif type == 'show'

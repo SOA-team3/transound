@@ -40,6 +40,7 @@ module TranSound
           viewable_episodes = []
         else
           episodes = episode_result.value!
+          # puts episodes
           flash.now[:notice] = 'Add a Spotify Podcast Episode to get started' if episodes.none?
           session[:watching] = episodes.map(&:origin_id)
           viewable_episodes = Views::EpisodesList.new(episodes)
@@ -83,8 +84,21 @@ module TranSound
         routing.is do
           # POST /episode/
           routing.post do
-            url_requests = Forms::NewPodcastInfo.new.call(routing.params)
-            podcast_info_made = Service::AddPodcastInfo.new.call(url_requests)
+            # url_requests = Forms::NewPodcastInfo.new.call(routing.params['spotify_url'])
+            # puts "1 #{url_requests}"
+            # puts "2 #{routing.params['spotify_url']}"
+
+            url_requests = routing.params['spotify_url']
+            unless (url_requests.include? 'open.spotify.com') &&
+                   (url_requests.split('/').count >= 3)
+              flash[:error] = 'Invalid URL for a Spotify page (Require for a Spotify Episode or a Spotify Show)'
+              response.status = 400
+              routing.redirect '/'
+            end
+
+            puts "app1 #{url_requests}"
+
+            podcast_info_made = Service::AddPodcastInfo.new.parse_url(url_requests)
 
             if podcast_info_made.failure?
               flash[:error] = podcast_info_made.failure

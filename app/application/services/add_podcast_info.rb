@@ -22,8 +22,9 @@ module TranSound
       private
 
       def parse_url(input)
+        puts "add p info #{input}"
         if input.success?
-          @type, id = input[:remote_url].split('/')[-2..]
+          @type, id = input[:spotify_url].split('/')[-2..]
           Success(type: @type, id:)
         else
           Failure("URL #{input.errors.messages.first}")

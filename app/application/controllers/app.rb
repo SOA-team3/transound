@@ -32,54 +32,38 @@ module TranSound
         # Get cookie viewer's previously seen podcast_infos
         session[:watching] ||= []
 
-        episode_result = Service::ListEpisodes.new.call(session[:watching])
-        # show_result = Service::ListShows.new.call(session[:watching])
+        # episode_result = Service::ListEpisodes.new.call(session[:watching])
+        show_result = Service::ListShows.new.call(session[:watching])
 
-        if episode_result.failure?
-          flash[:error] = episode_result.failure
-          viewable_episodes = []
+        # if episode_result.failure?
+        #   flash[:error] = episode_result.failure
+        #   viewable_episodes = []
+        # else
+        #   episodes = episode_result.value!
+        #   puts "episodes: #{episodes}"
+        #   flash.now[:notice] = 'Add a Spotify Podcast Episode to get started' if episodes.none?
+        #   session[:watching] = episodes.map(&:origin_id)
+        #   puts "session[:watching]: #{session[:watching]}"
+        #   viewable_episodes = Views::EpisodesList.new(episodes)
+        # end
+
+        if show_result.failure?
+          flash[:error] = show_result.failure
+          viewable_shows = []
         else
-          episodes = episode_result.value!
-          puts "episodes: #{episodes}"
-          flash.now[:notice] = 'Add a Spotify Podcast Episode to get started' if episodes.none?
-          session[:watching] = episodes.map(&:origin_id)
+          shows = show_result.value!
+          puts "shows: #{shows}"
+          flash.now[:notice] = 'You can add a Spotify Podcast Show to get started' if shows.none?
+          session[:watching] = shows.map(&:origin_id)
           puts "session[:watching]: #{session[:watching]}"
-          viewable_episodes = Views::EpisodesList.new(episodes)
+          viewable_shows = Views::ShowsList.new(shows)
         end
 
-        # if show_result.failure?
-        #   flash[:error] = show_result.failure
-        #   viewable_shows = []
-        # else
-        #   shows = result.value!
-        #   flash.now[:notice] = 'Add a Spotify Podcast Show to get started' if shows.none?
-        #   session[:watching] = shows.map(&:origin_id)
-        #   viewable_shows = Views::ShowsList.new(shows)
-        # end
-
-        # puts "Session: #{session[:watching]}"
-        # puts "Episodes: #{episodes}"
-        # puts "Session: #{session[:watching]}"
-        # puts "Shows: #{shows}"
-
-        # if episodes.none?
-        #   flash.now[:notice] = 'Add a Spotify Podcast Episode to get started'
-        #   puts 'episodes = none'
-        # end
-        # if shows.none?
-        #   flash.now[:notice] = 'Add a Spotify Podcast Show to get started'
-        #   puts 'shows = none'
-        # end
-
-        # viewable_episodes = Views::EpisodesList.new(episodes)
-        # viewable_shows = Views::ShowsList.new(shows)
-
-        view 'home', locals: { episodes: viewable_episodes } # , shows: viewable_shows }
-        # view 'home'
+        view 'home', locals: { shows: viewable_shows }
+        # view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
       end
 
       # podcast_info
-      # routing.on 'podcast_info' do
       routing.on 'podcast_info' do
         puts TEMP_TOKEN_CONFIG
 
@@ -87,7 +71,6 @@ module TranSound
           # POST /episode/
           routing.post do
             url_requests = Forms::NewPodcastInfo.new.call(routing.params)
-
             podcast_info_made = Service::AddPodcastInfo.new.call(url_requests)
 
             if podcast_info_made.failure?
@@ -136,12 +119,13 @@ module TranSound
               routing.redirect '/'
             end
 
-            podcast_info = result.value![:episode]
 
             languages_dict = Views::LanguagesList.new.lang_dict
             if type == 'episode'
+              podcast_info = result.value![:episode]
               view 'episode', locals: { episode: podcast_info, lang_dict: languages_dict }
             elsif type == 'show'
+              podcast_info = result.value![:show]
               view 'show', locals: { show: podcast_info, lang_dict: languages_dict }
             else
               # Handle unknown URLs (unknown type)

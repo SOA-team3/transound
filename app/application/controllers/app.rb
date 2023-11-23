@@ -30,37 +30,35 @@ module TranSound
       # GET /
       routing.root do
         # Get cookie viewer's previously seen podcast_infos
-        session[:watching] ||= []
+        session[:watching] ||= { episode_id: [], show_id: [] }
 
-        # episode_result = Service::ListEpisodes.new.call(session[:watching])
-        show_result = Service::ListShows.new.call(session[:watching])
+        puts "Session watching: #{session[:watching].inspect}"
 
-        # if episode_result.failure?
-        #   flash[:error] = episode_result.failure
-        #   viewable_episodes = []
-        # else
-        #   episodes = episode_result.value!
-        #   puts "episodes: #{episodes}"
-        #   flash.now[:notice] = 'Add a Spotify Podcast Episode to get started' if episodes.none?
-        #   session[:watching] = episodes.map(&:origin_id)
-        #   puts "session[:watching]: #{session[:watching]}"
-        #   viewable_episodes = Views::EpisodesList.new(episodes)
-        # end
+        episode_result = Service::ListEpisodes.new.call(session[:watching][:episode_id])
+        show_result = Service::ListShows.new.call(session[:watching][:show_id])
+
+        if episode_result.failure?
+          flash[:error] = episode_result.failure
+          viewable_episodes = []
+        else
+          episodes = episode_result.value!
+          flash.now[:notice] = 'Add a Spotify Podcast Episode to get started' if episodes.none?
+          session[:watching][:episode_id] = episodes.map(&:origin_id)
+          viewable_episodes = Views::EpisodesList.new(episodes)
+        end
 
         if show_result.failure?
           flash[:error] = show_result.failure
           viewable_shows = []
         else
           shows = show_result.value!
-          puts "shows: #{shows}"
           flash.now[:notice] = 'You can add a Spotify Podcast Show to get started' if shows.none?
-          session[:watching] = shows.map(&:origin_id)
-          puts "session[:watching]: #{session[:watching]}"
+          session[:watching][:show_id] = shows.map(&:origin_id)
           viewable_shows = Views::ShowsList.new(shows)
         end
 
-        view 'home', locals: { shows: viewable_shows }
-        # view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
+        # view 'home', locals: { shows: viewable_shows }
+        view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
       end
 
       # podcast_info
@@ -84,7 +82,12 @@ module TranSound
             puts "podcast_info's class: #{podcast_info.class}"
 
             # Add new podcast_info to watched set in cookies
-            session[:watching].insert(0, podcast_info.origin_id).uniq!
+            if type == 'episode'
+              session[:watching][:episode_id].insert(0, podcast_info.origin_id).uniq!
+            elsif type == 'show'
+              session[:watching][:show_id].insert(0, podcast_info.origin_id).uniq!
+            end
+
             flash[:notice] = 'Podcast info added to your list'
 
             # Redirect viewer to episode page or show page
@@ -96,7 +99,12 @@ module TranSound
           # DELETE /podcast_info/{type}/{id}
           routing.delete do
             fullname = id.to_s
-            session[:watching].delete(fullname)
+
+            if type == 'episode'
+              session[:watching][:episode_id].delete(fullname)
+            elsif type == 'show'
+              session[:watching][:show_id].delete(fullname)
+            end
 
             routing.redirect '/'
           end
@@ -107,7 +115,7 @@ module TranSound
               type, id, request
             )
 
-            session[:watching] ||= []
+            session[:watching] ||= { episode_id: [], show_id: [] }
 
             result = Service::PodcastInfo.new.call(
               watched_list: session[:watching],
@@ -118,7 +126,6 @@ module TranSound
               flash[:error] = result.failure
               routing.redirect '/'
             end
-
 
             languages_dict = Views::LanguagesList.new.lang_dict
             if type == 'episode'

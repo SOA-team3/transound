@@ -16,10 +16,18 @@ module TranSound
       # Steps
 
       def ensure_watched_project(input)
-        if input[:watched_list].include? input[:requested].id
-          Success(input)
-        else
-          Failure('Please first request this project to be added to your list')
+        if input[:requested].type == 'episode'
+          if input[:watched_list][:episode_id].include? input[:requested].id
+            Success(input)
+          else
+            Failure('Please first request this episode to be added to your list')
+          end
+        elsif input[:requested].type == 'show'
+          if input[:watched_list][:show_id].include? input[:requested].id
+            Success(input)
+          else
+            Failure('Please first request this show to be added to your list')
+          end
         end
       end
 

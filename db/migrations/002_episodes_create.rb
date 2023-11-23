@@ -15,6 +15,8 @@ Sequel.migration do
       String :type
       String :episode_url
       String :episode_mp3_url
+      String :transcript
+      String :translation
 
       DateTime :created_at
       DateTime :updated_at

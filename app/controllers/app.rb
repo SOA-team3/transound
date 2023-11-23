@@ -15,7 +15,7 @@ module TranSound
     plugin :render, engine: 'slim', views: 'app/presentation/views_html'
     plugin :public, root: 'app/presentation/public'
     plugin :assets, path: 'app/presentation/assets',
-                    css: 'style.css', js: 'table_row.js'
+                    css: 'style.css', js: ['table_row.js', 'scripts.js']
     plugin :common_logger, $stderr
 
     use Rack::MethodOverride # allows HTTP verbs beyond GET/POST (e.g., DELETE)
@@ -113,12 +113,14 @@ module TranSound
             routing.redirect '/'
           end
 
+          languages_dict = Views::LanguagesList.new.lang_dict
+
           # GET /episode/id or /show/id
           if type == 'episode'
             # Get project from database
             spotify_episode = Repository::For.klass(Entity::Episode).find_podcast_info(id)
             puts "spotify_episode: #{spotify_episode}"
-            view 'episode', locals: { episode: spotify_episode }
+            view 'episode', locals: { episode: spotify_episode, lang_dict: languages_dict }
 
           elsif type == 'show'
             # Get data from API
@@ -127,6 +129,7 @@ module TranSound
             # Get data from database
             spotify_show = Repository::For.klass(Entity::Show).find_podcast_info(id)
             view 'show', locals: { show: spotify_show }
+
           else
             # Handle unknown URLs (unknown type)
             routing.redirect '/'

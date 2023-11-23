@@ -87,17 +87,10 @@ module TranSound
           # POST /episode/
           routing.post do
             url_requests = Forms::NewPodcastInfo.new.call(routing.params)
-<<<<<<< HEAD
-            # puts "1 #{url_requests}"
-            # puts "2 #{routing.params['spotify_url']}"
-
-            # spot_url = routing.params['spotify_url']
-=======
             puts "1 #{url_requests.inspect}"
             puts "2 #{routing.params['spotify_url']}"
 
             # url_requests = routing.params['spotify_url']
->>>>>>> d7572652020c53a4ca2940648a5b720fe9678fa4
             # unless (url_requests.include? 'open.spotify.com') &&
             #        (url_requests.split('/').count >= 3)
             #   flash[:error] = 'Invalid URL for a Spotify page (Require for a Spotify Episode or a Spotify Show)'
@@ -141,8 +134,6 @@ module TranSound
 
             routing.redirect '/'
           end
-<<<<<<< HEAD
-=======
 
           languages_dict = Views::LanguagesList.new.lang_dict
           # GET /episode/id or /show/id
@@ -154,7 +145,6 @@ module TranSound
             # Handle unknown URLs (unknown type)
             routing.redirect '/'
           end
->>>>>>> d7572652020c53a4ca2940648a5b720fe9678fa4
         end
       end
     end

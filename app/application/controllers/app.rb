@@ -35,17 +35,12 @@ module TranSound
         episode_result = Service::ListEpisodes.new.call(session[:watching])
         # show_result = Service::ListShows.new.call(session[:watching])
 
-        # Load previously viewed episodes
-        # episodes = Repository::For.klass(Entity::Episode)
-        #   .find_podcast_infos(session[:watching])
-        # shows = Repository::For.klass(Entity::Show)
-        #   .find_podcast_infos(session[:watching])
-
         if episode_result.failure?
           flash[:error] = episode_result.failure
           viewable_episodes = []
         else
-          episodes = result.value!
+          episodes = episode_result.value!
+          # puts episodes
           flash.now[:notice] = 'Add a Spotify Podcast Episode to get started' if episodes.none?
           session[:watching] = episodes.map(&:origin_id)
           viewable_episodes = Views::EpisodesList.new(episodes)
@@ -61,11 +56,9 @@ module TranSound
         #   viewable_shows = Views::ShowsList.new(shows)
         # end
 
-        # session[:watching] = episodes.map(&:origin_id)
-        # session[:watching] = shows.map(&:origin_id)
-        puts "Session: #{session[:watching]}"
-        puts "Episodes: #{episodes}"
-        puts "Session: #{session[:watching]}"
+        # puts "Session: #{session[:watching]}"
+        # puts "Episodes: #{episodes}"
+        # puts "Session: #{session[:watching]}"
         # puts "Shows: #{shows}"
 
         # if episodes.none?
@@ -91,8 +84,21 @@ module TranSound
         routing.is do
           # POST /episode/
           routing.post do
-            url_requests = Forms::NewPodcastInfo.new.call(routing.params)
-            podcast_info_made = Service::AddPodcastInfo.new.call(url_requests)
+            # url_requests = Forms::NewPodcastInfo.new.call(routing.params['spotify_url'])
+            # puts "1 #{url_requests}"
+            # puts "2 #{routing.params['spotify_url']}"
+
+            url_requests = routing.params['spotify_url']
+            unless (url_requests.include? 'open.spotify.com') &&
+                   (url_requests.split('/').count >= 3)
+              flash[:error] = 'Invalid URL for a Spotify page (Require for a Spotify Episode or a Spotify Show)'
+              response.status = 400
+              routing.redirect '/'
+            end
+
+            puts "app1 #{url_requests}"
+
+            podcast_info_made = Service::AddPodcastInfo.new.parse_url(url_requests)
 
             if podcast_info_made.failure?
               flash[:error] = podcast_info_made.failure
@@ -125,7 +131,7 @@ module TranSound
           # Get project from database
           spotify_episode = Repository::For.klass(Entity::Episode).find_podcast_info(id)
           puts "spotify_episode: #{spotify_episode}"
-          view 'episode', locals: { episode: spotify_episode }
+          view 'episode', locals: { episode: spotify_episode, lang_dict: languages_dict }
 
         elsif type == 'show'
           # Get data from API

@@ -9,10 +9,12 @@ module TranSound
       URL_REGEX = %r{https://open\.spotify\.com/(show|episode)/[a-zA-Z0-9]+}
 
       params do
-        required(:remote_url).filled(:string)
+        required(:spotify_url).filled(:string)
       end
 
-      rule(:remote_url) do
+      puts "hi #{params}"
+
+      rule(:spotify_url) do
         key.failure('is an invalid address for a Spotify podcast episode or show') unless URL_REGEX.match?(value)
       end
     end

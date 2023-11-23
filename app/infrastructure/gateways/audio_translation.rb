@@ -12,7 +12,7 @@ module TranSound
           @text = text
           @translate_language = translate_language
           # Execute Python translating script
-          @script_file = 'app/domain/audio_datas/lib/translator/google_translator.py'
+          @script_file = 'python_utils/translator/google_translator.py'
         end
 
         def translate

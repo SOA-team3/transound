@@ -51,8 +51,8 @@ soup = BeautifulSoup(requests.get(podcast_query_url).text, features="lxml")
 # This is the name of the episode
 title = 'test' # soup.find('a', {'class':'jJ8Epb'}).text
 # Create a new folder to contain podcasts from the same show
-if not os.path.exists(f'app/domain/audio_datas/data_storage/{title}'):
-    os.mkdir(f'app/domain/audio_datas/data_storage/{title}')
+if not os.path.exists(f'app/infrastructure/gateways/data_storage/{title}'):
+    os.mkdir(f'app/infrastructure/gateways/data_storage/{title}')
 else:
     # print(f"The folder '{title}' already exists.")
     pass

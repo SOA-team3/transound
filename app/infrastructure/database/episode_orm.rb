@@ -7,7 +7,7 @@ module TranSound
     # Object Relational Mapper for Episode Entities
     class EpisodeOrm < Sequel::Model(:episodes)
       many_to_one :show,
-                  class: :'TranSound::Database::EpisodeOrm'
+                  class: :'TranSound::Database::ShowOrm'
 
       plugin :timestamps, update_on_create: true
     end

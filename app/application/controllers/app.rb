@@ -107,12 +107,12 @@ module TranSound
               routing.redirect '/'
             end
 
-            podcast_info = podcast_info_made.value!
-            type = podcast_info.type
-            id = podcast_info.origin_id
+            @podcast_info = podcast_info_made.value!
+            type = @podcast_info.type
+            id = @podcast_info.origin_id
 
             # Add new project to watched set in cookies
-            session[:watching].insert(0, podcast_info.origin_id).uniq!
+            session[:watching].insert(0, @podcast_info.origin_id).uniq!
             flash[:notice] = 'Podcast info added to your list'
 
             # Redirect viewer to episode page or show page
@@ -138,9 +138,9 @@ module TranSound
           languages_dict = Views::LanguagesList.new.lang_dict
           # GET /episode/id or /show/id
           if type == 'episode'
-            view 'episode', locals: { episode: podcast_info, lang_dict: languages_dict }
+            view 'episode', locals: { episode: @podcast_info, lang_dict: languages_dict }
           elsif type == 'show'
-            view 'show', locals: { show: podcast_info, lang_dict: languages_dict }
+            view 'show', locals: { show: @podcast_info, lang_dict: languages_dict }
           else
             # Handle unknown URLs (unknown type)
             routing.redirect '/'

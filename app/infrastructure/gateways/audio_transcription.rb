@@ -11,7 +11,7 @@ module TranSound
         def initialize(audio_file_path, audio_file_name)
           @audio_file_path = "#{audio_file_path}#{audio_file_name}"
           # Execute Python SpeechRecognition transcribing script
-          @script_file = 'app/domain/audio_datas/lib/transcriber/transcribe_speech_recognition.py'
+          @script_file = 'python_utils/transcriber/transcribe_speech_recognition.py'
         end
 
         def transcribe
@@ -34,7 +34,7 @@ module TranSound
         def initialize(audio_file_path)
           @audio_file_path = audio_file_path
           # Execute Python Scraping script
-          @script_file = 'app/domain/audio_datas/lib/transcriber/transcribe_whisper.py'
+          @script_file = 'python_utils/transcriber/transcribe_whisper.py'
         end
 
         def transcribe

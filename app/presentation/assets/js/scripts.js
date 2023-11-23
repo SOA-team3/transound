@@ -29,6 +29,19 @@ $(document).ready(function() {
   });
 });
 
+// Translate Button
+// // 等待文档加载完毕
+// $(document).ready(function() {
+//   // 当按钮被点击时
+//   $("#translateButton").click(function() {
+//     // 从下拉菜单中获取所选的值
+//     var selectedValue = $("#sel1").val();
+
+//     // 将所选值设置到具有唯一标识符的元素中
+//     $("#translationContent").html(selectedValue);
+//   });
+// });
+
 // (Unused) test show and hide function
 document.addEventListener('DOMContentLoaded', function() {
     const collapseButtons = document.querySelectorAll('.collapse-button');

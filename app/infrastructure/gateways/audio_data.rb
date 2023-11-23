@@ -14,7 +14,7 @@ module TranSound
       class AppleWebScraping
         # Execute Python scraping script
         def initialize
-          @script_file = 'app/domain/audio_datas/lib/apple_web_scraper.py'
+          @script_file = 'python_utils/web_scraper/apple_web_scraper.py'
           @urls = Open3.capture2("python3 #{@script_file} ").split
         end
 
@@ -33,7 +33,7 @@ module TranSound
         def initialize(episode_name)
           @google_pod_url = "https://podcasts.google.com/search/#{episode_name}"
           # Execute Python Scraping script
-          @script_file = 'app/domain/audio_datas/lib/web_scraper/google_pod_episode_scraper.py'
+          @script_file = 'python_utils/web_scraper/google_pod_episode_scraper.py'
         end
 
         def scrap

@@ -14,9 +14,9 @@ require 'vcr'
 require 'webmock'
 
 # get TranSound::Token class
-require_relative '../app/infrastructure/gateways/podcast_api'
+require_relative '../../app/infrastructure/gateways/podcast_api'
 
-require_relative '../require_app'
+require_relative '../../require_app'
 require_app
 
 # should contain CONST that pass into spec(podcast_info)
@@ -28,9 +28,11 @@ MARKET = 'TW'
 
 SECRET_PATH = 'config/secrets.yml'
 CONFIG = YAML.safe_load_file(SECRET_PATH)
-CLIENT_ID = CONFIG['spotify_Client_ID']
-CLIENT_SECRET = CONFIG['spotify_Client_secret']
-TEMP_TOKEN = TranSound::Podcast::Api::Token.new(SECRET_PATH, CONFIG, CLIENT_ID, CLIENT_SECRET, TEMP_TOKEN_CONFIG).get
+TEMP_TOKEN_CONFIG = YAML.safe_load_file('config/temp_token.yml')
+CLIENT_ID = CONFIG['test']['spotify_Client_ID']
+CLIENT_SECRET = CONFIG['test']['spotify_Client_secret']
+TEMP_TOKEN = TranSound::Podcast::Api::Token.new(CONFIG, CLIENT_ID,
+                                                CLIENT_SECRET, TEMP_TOKEN_CONFIG).get
 EPISODE_CORRECT = YAML.safe_load_file('spec/fixtures/episode_results.yml')
 SHOW_CORRECT = YAML.safe_load_file('spec/fixtures/show_results.yml')
 

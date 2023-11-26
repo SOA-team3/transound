@@ -47,7 +47,7 @@ module TranSound
         end
       end
 
-      def handle_ensure_watched_show(input)
+      def handle_ensure_watched_show(requested, input)
         if input[:watched_list][:show_id].include? requested.id
           Success(input)
         else
@@ -55,14 +55,14 @@ module TranSound
         end
       end
 
-      def handle_retrieve_remote_episode(input)
+      def handle_retrieve_remote_episode(requested, input)
         input[:episode] = Repository::For.klass(Entity::Episode).find_podcast_info(
           requested.id
         )
         input[:episode] ? Success(input) : Failure('Episode not found')
       end
 
-      def handle_retrieve_remote_show(input)
+      def handle_retrieve_remote_show(requested, input)
         input[:show] = Repository::For.klass(Entity::Show).find_podcast_info(
           requested.id
         )

@@ -40,9 +40,10 @@ module TranSound
           viewable_episodes = []
         else
           episodes = episode_result.value!
-          # puts episodes
+          puts "episodes: #{episodes}"
           flash.now[:notice] = 'Add a Spotify Podcast Episode to get started' if episodes.none?
           session[:watching] = episodes.map(&:origin_id)
+          puts "session[:watching]: #{session[:watching]}"
           viewable_episodes = Views::EpisodesList.new(episodes)
         end
 
@@ -78,6 +79,7 @@ module TranSound
       end
 
       # podcast_info
+      # routing.on 'podcast_info' do
       routing.on 'podcast_info' do
         puts TEMP_TOKEN_CONFIG
 
@@ -85,7 +87,16 @@ module TranSound
           # POST /episode/
           routing.post do
             url_requests = Forms::NewPodcastInfo.new.call(routing.params)
-          
+            puts "1 #{url_requests.inspect}"
+            puts "2 #{routing.params['spotify_url']}"
+
+            # url_requests = routing.params['spotify_url']
+            # unless (url_requests.include? 'open.spotify.com') &&
+            #        (url_requests.split('/').count >= 3)
+            #   flash[:error] = 'Invalid URL for a Spotify page (Require for a Spotify Episode or a Spotify Show)'
+            #   response.status = 400
+            #   routing.redirect '/'
+            # end
 
             # puts "app1 #{url_requests}"
 
@@ -97,6 +108,8 @@ module TranSound
             end
 
             podcast_info = podcast_info_made.value!
+            type = podcast_info.type
+            id = podcast_info.origin_id
 
             # Add new project to watched set in cookies
             session[:watching].insert(0, podcast_info.origin_id).uniq!
@@ -107,7 +120,13 @@ module TranSound
           end
         end
 
-        routing.on String, String do |_type, id|
+        routing.on String, String do |type, id|
+          # puts "Redirect_podcast_info: #{podcast_info}"
+          puts "Redirect_type: #{type}"
+          puts "Redirect_id: #{id}"
+          # puts "Redirect_Podcast_info: #{podcast_info}"
+          # puts "Redirect_Podcast_info.name: #{podcast_info.name}"
+
           # DELETE /podcast_info/{type}/{id}
           routing.delete do
             fullname = id.to_s
@@ -115,25 +134,17 @@ module TranSound
 
             routing.redirect '/'
           end
-        end
 
-        # GET /episode/id or /show/id
-        if type == 'episode'
-          # Get project from database
-          spotify_episode = Repository::For.klass(Entity::Episode).find_podcast_info(id)
-          puts "spotify_episode: #{spotify_episode}"
-          view 'episode', locals: { episode: spotify_episode, lang_dict: languages_dict }
-
-        elsif type == 'show'
-          # Get data from API
-          # spotify_show = TranSound::Podcast::ShowMapper.new(TEMP_TOKEN).find("#{type}s", id, 'TW')
-
-          # Get data from database
-          spotify_show = Repository::For.klass(Entity::Show).find_podcast_info(id)
-          view 'show', locals: { show: spotify_show }
-        else
-          # Handle unknown URLs (unknown type)
-          routing.redirect '/'
+          languages_dict = Views::LanguagesList.new.lang_dict
+          # GET /episode/id or /show/id
+          if type == 'episode'
+            view 'episode', locals: { episode: podcast_info, lang_dict: languages_dict }
+          elsif type == 'show'
+            view 'show', locals: { show: podcast_info, lang_dict: languages_dict }
+          else
+            # Handle unknown URLs (unknown type)
+            routing.redirect '/'
+          end
         end
       end
     end

@@ -6,10 +6,12 @@ TEMP_TOKEN_CONFIG = YAML.safe_load_file('config/temp_token.yml')
 
 module TranSound
   module Service
-    # Transaction to store episode from Github API to database
+    # Transaction to store episode from Spotify API to database
     class AddPodcastInfo
       include Dry::Transaction
 
+      @temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
+                                                  App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
       step :parse_url
       step :find_podcast_info
       step :store_podcast_info
@@ -17,9 +19,9 @@ module TranSound
       private
 
       def parse_url(input)
-        puts "add p info #{input}"
+        puts "add p info: #{input.inspect}"
         if input.success?
-          @type, id = input[:spotify_url].split('/')[-2..]
+          @type, id = input.values[:spotify_url].split('/')[-2..]
           Success(type: @type, id:)
         else
           Failure("URL #{input.errors.messages.first}")
@@ -77,7 +79,8 @@ module TranSound
 
       def episode_from_spotify(input)
         @temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
-                                                         App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
+          App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
+        # puts "#{@type} #{input[:id]}"
         TranSound::Podcast::EpisodeMapper
           .new(@temp_token)
           .find("#{@type}s", input[:id], 'TW')
@@ -86,8 +89,6 @@ module TranSound
       end
 
       def show_from_spotify(input)
-        @temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
-                                                         App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
         TranSound::Podcast::ShowMapper
           .new(@temp_token)
           .find("#{@type}s", input[:id], 'TW')
@@ -96,13 +97,15 @@ module TranSound
       end
 
       def episode_in_database(input)
-        spotify_episode = Repository::For.klass(Entity::Episode)
+        Repository::For.klass(Entity::Episode)
           .find_podcast_info(input[:id])
+        # view 'episode', locals: { episode: spotify_episode, lang_dict: languages_dict }
       end
 
       def show_in_database(input)
-        spotify_show = Repository::For.klass(Entity::Show)
+        Repository::For.klass(Entity::Show)
           .find_podcast_info(input[:id])
+        # view 'show', locals: { show: spotify_show }
       end
     end
   end

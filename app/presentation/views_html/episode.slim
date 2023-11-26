@@ -49,7 +49,7 @@ hr
             - lang_dict.each do |key, value|
               option value=key
                 = key
-
+          
           h2.title_txt.mr-3
             button#translateButton.btn.btn-primary.mt-4 Click to Translate
           span.h2.title_txt
@@ -87,6 +87,7 @@ hr
               i.bi.bi-bookmarks-fill Translation
             div.list-group.translate-content
               div.row
+                / div.col-md-9#translationContent
                 div.col-md-9 data-new-content="Your new content goes here."
                   / | This is a translation-content........
                   = episode.translation

@@ -22,7 +22,7 @@ require_app
 # should contain CONST that pass into spec(podcast_info)
 EPISODE_TYPE = 'episodes'
 SHOW_TYPE = 'shows'
-EPISODE_ID = '7vwvbU1pDkv0IuWPY8SZyz'
+EPISODE_ID = '2zplNaMpre0ASbFJV7OSSq' # '7vwvbU1pDkv0IuWPY8SZyz'
 SHOW_ID = '5Vv32KtHB3peVZ8TeacUty'
 MARKET = 'TW'
 

@@ -3,6 +3,7 @@
 require 'roda'
 require 'slim'
 require 'slim/include'
+require 'rack'
 
 require_relative 'helpers'
 
@@ -82,6 +83,7 @@ module TranSound
             puts "podcast_info's class: #{podcast_info.class}"
 
             # Add new podcast_info to watched set in cookies
+
             if type == 'episode'
               session[:watching][:episode_id].insert(0, podcast_info.origin_id).uniq!
             elsif type == 'show'
@@ -117,7 +119,7 @@ module TranSound
 
             session[:watching] ||= { episode_id: [], show_id: [] }
 
-            result = Service::PodcastInfo.new.call(
+            result = Service::ViewPodcastInfo.new.call(
               watched_list: session[:watching],
               requested: path_request
             )
@@ -128,10 +130,11 @@ module TranSound
             end
 
             languages_dict = Views::LanguagesList.new.lang_dict
-            if type == 'episode'
+            case type
+            when 'episode'
               podcast_info = result.value![:episode]
               view 'episode', locals: { episode: podcast_info, lang_dict: languages_dict }
-            elsif type == 'show'
+            when 'show'
               podcast_info = result.value![:show]
               view 'show', locals: { show: podcast_info, lang_dict: languages_dict }
             else

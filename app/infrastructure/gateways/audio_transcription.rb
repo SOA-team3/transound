@@ -60,5 +60,6 @@ end
 # SpeechRecognition version(free)
 # audio_file_path = 'podcast_mp3_store/'
 # audio_file_name = 'These Tiny Pollinators Can Travel Surprisingly Huge Distances.mp3'
-# podcast_transcription = TranSound::Podcast::TranscribingUtils::SpeechRecognition.new(audio_file_path, audio_file_name).transcribe
+# podcast_transcription =
+#   TranSound::Podcast::TranscribingUtils::SpeechRecognition.new(audio_file_path, audio_file_name).transcribe
 # puts "podcast_transcription: #{podcast_transcription}"

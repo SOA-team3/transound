@@ -10,8 +10,6 @@ module TranSound
     class AddPodcastInfo
       include Dry::Transaction
 
-      @temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
-                                                  App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
       step :parse_url
       step :find_podcast_info
       step :store_podcast_info
@@ -79,8 +77,7 @@ module TranSound
 
       def episode_from_spotify(input)
         @temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
-          App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
-        # puts "#{@type} #{input[:id]}"
+                                                         App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
         TranSound::Podcast::EpisodeMapper
           .new(@temp_token)
           .find("#{@type}s", input[:id], 'TW')
@@ -89,6 +86,8 @@ module TranSound
       end
 
       def show_from_spotify(input)
+        @temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
+          App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
         TranSound::Podcast::ShowMapper
           .new(@temp_token)
           .find("#{@type}s", input[:id], 'TW')
@@ -99,13 +98,11 @@ module TranSound
       def episode_in_database(input)
         Repository::For.klass(Entity::Episode)
           .find_podcast_info(input[:id])
-        # view 'episode', locals: { episode: spotify_episode, lang_dict: languages_dict }
       end
 
       def show_in_database(input)
         Repository::For.klass(Entity::Show)
           .find_podcast_info(input[:id])
-        # view 'show', locals: { show: spotify_show }
       end
     end
   end

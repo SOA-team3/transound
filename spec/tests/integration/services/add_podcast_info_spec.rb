@@ -185,4 +185,3 @@ describe 'Retrieve and store show' do
     _(show_made.failure.downcase).must_include 'could not find'
   end
 end
-end

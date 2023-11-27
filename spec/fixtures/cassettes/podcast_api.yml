@@ -2511,4 +2511,132 @@ http_interactions:
         \ \"publisher\" : \"Bailingguo News\",\n  \"total_episodes\" : 724,\n  \"type\"
         : \"show\",\n  \"uri\" : \"spotify:show:5Vv32KtHB3peVZ8TeacUty\"\n}"
   recorded_at: Mon, 06 Nov 2023 06:26:00 GMT
+- request:
+    method: get
+    uri: https://api.spotify.com/v1/episodes/2zplNaMpre0ASbFJV7OSSq?market=TW
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SPOTIFY_TOKEN>
+      Connection:
+      - close
+      Host:
+      - api.spotify.com
+      User-Agent:
+      - http.rb/5.1.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - public, max-age=7200
+      Etag:
+      - '"MC-IjM5ZmM4YWMzYWNkZTU2OGU2OGYxOWQ4YmMxNzg4ZWY1Ig=="'
+      X-Robots-Tag:
+      - noindex, nofollow
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version,
+        X-Cloud-Trace-Context, client-token, content-access-token
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS, PUT, DELETE, PATCH
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '604800'
+      Content-Length:
+      - '3726'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Mon, 27 Nov 2023 05:59:46 GMT
+      Server:
+      - envoy
+      Via:
+      - HTTP/2 edgeproxy, 1.1 google
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "audio_preview_url" : "https://podz-content.spotifycdn.com/audio/clips/6IJGtCWYj5RygkmtOqXfrr/clip_64400_112350.mp3",
+          "description" : "It turns out that hoverflies may fly hundreds or even thousands of miles—all to help pollinate our flowers and vegetables.",
+          "duration_ms" : 126249,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/episode/2zplNaMpre0ASbFJV7OSSq"
+          },
+          "href" : "https://api.spotify.com/v1/episodes/2zplNaMpre0ASbFJV7OSSq",
+          "html_description" : "It turns out that hoverflies may fly hundreds or even thousands of miles—all to help pollinate our flowers and vegetables.",
+          "id" : "2zplNaMpre0ASbFJV7OSSq",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/ab6765630000ba8a0af810ea9db75965d02ed3ad",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/ab67656300005f1f0af810ea9db75965d02ed3ad",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/ab6765630000f68d0af810ea9db75965d02ed3ad",
+            "width" : 64
+          } ],
+          "is_externally_hosted" : false,
+          "is_playable" : true,
+          "language" : "en-US",
+          "languages" : [ "en-US" ],
+          "name" : "These Tiny Pollinators Can Travel Surprisingly Huge Distances",
+          "release_date" : "2022-09-07",
+          "release_date_precision" : "day",
+          "show" : {
+            "available_markets" : [ "AD", "AE", "AG", "AL", "AM", "AR", "AT", "AU", "BA", "BB", "BE", "BF", "BG", "BH", "BJ", "BO", "BR", "BS", "BT", "BW", "BZ", "CA", "CH", "CL", "CO", "CR", "CV", "CW", "CY", "CZ", "DE", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FJ", "FM", "FR", "GB", "GD", "GE", "GH", "GM", "GR", "GT", "GW", "GY", "HK", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JM", "JO", "JP", "KE", "KI", "KN", "KR", "KW", "LB", "LC", "LI", "LR", "LS", "LT", "LU", "LV", "MA", "MC", "ME", "MG", "MH", "MK", "ML", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NE", "NG", "NI", "NL", "NO", "NR", "NZ", "OM", "PA", "PE", "PG", "PH", "PL", "PS", "PT", "PW", "PY", "QA", "RO", "RS", "SA", "SB", "SC", "SE", "SG", "SI", "SK", "SL", "SM", "SN", "SR", "ST", "SV", "TH", "TL", "TN", "TO", "TR", "TT", "TV", "TW", "UA", "US", "UY", "VC", "VN", "VU", "WS", "XK", "ZA" ],
+            "copyrights" : [ ],
+            "description" : "Leading science and tech journalists dive into a rich world of scientific discovery in this bite-size science variety show. To view all of our archived  material, go to:  www.scientificamerican.com/podcast .",
+            "explicit" : false,
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/show/7uz2rjUW6bGrPCgw4rI8K4"
+            },
+            "href" : "https://api.spotify.com/v1/shows/7uz2rjUW6bGrPCgw4rI8K4",
+            "html_description" : "Leading science and tech journalists dive into a rich world of scientific discovery in this bite-size science variety show. To view all of our archived  material, go to:  www.scientificamerican.com/podcast .",
+            "id" : "7uz2rjUW6bGrPCgw4rI8K4",
+            "images" : [ {
+              "height" : 640,
+              "url" : "https://i.scdn.co/image/ab6765630000ba8a0af810ea9db75965d02ed3ad",
+              "width" : 640
+            }, {
+              "height" : 300,
+              "url" : "https://i.scdn.co/image/ab67656300005f1f0af810ea9db75965d02ed3ad",
+              "width" : 300
+            }, {
+              "height" : 64,
+              "url" : "https://i.scdn.co/image/ab6765630000f68d0af810ea9db75965d02ed3ad",
+              "width" : 64
+            } ],
+            "is_externally_hosted" : false,
+            "languages" : [ "en-US" ],
+            "media_type" : "audio",
+            "name" : "Science, Quickly",
+            "publisher" : "Scientific American",
+            "total_episodes" : 500,
+            "type" : "show",
+            "uri" : "spotify:show:7uz2rjUW6bGrPCgw4rI8K4"
+          },
+          "type" : "episode",
+          "uri" : "spotify:episode:2zplNaMpre0ASbFJV7OSSq"
+        }
+  recorded_at: Mon, 27 Nov 2023 05:59:46 GMT
 recorded_with: VCR 6.2.0

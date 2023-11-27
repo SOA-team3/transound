@@ -3,6 +3,7 @@
 require 'roda'
 require 'slim'
 require 'slim/include'
+require 'rack'
 
 require_relative 'helpers'
 
@@ -30,56 +31,38 @@ module TranSound
       # GET /
       routing.root do
         # Get cookie viewer's previously seen podcast_infos
-        session[:watching] ||= []
+        session[:watching] ||= { episode_id: [], show_id: [] }
 
-        episode_result = Service::ListEpisodes.new.call(session[:watching])
-        # show_result = Service::ListShows.new.call(session[:watching])
+        puts "Session watching: #{session[:watching].inspect}"
+
+        episode_result = Service::ListEpisodes.new.call(session[:watching][:episode_id])
+        show_result = Service::ListShows.new.call(session[:watching][:show_id])
 
         if episode_result.failure?
           flash[:error] = episode_result.failure
           viewable_episodes = []
         else
           episodes = episode_result.value!
-          puts "episodes: #{episodes}"
           flash.now[:notice] = 'Add a Spotify Podcast Episode to get started' if episodes.none?
-          session[:watching] = episodes.map(&:origin_id)
-          puts "session[:watching]: #{session[:watching]}"
+          session[:watching][:episode_id] = episodes.map(&:origin_id)
           viewable_episodes = Views::EpisodesList.new(episodes)
         end
 
-        # if show_result.failure?
-        #   flash[:error] = show_result.failure
-        #   viewable_shows = []
-        # else
-        #   shows = result.value!
-        #   flash.now[:notice] = 'Add a Spotify Podcast Show to get started' if shows.none?
-        #   session[:watching] = shows.map(&:origin_id)
-        #   viewable_shows = Views::ShowsList.new(shows)
-        # end
+        if show_result.failure?
+          flash[:error] = show_result.failure
+          viewable_shows = []
+        else
+          shows = show_result.value!
+          flash.now[:notice] = 'You can add a Spotify Podcast Show to get started' if shows.none?
+          session[:watching][:show_id] = shows.map(&:origin_id)
+          viewable_shows = Views::ShowsList.new(shows)
+        end
 
-        # puts "Session: #{session[:watching]}"
-        # puts "Episodes: #{episodes}"
-        # puts "Session: #{session[:watching]}"
-        # puts "Shows: #{shows}"
-
-        # if episodes.none?
-        #   flash.now[:notice] = 'Add a Spotify Podcast Episode to get started'
-        #   puts 'episodes = none'
-        # end
-        # if shows.none?
-        #   flash.now[:notice] = 'Add a Spotify Podcast Show to get started'
-        #   puts 'shows = none'
-        # end
-
-        # viewable_episodes = Views::EpisodesList.new(episodes)
-        # viewable_shows = Views::ShowsList.new(shows)
-
-        view 'home', locals: { episodes: viewable_episodes } # , shows: viewable_shows }
-        # view 'home'
+        # view 'home', locals: { shows: viewable_shows }
+        view 'home', locals: { episodes: viewable_episodes, shows: viewable_shows }
       end
 
       # podcast_info
-      # routing.on 'podcast_info' do
       routing.on 'podcast_info' do
         puts TEMP_TOKEN_CONFIG
 
@@ -87,7 +70,6 @@ module TranSound
           # POST /episode/
           routing.post do
             url_requests = Forms::NewPodcastInfo.new.call(routing.params)
-
             podcast_info_made = Service::AddPodcastInfo.new.call(url_requests)
 
             if podcast_info_made.failure?
@@ -101,7 +83,13 @@ module TranSound
             puts "podcast_info's class: #{podcast_info.class}"
 
             # Add new podcast_info to watched set in cookies
-            session[:watching].insert(0, podcast_info.origin_id).uniq!
+
+            if type == 'episode'
+              session[:watching][:episode_id].insert(0, podcast_info.origin_id).uniq!
+            elsif type == 'show'
+              session[:watching][:show_id].insert(0, podcast_info.origin_id).uniq!
+            end
+
             flash[:notice] = 'Podcast info added to your list'
 
             # Redirect viewer to episode page or show page
@@ -113,7 +101,12 @@ module TranSound
           # DELETE /podcast_info/{type}/{id}
           routing.delete do
             fullname = id.to_s
-            session[:watching].delete(fullname)
+
+            if type == 'episode'
+              session[:watching][:episode_id].delete(fullname)
+            elsif type == 'show'
+              session[:watching][:show_id].delete(fullname)
+            end
 
             routing.redirect '/'
           end
@@ -124,9 +117,9 @@ module TranSound
               type, id, request
             )
 
-            session[:watching] ||= []
+            session[:watching] ||= { episode_id: [], show_id: [] }
 
-            result = Service::PodcastInfo.new.call(
+            result = Service::ViewPodcastInfo.new.call(
               watched_list: session[:watching],
               requested: path_request
             )
@@ -136,12 +129,13 @@ module TranSound
               routing.redirect '/'
             end
 
-            podcast_info = result.value![:episode]
-
             languages_dict = Views::LanguagesList.new.lang_dict
-            if type == 'episode'
+            case type
+            when 'episode'
+              podcast_info = result.value![:episode]
               view 'episode', locals: { episode: podcast_info, lang_dict: languages_dict }
-            elsif type == 'show'
+            when 'show'
+              podcast_info = result.value![:show]
               view 'show', locals: { show: podcast_info, lang_dict: languages_dict }
             else
               # Handle unknown URLs (unknown type)

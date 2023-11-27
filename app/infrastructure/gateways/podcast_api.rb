@@ -186,4 +186,4 @@ end
 # show = TranSound::Podcast::Api.new(TEMP_TOKEN).show_data(SHOW_TYPE, SHOW_ID, MARKET)
 # output = show['episodes']['items'][0]['html_description']
 
-# File.write('podcast_api_test_output.txt', output)
+# File.write('spec/fixtures/new_episodes_results.yml', output)

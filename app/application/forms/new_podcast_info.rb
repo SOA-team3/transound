@@ -13,8 +13,6 @@ module TranSound
         required(:spotify_url).filled(:string)
       end
 
-      puts "hi #{params}"
-
       rule(:spotify_url) do
         key.failure(MSG_INVALID_URL) unless URL_REGEX.match?(value)
       end

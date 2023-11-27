@@ -7,14 +7,24 @@ task :default do
   puts `rake -T`
 end
 
-desc 'Run tests once'
-Rake::TestTask.new(:spec) do |t|
-  t.pattern = 'spec/*_spec.rb'
-  # t.pattern = 'spec/gateway_podcast_spec.rb'
-  t.warning = false
+desc 'Run the integration tests'
+task spec: ['spec:default']
+
+namespace :spec do
+  desc 'Run integration tests'
+  Rake::TestTask.new(:default) do |t|
+    t.pattern = 'spec/tests/{integration}/**/*_spec.rb'
+    t.warning = false
+  end
+
+  desc 'Run all tests'
+  Rake::TestTask.new(:all) do |t|
+    t.pattern = 'spec/tests/**/*_spec.rb'
+    t.warning = false
+  end
 end
 
-desc 'Keep rerunning tests upon changes'
+desc 'Keep rerunning integration tests upon changes'
 task :respec do
   sh "rerun -c 'rake spec' --ignore 'coverage/*'"
 end

@@ -20,15 +20,17 @@ module TranSound
     end
 
     # Retrieves array of all listed show entities
-    # class ListShows
-    #   def call(shows_list)
-    #     shows = Repository::For.klass(Entity::Show)
-    #       .find_podcast_infos(shows_list)
+    class ListShows
+      include Dry::Monads::Result::Mixin
 
-    #     Success(shows)
-    #   rescue StandardError
-    #     Failure('Could not access database')
-    #   end
-    # end
+      def call(shows_list)
+        shows = Repository::For.klass(Entity::Show)
+          .find_podcast_infos(shows_list)
+
+        Success(shows)
+      rescue StandardError
+        Failure('Could not access database')
+      end
+    end
   end
 end

@@ -12,13 +12,13 @@
 hr
 .container
   .row
-    .left-sidebar.col-lg-5.d-flex.flex-column.align-items-center.mr-4
-      h2.mt-4
+    .left-sidebar.col-lg-3.d-flex.flex-column.align-items-center
+      h5.mt-4
         span.decoration
           | Episode Information
         div.center
-          img.episode.images[src=episode.images alt="#{episode.images}" style="width: 80%; height: auto; margin: 10%; border-radius: 50%;"]
-        h4.episode.name.mt-4
+          img.episode.images.img-thumbnail[src=episode.images alt="#{episode.images}" style="width: 80%; height: auto; margin: 10%;"]
+        h5.episode.name.mt-4.text-info
           = episode.name
         span.show.attribute
           | Release Date:&nbsp
@@ -32,34 +32,35 @@ hr
           // button.collapse-button(type="button") Show/Hide Description
           // .collapsible-content
         span.episode.attribute 【Episode URL】&nbsp
-        a.episode.episode_url href="#{episode.episode_url}" Click here to visit Spotify Episode page-#{episode.name}
+        a.episode.episode_url.text-primary href="#{episode.episode_url}" Click here to visit Spotify Episode page-#{episode.name}
         span.episode.attribute 【Episode MP3 URL】&nbsp
-        a.episode.episode_mp3_url href="#{episode.episode_mp3_url}" Click here to visit Spotify Episode MP3 page-#{episode.name}
+        a.episode.episode_mp3_url.text-primary href="#{episode.episode_mp3_url}" Click here to visit Spotify Episode MP3 page-#{episode.name}
 
-    .right-sidebar.col-lg-3
+    .right-sidebar.col-lg-5.border.border-secondary.rounded
       .scrollable-content
-        h2.title_txt
+        h3.title_txt
           i.bi.bi-bookmarks-fill Transcript
         div.row
-        .col.d-flex.text-right
-          select#sel1.form-control name="languages"
+        .col.d-flex.align-items-center
+          select#sel1.form-control.border.border-secondary name="languages"
             / optgroup label=("European")
             option(value="" disabled="" selected="")
               | Select a language
+              / span.i.bi.bi-download
             - lang_dict.each do |key, value|
               option value=key
                 = key
           
-          h2.title_txt.mr-3
-            button#translateButton.btn.btn-primary.mt-4 Click to Translate
+          span.title_txt.mr-2.ml-2
+            h6.button#translateButton.btn.btn-primary Click to Translate
           span.h2.title_txt
-            button.btn.btn-primary.mt-4.download-btn data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadTranscript()"
+            button.btn.btn-primary.download-btn data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadTranscript()"
               i.bi.bi-download
 
           hr
-        div.list-group.transcript-content
+        div.list-group.transcript-content.pt-1
           div.row
-            div.col-md-9
+            div
               / | This is a transcript content........
               = episode.transcript
           / div.row
@@ -81,14 +82,17 @@ hr
           span.i.bi.bi-arrow-right
 
 
-    .right-sidebar.col-lg-3
+    .right-sidebar.col-lg-4.border.border-secondary.rounded
           .scrollable-content
-            h2.title_txt
+            h3.title_txt
               i.bi.bi-bookmarks-fill Translation
-            div.list-group.translate-content
+            button.btn.btn-primary.download-btn data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadTranscript()"
+              i.bi.bi-download
+              
+            div.list-group.translate-content.pt-3
               div.row
                 / div.col-md-9#translationContent
-                div.col-md-9 data-new-content="Your new content goes here."
+                div data-new-content="Your new content goes here."
                   / | This is a translation-content........
                   = episode.translation
 

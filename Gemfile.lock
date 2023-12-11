@@ -64,6 +64,8 @@ GEM
       dry-initializer (~> 3.0)
       dry-schema (>= 1.12, < 2)
       zeitwerk (~> 2.6)
+    faker (3.2.2)
+      i18n (>= 1.8.11, < 2)
     ffi (1.16.3)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
@@ -84,6 +86,8 @@ GEM
     http-cookie (1.0.5)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
+    i18n (1.14.1)
+      concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     json (2.6.3)
     kwalify (0.7.2)
@@ -191,6 +195,7 @@ DEPENDENCIES
   dry-transaction (~> 0.13)
   dry-types (~> 1)
   dry-validation (~> 1.7)
+  faker
   figaro (~> 1.0)
   flog
   hirb

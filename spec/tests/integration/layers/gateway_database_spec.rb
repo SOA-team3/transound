@@ -22,8 +22,14 @@ describe 'Integration Tests of Spotify API and Database' do
 
     it 'HAPPY: should be able to save *episode* from Spotify API to database' do
       episode = TranSound::Podcast::EpisodeMapper.new(TEMP_TOKEN).find(EPISODE_TYPE, EPISODE_ID, MARKET)
+      puts episode
+      puts "episode.origin_id: #{episode.origin_id}"
+      puts "episode.images: #{episode.images}"
 
       rebuilt = TranSound::Repository::For.entity(episode).create(episode)
+      puts rebuilt
+      puts "rebuilt.origin_id: #{rebuilt.origin_id}"
+      puts "rebuilt.images: #{rebuilt.images}"
 
       _(rebuilt.origin_id).must_equal(episode.origin_id)
       _(rebuilt.description).must_equal(episode.description)

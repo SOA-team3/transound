@@ -1,7 +1,10 @@
+# Web Crawling
 lxml
 requests
 bs4
 wget # to download files
+
+# Data Preprocessing
 pandas
 
 # Whisper transcribe package
@@ -14,3 +17,7 @@ translate
 pydub
 ffmpeg-python
 ffmpeg
+
+# NLP
+nltk
+textblob

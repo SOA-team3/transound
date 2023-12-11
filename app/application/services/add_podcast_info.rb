@@ -17,7 +17,7 @@ module TranSound
       private
 
       def parse_url(input)
-        puts "add p info: #{input.inspect}"
+        puts "add_podcast_info: #{input.inspect}"
         if input.success?
           @type, id = input.values[:spotify_url].split('/')[-2..]
           Success(type: @type, id:)

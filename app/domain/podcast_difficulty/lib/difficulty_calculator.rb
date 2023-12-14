@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+require 'json'
 require 'yaml'
 require_relative '../../../infrastructure/gateways/word_difficulty'
 
@@ -6,8 +8,6 @@ module TranSound
   module Mixins
     # line credit calculation methods
     module DifficultyCalculator
-      TEST_TRANSCRIPT = YAML.safe_load_file('app/domain/podcast_difiiculty/lib/test_transcript.yml')
-
       def word_split(sentence)
         sentence.downcase.gsub(/[^a-z\s]/, '').split
       end
@@ -25,10 +25,24 @@ module TranSound
 
       # Return a word-difficulty-dict by input transcript
       def words_difficulty_dict_create(transcript)
-        TranSound::Podcast::WordDifficultyUtils::NLTKWordDifficultyDict.new(transcript).create_word_difficulty_dict
-        words_difficulty_dict = YAML.safe_load_file('app/domain/podcast_difiiculty/lib/temp_word_difficulty_dict.yml')
-        words_difficulty_dict.to_h
+        words_difficulty_dict = TranSound::Podcast::WordDifficultyUtils::NLTKWordDifficultyDict.new(transcript).create_word_difficulty_dict
+        # 上面的 gsub 用於處理類似 "i'm" 的情況，將其轉換為 "i"m"
+        json_string = words_difficulty_dict.to_s.gsub("'", '"').gsub('": "', '": "').gsub('": "', '": "')
+        JSON.parse(json_string)
+      rescue JSON::ParserError => e
+        puts "JSON parsing error: #{e.message}"
+        nil
       end
+
+      def dict_filter(dict, level)
+        if %w[easy moderate difficult unclassified].include?(level)
+          dict.select { |_key, value| value == level }
+        else
+          {}
+        end
+      end
+
     end
   end
 end
+

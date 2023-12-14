@@ -210,7 +210,7 @@ if lines:
     words = create_filtered_word_list(transcript)
     word_difficulty_dict = create_word_difficulty_dict(words)
 
-    output_file_path = 'app/domain/podcast_difiiculty/lib/temp_word_difficulty_dict.yml'
+    output_file_path = 'app/domain/podcast_difficulty/lib/temp_word_difficulty_dict.yml'
     with open(output_file_path, 'w') as file:
         yaml.dump(word_difficulty_dict, file)
 

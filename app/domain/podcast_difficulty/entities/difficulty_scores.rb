@@ -14,10 +14,6 @@ module TranSound
         @transcript = transcript
       end
 
-      def transcript
-        @transcript
-      end
-
       def words_array
         word_split(@transcript)
       end
@@ -29,13 +25,15 @@ module TranSound
       def words_difficulty_dict_by_transcript
         words_difficulty_dict_create(transcript)
       end
-
     end
   end
 end
 
 # test
-TEST_TRANSCRIPT = YAML.safe_load_file('app/domain/podcast_difiiculty/lib/test_transcript.yml')
-difficulty_score = TranSound::Entity::DifficultyScores.new(transcript: TEST_TRANSCRIPT)
-puts difficulty_score.words_difficulty_dict_by_transcript
 
+# TEST_TRANSCRIPT = YAML.safe_load_file('app/domain/podcast_difficulty/lib/test_transcript.yml')
+# difficulty_score = TranSound::Entity::DifficultyScores.new(transcript: TEST_TRANSCRIPT)
+# puts difficulty_score.transcript
+# words_difficulty_dict = difficulty_score.words_difficulty_dict_by_transcript
+# puts "words_difficulty_dict: #{words_difficulty_dict}"
+# puts difficulty_score.dict_filter(words_difficulty_dict, 'easy')

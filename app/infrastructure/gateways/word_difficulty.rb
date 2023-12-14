@@ -35,7 +35,7 @@ module TranSound
       class NLTKWordDifficultyDict
         def initialize(transcript)
           @transcript = transcript
-          puts "initialize transcript: #{transcript}"
+          # puts "initialize transcript: #{transcript}"
           # Execute Python translating script
           @script_file = 'python_utils/word_difficulty_calulator/nltk_word_difficulty_dict.py'
         end
@@ -49,11 +49,10 @@ module TranSound
             stdout.read
             # puts "Python script output: #{output}"
 
-            # Return ?? as ?? from Python script
+            # Return ??  from Python script
           end
         end
       end
-
     end
   end
 end

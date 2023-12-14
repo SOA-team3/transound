@@ -61,6 +61,5 @@ group :development do
   gem 'rubocop', '~> 1.0'
 end
 
-
 # Gemfile
 gem 'faker'

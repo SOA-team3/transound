@@ -20,8 +20,10 @@ gem 'dry-transaction', '~> 0.13'
 gem 'dry-validation', '~> 1.7'
 
 # Validation
-gem 'dry-struct', '~> 1'
-gem 'dry-types', '~> 1'
+# gem 'dry-struct', '~> 1'
+# gem 'dry-types', '~> 1'
+gem 'dry-types', '1.7.1'
+gem 'dry-struct', '1.6.0'
 
 # Networking
 gem 'http', '~> 5.1'

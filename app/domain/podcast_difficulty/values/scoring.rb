@@ -15,7 +15,7 @@ module TranSound
       def initialize(words_difficulty_dict)
         @words_difficulty_dict = words_difficulty_dict
         @transcript = YAML.safe_load_file('app/domain/podcast_difficulty/lib/test_transcript.yml')
-        @difficulty_score = TranSound::Entity::DifficultyScores.new(transcript: TEST_TRANSCRIPT)
+        @difficulty_score = TranSound::Entity::DifficultyScores.new(transcript: @transcript)
       end
 
       def difficult_dict

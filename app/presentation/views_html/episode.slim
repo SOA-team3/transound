@@ -50,7 +50,7 @@ hr
             - lang_dict.each do |key, value|
               option value=key
                 = key
-          
+
           span.title_txt.mr-2.ml-2
             h6.button#translateButton.btn.btn-primary Click to Translate
           span.h2.title_txt
@@ -88,7 +88,7 @@ hr
               i.bi.bi-bookmarks-fill Translation
             button.btn.btn-primary.download-btn data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadTranscript()"
               i.bi.bi-download
-              
+
             div.list-group.translate-content.pt-3
               div.row
                 / div.col-md-9#translationContent
@@ -110,14 +110,14 @@ hr
                 | &nbsp;
                 = word
                 | &nbsp;
-              
+
                 button.btn.btn-info.mt-2(type="button" onclick="toggleSentenceTranslation(#{word_index})")
                   | Click me!
                   | &nbsp;
             - sentence = Faker::Lorem.sentence
             div(data-new-content="Your new content goes here." id="translation_#{word_index}" style="display:none;")
               = sentence
-            
+
 
 script.
   |function toggleSentenceTranslation(index) {

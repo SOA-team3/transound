@@ -28,8 +28,29 @@ hr
             i.bi.bi-bookmarks-fill
             |  Latest Episodes
           hr
+          / = show.episodes
+          / div.list-group
+            - episodes = [
+                { 'date': '2023/10/21', 'title': 'Ep01', 'description': 'description1' },
+                { 'date': '2023/10/20', 'title': 'Ep02', 'description': 'description2' },
+                { 'date': '2023/10/19', 'title': 'Ep04', 'description': 'description3' },
+                { 'date': '2023/10/18', 'title': 'Ep05', 'description': 'description3' },
+                { 'date': '2023/10/17', 'title': 'Ep06', 'description': 'description3' }
+            ]
+            - episodes.uniq.each do |episode|
+              a.list-group-item.list-group-item-action href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"
+                div.row
+                  div.col-md-9
+                    div.small.text-gray
+                      | #{episode[:date]}
+                    div
+                      | #{episode[:title]}
+                    div
+                      | #{episode[:description]}
+                  div.col-md-3.d-flex.flex-column.align-items-end.justify-content-center
+                    i.bi.bi-chevron-right
 
-           div.list-group
+          /  div.list-group
             a.list-group-item.list-group-item-action href="https://open.spotify.com/show/5Vv32KtHB3peVZ8TeacUty" target="_blank"
               div.row
                 div.col-md-9

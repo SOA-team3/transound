@@ -17,7 +17,7 @@ module TranSound
       private
 
       def parse_url(input)
-        puts "add p info: #{input.inspect}"
+        puts "add_podcast_info: #{input.inspect}"
         if input.success?
           @type, id = input.values[:spotify_url].split('/')[-2..]
           Success(type: @type, id:)
@@ -104,9 +104,10 @@ module TranSound
       def show_from_spotify(input)
         temp_token = TranSound::Podcast::Api::Token.new(App.config, App.config.spotify_Client_ID,
                                                         App.config.spotify_Client_secret, TEMP_TOKEN_CONFIG).get
-        TranSound::Podcast::ShowMapper
+        show = TranSound::Podcast::ShowMapper
           .new(temp_token)
           .find("#{@type}s", input[:id], 'TW')
+        return show
       rescue StandardError
         raise 'Could not find that show on Spotify'
       end

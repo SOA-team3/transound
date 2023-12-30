@@ -16,7 +16,7 @@ module TranSound
       attribute :language, Strict::String
       attribute :name, Strict::String
       attribute :release_date, Strict::String # Date Format
-      attribute :type, Strict::String # unnecessary
+      attribute :type, Strict::String
       attribute :episode_url, Strict::String
       attribute :episode_mp3_url, Strict::String
       attribute :transcript, Strict::String

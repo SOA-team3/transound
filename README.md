@@ -67,3 +67,7 @@ Podcast API data can be accessed in multiple streaming platforms, and all platfo
 - *Episode* (the single episode of a podcast, which users listen to)
 - *Show* (a podcast show, which users subscribe to)
 (Note: A *Show* could have multiple *Episode*s)
+
+## Limitations
+
+This APP can only handle transcipt-transformation for podcasts published in both Spotify and Google Podcast platform. If podcasts aren't publish in both platforms, this service will be unsupported.

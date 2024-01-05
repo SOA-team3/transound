@@ -55,7 +55,7 @@ module TranSound
                          publisher: db_record.publisher,
                          type: db_record.type,
                          show_url: db_record.show_url,
-                        #  recent_episodes: db_record.episodes
+                         recent_episodes: db_record.recent_episodes
                         )
       end
 

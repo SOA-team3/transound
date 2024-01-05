@@ -1,5 +1,0 @@
-= Improvements
-
-* View rendering speed is significantly improved in development mode
-  by caching file-based templates until there has been a modification
-  to the template file.

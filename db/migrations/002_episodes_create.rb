@@ -16,7 +16,13 @@ Sequel.migration do
       String :episode_url
       String :episode_mp3_url
       String :transcript
+      String :sentence_segments
       String :translation
+      Float :difficulty_score
+      String :word_dict
+      String :difficult_words
+      String :moderate_words
+      String :easy_words
 
       DateTime :created_at
       DateTime :updated_at

@@ -1,126 +1,362 @@
-/offcanvas not success yet
-.offcanvas.offcanvas-start#demo
-  .offcanvas-header
-    h1.offcanvas-title Heading
-    button.btn-close(type="button" data-bs-dismiss="offcanvas")
-  .offcanvas-body
-    p Some text lorem ipsum.
-    p Some text lorem ipsum.
-    p Some text lorem ipsum.
-    button.btn.btn-secondary(type="button") A Button
-/episode content start
-hr
 .container
   .row
-    .left-sidebar.col-lg-3.d-flex.flex-column.align-items-center
-      h5.mt-4
-        span.decoration
-          | Episode Information
-        div.center
-          img.episode.images.img-thumbnail[src=episode.images alt="#{episode.images}" style="width: 80%; height: auto; margin: 10%;"]
-        h5.episode.name.mt-4.text-info
-          = episode.name
-        span.show.attribute
-          | Release Date:&nbsp
-          = episode.release_date
-        span.show.attribute
-          | Language:&nbsp
-          = episode.language
-        span.show.attribute.p-4
-          | Description:&nbsp
-          = episode.description
-          // button.collapse-button(type="button") Show/Hide Description
-          // .collapsible-content
-        span.episode.attribute 【Episode URL】&nbsp
-        a.episode.episode_url.text-primary href="#{episode.episode_url}" Click here to visit Spotify Episode page-#{episode.name}
-        span.episode.attribute 【Episode MP3 URL】&nbsp
-        a.episode.episode_mp3_url.text-primary href="#{episode.episode_mp3_url}" Click here to visit Spotify Episode MP3 page-#{episode.name}
+    .nav.nav-tabs.d-flex.justify-content-center
+        a.nav-link#translationTabLink(href="#translationTab", data-bs-toggle="tab" data-bs-target="#translationTab" class="active") Direct Translation
+        a.nav-link#languageLearningTabLink(href="#languageLearningTab", data-bs-toggle="tab" data-bs-target="#languageLearningTab") Language Learning
+    .tab-content
+      #translationTab.tab-pane.show.active
+        .row
+          .left-sidebar.col-lg-3.d-flex.flex-column.align-items-center.p-3
+              h3.decoration
+                | Episode Information
+              div.center
+                img.episode.images.img-thumbnail[src=episode.images alt="#{episode.images}"]
+              h5.episode.name.text-info
+                = episode.name
+              span.show.attribute
+                | Release Date:&nbsp
+                = episode.release_date
+              span.show.attribute
+                | Language:&nbsp
+                = episode.language
+              hr.thead_hr
+              span.show.attribute Description &nbsp
+              div
+                = episode.description
+                // button.collapse-button(type="button") Show/Hide Description
+                // .collapsible-content
+              hr
+              span.episode.attribute 【Episode URL】&nbsp
+              a.btn.btn-primary.episode.episode_url href="#{episode.episode_url}" target="_blank" style="color: white;font-size:1em" #{episode.name}
+              hr
+              span.episode.attribute 【Episode MP3 URL】&nbsp
+              a.btn.btn-primary.episode.episode_url href="#{episode.episode_mp3_url}" target="_blank" style="color: white;font-size:1em" #{episode.name}
 
-    .right-sidebar.col-lg-5.border.border-secondary.rounded
-      .scrollable-content
-        h3.title_txt
-          i.bi.bi-bookmarks-fill Transcript
-        div.row
-        .col.d-flex.align-items-center
-          select#sel1.form-control.border.border-secondary name="languages"
-            / optgroup label=("European")
-            option(value="" disabled="" selected="")
-              | Select a language
-              / span.i.bi.bi-download
-            - lang_dict.each do |key, value|
-              option value=key
-                = key
-
-          span.title_txt.mr-2.ml-2
-            h6.button#translateButton.btn.btn-primary Click to Translate
-          span.h2.title_txt
-            button.btn.btn-primary.download-btn data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadTranscript()"
-              i.bi.bi-download
-
-          hr
-        div.list-group.transcript-content.pt-1
-          div.row
-            div
-              / | This is a transcript content........
-              = episode.transcript
-          / div.row
-          /   div.col-md-9
-          /     div.small.text-gray
-          /       span.bi.bi-person-circle &nbsp;
-          /       | Speaker A
-          /       span . 01:36
-          /     div This is a transcript content........
-          / div.row
-          /   div.col-md-9
-          /     div.small.text-gray
-          /       span.bi.bi-person-circle &nbsp;
-          /       | Speaker B
-          /       span . 02:59
-          /     div This is a transcript content........
-        button.btn.btn-primary.mt-4
-          | Generate Summary & Outline &nbsp;
-          span.i.bi.bi-arrow-right
-
-
-    .right-sidebar.col-lg-4.border.border-secondary.rounded
-          .scrollable-content
-            h3.title_txt
-              i.bi.bi-bookmarks-fill Translation
-            button.btn.btn-primary.download-btn data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadTranscript()"
-              i.bi.bi-download
-
-            div.list-group.translate-content.pt-3
+          .right-sidebar.col-lg-5.border.border-secondary.rounded
+            .scrollable-content
+              h3.title_txt
+                i.bi.bi-bookmarks-fill Transcript
               div.row
-                / div.col-md-9#translationContent
-                div data-new-content="Your new content goes here."
-                  / | This is a translation-content........
-                  = episode.translation
+              .col.d-flex.align-items-center
+                select#sel1.form-control.border.border-secondary name="languages"
 
-//episode.slim transcript & translate (句子按鈕) 用ruby迴圈方式呈現
-- require 'faker'
+                  / optgroup label=("European")
+                  option(value="" disabled="" selected="")
+                    | Select a language
+                    span 🔽
+                  - lang_dict.each do |key, value|
+                    option value=key
+                      = key
+                    span 🔽
 
-.row
-    div.list-group.transcript-content
-      - 10.times do |word_index|
-        div.row
-          div.d-flex.align-items-center
-            - word = Faker::Lorem.word
-            div.small.text-gray
-              span
-                | &nbsp;
-                = word
-                | &nbsp;
+                span.title_txt.mr-2.ml-2
+                  h6.button#translateButton.btn.btn-primary Click to Translate
+                span.h2.title_txt
+                  button.btn.btn-link.download-btn data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadTranscript()"
+                    i.bi.bi-download
 
-                button.btn.btn-info.mt-2(type="button" onclick="toggleSentenceTranslation(#{word_index})")
-                  | Click me!
-                  | &nbsp;
-            - sentence = Faker::Lorem.sentence
-            div(data-new-content="Your new content goes here." id="translation_#{word_index}" style="display:none;")
-              = sentence
+                hr
+              div.list-group.transcript-content.pt-1
+                div.row
+                  div
+                    / = episode.transcript
+                    - sentences = JSON.parse(episode.sentence_segments)
+                    - transcript = sentences.join("<br>")
+                    == transcript
 
+          .right-sidebar.col-lg-4.border.border-secondary.rounded
+                .scrollable-content
+                  div.d-flex.justify-content-between
+                    h3.title_txt
+                      i.bi.bi-globe Translation
+                    span.btn.btn.btn-link.download-btn data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadTranscript()"
+                      i.bi.bi-download
+
+                  div.list-group.translate-content.pt-3
+                    div.row
+                      / div.col-md-9#translationContent
+                      div data-new-content="Your new content goes here."
+                        - translate_array = JSON.parse(episode.translation)
+                        - translation = translate_array.join("<br>")
+                        == translation
+
+  //episode.slim transcript & translate (句子按鈕) 用ruby迴圈方式呈現
+  .row
+    .tab-content
+      #languageLearningTab.tab-pane
+        .row
+          .left-sidebar.col-lg-3.d-flex.flex-column.align-items-center.p-3
+              h3.decoration
+                | Episode Information
+              div.center
+                img.episode.images.img-thumbnail[src=episode.images alt="#{episode.images}"]
+              h5.episode.name.text-info
+                = episode.name
+              span.show.attribute
+                | Release Date:&nbsp
+                = episode.release_date
+              span.show.attribute
+                | Language:&nbsp
+                = episode.language
+              hr
+              span.show.attribute Description &nbsp
+              div
+                = episode.description
+              hr
+              span.episode.attribute 【Episode URL】&nbsp
+              a.btn.btn-primary.episode.episode_url href="#{episode.episode_url}" target="_blank" style="color: white;font-size:1em" #{episode.name}
+              hr
+              span.episode.attribute 【Episode MP3 URL】&nbsp
+              a.btn.btn-primary.episode.episode_url href="#{episode.episode_mp3_url}" target="_blank" style="color: white;font-size:1em" #{episode.name}
+
+          .right-sidebar.col-lg-9.border.border-secondary.rounded
+            / h5.primary_color.d-flex.justify-content-end
+            /     | Learning Score
+            div
+              button.mb-2.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#learningScoreModal")
+                        | Click to View Key Vocabulary
+              table.table.table-bordered
+                thead
+                  tr
+                    th.col-1.h5.font-weight-bold  colspan="1" Difficulty Score: #{episode.difficulty_score.round}
+                    th.col-2.h5.font-weight-bold  colspan="2" Learning Score
+
+                    / div
+                    /   | Click the icon to open the popup.
+                    /   i.bi.bi-globe#open-popup-icon(style="cursor: pointer;" onclick="showPopup()")
+                    /   div#popup-container(style="display: none;")
+                    /     | This is the content of the popup.
+                    /     | <a href="javascript:void(0);" onclick="closePopup();">Close</a>
+
+                  tr
+                    th.col-3 Content Difficulty
+                    th.col-3 Score
+                    th.col-3 Grade
+                tbody
+                  - difficulty = episode.difficulty_score # 這裡可以根據實際情況設置 difficulty 的值 三種顏色
+                  tr
+                    td.col-3(class=difficulty)
+                      - if difficulty == "difficult"
+                        | Difficult
+                      - elsif difficulty == "moderate"
+                        | Moderate
+                      - elsif difficulty == "easy"
+                        | Easy
+                    td.col-3.score
+                        | Learning...
+                    td.col-3.gpa
+                        | Learning...
+
+            hr.title_txt
+            .scrollable-content
+              h3.title_txt.d-flex.justify-content-around
+                i.bi.bi-bookmarks-fill Transcript
+                i.bi.bi-globe  Convert
+                i.bi.bi-bookmarks-fill Translation
+              hr.thead_hr
+              div.list-group.transcript-content
+                - sentences = JSON.parse(episode.sentence_segments)
+                - translate_array = JSON.parse(episode.translation)
+                - podcast_length = sentences.length
+                - sentences.each_with_index do |sentence, line_index|
+                  div.row.d-flex.align-items-center.small
+                      div.small.text-gray.col-lg-7.col-sm-6.d-flex
+                        .row
+                          div.col-lg-9.col-9
+                            | &nbsp;
+                            = sentence
+                            | &nbsp;
+                          button.col-lg-3.col-3.btn.btn-link.mt-2(type="button" onclick="toggleSentenceTranslation(#{line_index})" data-toggle="tooltip" data-placement="top" title="Click to translate" style="color:#f7ca4d")
+                            i.bi.bi-arrow-right
+
+                      div.col-lg-4.col-sm-6(data-new-content="Your new content goes here." id="translation_#{line_index}" style="display:none;")
+                        = translate_array[line_index]
+                        / span.word-class= word.right-sidebar.col-lg-4.border.border-sondary.ro
+                  hr.thead_hr
+              div.d-flex.justify-content-center.mt-3
+                a.pr-5.pl-5.btn.btn-primary(href="#" style="background-color: green; color: white; font-size:1em" onclick="calculateScore(#{podcast_length})") Done
+                a.pr-5.pl-5.btn.btn-primary(href="#" style="color: white; font-size:1em" onclick="LearningStateReset(#{podcast_length})") Reset
+
+#learningScoreModal.modal(tabindex="-1" role="dialog" aria-labelledby="learningScoreModalLabel" aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h5.modal-title#learningScoreModalLabel
+            i.bi.bi-alphabet Key Vocabulary
+          button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+            / span(aria-hidden="true") &times;
+        .modal-body
+          canvas#learningScoreChart
+          ul.nav.nav-tabs.justify-content-center
+            li.nav-item
+              a.nav-link.active(href="#tab1" data-bs-toggle="tab") All
+            li.nav-item
+              a.nav-link(href="#tab2" data-bs-toggle="tab") Difficult
+            li.nav-item
+              a.nav-link(href="#tab3" data-bs-toggle="tab") Moderate
+            li.nav-item
+              a.nav-link(href="#tab4" data-bs-toggle="tab") Easy
+
+          .tab-content
+            #tab1.tab-pane.show.active
+              ul
+                - word_array = JSON.parse(episode.word_dict).keys
+                - word_count = word_array.size
+                - word_array.each do |word|
+                  li= "#{word}"
+              | #{word_count}
+            #tab2.tab-pane
+              ul
+                - difficult_word_array = JSON.parse(episode.difficult_words).keys
+                - difficult_word_count = difficult_word_array.size
+                - difficult_word_array.each do |word|
+                  li= "#{word}"
+              | #{difficult_word_count}
+            #tab3.tab-pane
+              ul
+                - moderate_word_array = JSON.parse(episode.moderate_words).keys
+                - moderate_word_count = moderate_word_array.size
+                - moderate_word_array.each do |word|
+                  li= "#{word}"
+              | #{moderate_word_count}
+            #tab4.tab-pane
+              ul
+                - easy_word_array = JSON.parse(episode.easy_words).keys
+                - easy_word_count = easy_word_array.size
+                - easy_word_array.each do |word|
+                  li= "#{word}"
+              | #{easy_word_count}
+          .modal-footer
+            button.btn.btn-info(type="button" data-bs-dismiss="modal") Close
 
 script.
-  |function toggleSentenceTranslation(index) {
-  |  var translationContent = document.getElementById('translation_' + index);
-  |  translationContent.style.display = (translationContent.style.display === 'none' || translationContent.style.display === '') ? 'block' : 'none';
-  |}
+  | function difficulty_scoring(difficulty) {
+  |   if (difficulty < 50) {
+  |     return "easy";
+  |   } else if (difficulty < 75) {
+  |     return "moderate";
+  |   } else {
+  |     return "difficult";
+  |   }
+  | }
+
+script.
+  | var arrowRightClickCount = 0;
+  | var translatedID = new Set();
+
+  | function toggleSentenceTranslation(index) {
+  |   var translationContent = document.getElementById('translation_' + index);
+  |   translationContent.style.display = (translationContent.style.display === 'none' || translationContent.style.display === '') ? 'block' : 'block';
+  |   if (translationContent.style.display === 'block' && !translatedID.has(index)){
+  |     arrowRightClickCount++;
+  |     translatedID.add(index);
+  |     console.log('Click Rate:', arrowRightClickCount);
+  |     console.log('translatedID:', Array.from(translatedID));
+  |   }
+  | }
+
+  | function LearningStateReset(podcast_length) {
+  |   for (var index = 0; index < podcast_length; index++){
+  |     var translationContent = document.getElementById('translation_' + index);
+  |     translationContent.style.display = 'none';
+  |   }
+  |   document.querySelector('.col-3.score').textContent = "Learning...";
+  |   document.querySelector('.col-3.gpa').textContent = "Learning...";
+  |   arrowRightClickCount = 0;
+  |   translatedID = new Set();
+  | }
+
+  | function getGrade(score) {
+  | switch (true) {
+  |   case score >= 90:
+  |     return 'A+';
+  |   case score >= 85:
+  |     return 'A';
+  |   case score >= 80:
+  |     return 'A-';
+  |   case score >= 75:
+  |     return 'B+';
+  |   case score >= 70:
+  |     return 'B';
+  |   case score >= 65:
+  |     return 'B-';
+  |   case score >= 60:
+  |     return 'C+';
+  |   case score >= 50:
+  |     return 'C';
+  |   case score >= 40:
+  |     return 'C-';
+  |   case score >= 30:
+  |     return 'D';
+  |   default:
+  |     return 'F';
+  |   }
+  | }
+
+  | function calculateScore(podcast_length) {
+  |   var newScore = 100 - ((arrowRightClickCount / podcast_length) * 100);
+  |   var roundedScore = Math.round(newScore);
+  |   document.querySelector('.col-3.score').textContent = roundedScore;
+  |   document.querySelector('.col-3.gpa').textContent = getGrade(roundedScore);
+  | }
+
+
+//modal script start
+script.
+  | document.addEventListener('DOMContentLoaded', function () {
+  |   var myModal = new bootstrap.Modal(document.getElementById('learningScoreModal'));
+  |   myModal.show(); // 自動顯示 Modal
+  |
+  |   // 初始化 Chart.js
+  |   var difficultyValue = 30;
+  |   var moderateValue = 40;
+  |   var easyValue = 30;
+  |   var difficultyData = [difficultyValue, moderateValue, easyValue];
+  |   drawPieChart(difficultyData);
+  | });
+//modal script
+
+//pie chart start
+script.
+  | function drawPieChart(difficultyData) {
+  |   var ctx = document.getElementById('learningScoreChart').getContext('2d');
+  |
+  |   var myPieChart = new Chart(ctx, {
+  |     type: 'pie',
+  |     data: {
+  |       labels: ['Difficult', 'Moderate', 'Easy'],
+  |       datasets: [{
+  |         data: difficultyData,
+  |         backgroundColor: ['#FF5733', '#FFD700', '#7FFF00'], // 設置顏色
+  |       }],
+  |     },
+  |   });
+  | }
+  |
+  // 在模態顯示後（例如在 'shown.bs.modal' 事件中）調用此函數
+script.
+  | $('#learningScoreModal').on('shown.bs.modal', function () {
+  |   // 有三個變數表示 Difficult、Moderate 和 Easy 的數值
+  |   var difficultValue = 30;
+  |   var moderateValue = 40;
+  |   var easyValue = 30;
+  |
+  |   // 將數值組成陣列繪製圓餅圖
+  |   var difficultyData = [difficultValue, moderateValue, easyValue];
+  |   drawPieChart(difficultyData);
+  | });
+//pie chart end
+/ script.
+/ |function showPopup() {
+/ |  var popupContainer = document.getElementById('popup-container');
+/ |  popupContainer.style.display = 'block';
+/ |}
+
+/ function closePopup() {
+/ | var popupContainer = document.getElementById('popup-container');
+/ |  popupContainer.style.display = 'none';
+/ |}
+/ script.
+/ | document.getElementById('open-popup-icon').addEventListener('click', function() {
+/ |   showPopup();
+/ | });

@@ -22,16 +22,19 @@ gem 'dry-validation', '~> 1.7'
 # Validation
 # gem 'dry-struct', '~> 1'
 # gem 'dry-types', '~> 1'
-gem 'dry-types', '1.7.1'
 gem 'dry-struct', '1.6.0'
+gem 'dry-types', '1.7.1'
 
 # Networking
 gem 'http', '~> 5.1'
 
 # data preprocessing
 gem 'json'
+gem 'microsoft_translator'
+gem 'punkt-segmenter' # for Sentence Segmenation
 gem 'tzinfo'
 gem 'yaml'
+
 
 # Database
 gem 'hirb'

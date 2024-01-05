@@ -2,6 +2,7 @@ import nltk
 from nltk.stem import WordNetLemmatizer
 from nltk.probability import FreqDist
 from textblob import Word as TextWord
+import string
 import sys
 import yaml
 import re
@@ -195,6 +196,7 @@ def create_filtered_word_list(transcript):
     text_lowercased = text_without_punctuation.lower()
     # Split text into a list of words
     words = text_lowercased.split()
+    # print("create_filtered_word_list:",words)
     return words
 
 def create_word_difficulty_dict(words):
@@ -204,9 +206,33 @@ def create_word_difficulty_dict(words):
             word_difficulty_dict[word] = word_difficulty.evaluate_word_difficulty(word)
     return word_difficulty_dict
 
-lines = sys.stdin.readlines()
+def dict_filter(dict):
+    stopwords = word_difficulty.stopwords
+    translator = str.maketrans("", "", string.punctuation.replace("-", ""))
+    cleaned_dict = {key: value for key, value in dict.items() if key.translate(translator).isalpha() or "-" in key}
+    cleaned_dict = {key: value for key, value in cleaned_dict.items() if key.isalnum() and key.lower() not in word_difficulty.stopwords}
+    return cleaned_dict
+
+ruby_input = sys.stdin.read()
+# lines = ruby_input.split('\n')[0]
+lines = ruby_input.strip()  # Remove leading/trailing whitespace
+
+# lines = """I've got a big family, cos I had older brothers and sisters, and they all had loads of kids, and their kids have had loads of kids, and their kids have had loads of kids, cos we're chavs, basically.
+#           There's a new baby every Christmas.
+#           It's one of those families.
+#           I go home, it's crowded.
+#           I go, oh, oh, who's this?
+#           Oh, yours?
+#           Oh, well done.
+#           I don't know him, I don't know her.
+#           You know what I mean?
+#           It's like... But what I've done over the last couple of years, I've got them each individually, right, in private, and I've told them that I'm leaving my entire fortune to just them, right?
+#           But to keep it secret.
+#           So they all love me, right?
+#           And I'm not doing a will, so my funeral is going to be a fucking bloodbath."""
+
 if lines:
-    transcript = lines[0].strip()
+    transcript = lines
     words = create_filtered_word_list(transcript)
     word_difficulty_dict = create_word_difficulty_dict(words)
 
@@ -214,6 +240,6 @@ if lines:
     with open(output_file_path, 'w') as file:
         yaml.dump(word_difficulty_dict, file)
 
-    print(word_difficulty_dict)
+    print(dict_filter(word_difficulty_dict))
 else:
     print('Create word_difficulty_dict ERROR')

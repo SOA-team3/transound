@@ -37,7 +37,7 @@ module TranSound
             publisher:,
             type:,
             show_url:,
-            # recent_episodes:
+            recent_episodes:
           )
         end
 
@@ -71,21 +71,21 @@ module TranSound
         end
 
         def recent_episodes
-          # n = 1
-          # recent_episodes = @show['episodes']['items'][0..n]
-          # recent_n_episodes = recent_episodes.map.with_index do |episode, _i|
-          #   {
-          #     'release_date' => episode['release_date'],
-          #     'name' => episode['name'],
-          #     'description' => episode['description'],
-          #     'language' => episode['language']
-          #   }
-          # end
+          n = 5
+          recent_episodes = @show['episodes']['items'][...n]
+          recent_n_episodes = recent_episodes.map.with_index do |episode, _i|
+            {
+              'release_date' => episode['release_date'],
+              'name' => episode['name'],
+              'description' => episode['description'],
+              'language' => episode['language']
+            }
+          end
 
-          # # Transfer Hash-Array into String by Json module
-          # json_string = JSON.generate(recent_n_episodes)
+          # Transfer Hash-Array into String by Json module
+          json_string = JSON.generate(recent_n_episodes)
           # puts "show_mapper json_string.class: #{json_string.class}"
-          json_string = "Hi"
+          # json_string
         end
       end
     end

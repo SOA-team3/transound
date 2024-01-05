@@ -19,12 +19,14 @@
               span.show.attribute
                 | Language:&nbsp
                 = episode.language
+              span.show.attribute
+                | Podcast Length(seconds) &nbsp
+                - podcast_length = (episode.podcast_length)/1000.round
+                = podcast_length
               hr.thead_hr
               span.show.attribute Description &nbsp
               div
                 = episode.description
-                // button.collapse-button(type="button") Show/Hide Description
-                // .collapsible-content
               hr
               span.episode.attribute 【Episode URL】&nbsp
               a.btn.btn-primary.episode.episode_url href="#{episode.episode_url}" target="_blank" style="color: white;font-size:1em" #{episode.name}
@@ -52,35 +54,40 @@
                 span.title_txt.mr-2.ml-2
                   h6.button#translateButton.btn.btn-primary Click to Translate
                 span.h2.title_txt
-                  button.btn.btn-link.download-btn data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadTranscript()"
+                  - text_loc = ".list-group.transcript-content.pt-1 div[data-new-content]"
+                  button.btn.btn-link.download-btn data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadText('Transcription','#{episode.name}','#{text_loc}')"
                     i.bi.bi-download
 
                 hr
               div.list-group.transcript-content.pt-1
                 div.row
-                  div
-                    / = episode.transcript
+                  div data-new-content="episode_transcript"
                     - sentences = JSON.parse(episode.sentence_segments)
                     - transcript = sentences.join("<br>")
                     == transcript
+                    - transcript_String = transcript.gsub(/[[:punct:]\s]+/, ' ')  # filter all the punct and \n
+                    - total_word_counts = transcript_String.split.size
 
           .right-sidebar.col-lg-4.border.border-secondary.rounded
                 .scrollable-content
                   div.d-flex.justify-content-between
                     h3.title_txt
                       i.bi.bi-globe Translation
-                    span.btn.btn.btn-link.download-btn data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadTranscript()"
+                    / - dynamicFilename = episode.name
+                    - text_loc = ".list-group.translate-content.pt-3 div[data-new-content]"
+                    span.btn.btn.btn-link.download-btn(data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadText('Translation','#{episode.name}','#{text_loc}')")
                       i.bi.bi-download
-
+                  p
+                  <br>
                   div.list-group.translate-content.pt-3
                     div.row
                       / div.col-md-9#translationContent
-                      div data-new-content="Your new content goes here."
+                      div data-new-content="episode_translation"
                         - translate_array = JSON.parse(episode.translation)
                         - translation = translate_array.join("<br>")
                         == translation
 
-  //episode.slim transcript & translate (句子按鈕) 用ruby迴圈方式呈現
+  //episode transcript & translation from DB represented by loop
   .row
     .tab-content
       #languageLearningTab.tab-pane
@@ -98,6 +105,10 @@
               span.show.attribute
                 | Language:&nbsp
                 = episode.language
+              span.show.attribute
+                | Podcast Length(seconds):&nbsp
+                - podcast_length = (episode.podcast_length)/1000.round
+                = podcast_length
               hr
               span.show.attribute Description &nbsp
               div
@@ -110,23 +121,17 @@
               a.btn.btn-primary.episode.episode_url href="#{episode.episode_mp3_url}" target="_blank" style="color: white;font-size:1em" #{episode.name}
 
           .right-sidebar.col-lg-9.border.border-secondary.rounded
-            / h5.primary_color.d-flex.justify-content-end
-            /     | Learning Score
             div
-              button.mb-2.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#learningScoreModal")
-                        | Click to View Key Vocabulary
+              row.
+                button.mb-2.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#PodcastDifficultyModal")
+                          | Click to View Podcast difficulty information
+                button.mb-2.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#VocabDifficultyModal")
+                          | Click to View Key Vocabulary
               table.table.table-bordered
                 thead
                   tr
                     th.col-1.h5.font-weight-bold  colspan="1" Difficulty Score: #{episode.difficulty_score.round}
                     th.col-2.h5.font-weight-bold  colspan="2" Learning Score
-
-                    / div
-                    /   | Click the icon to open the popup.
-                    /   i.bi.bi-globe#open-popup-icon(style="cursor: pointer;" onclick="showPopup()")
-                    /   div#popup-container(style="display: none;")
-                    /     | This is the content of the popup.
-                    /     | <a href="javascript:void(0);" onclick="closePopup();">Close</a>
 
                   tr
                     th.col-3 Content Difficulty
@@ -136,12 +141,13 @@
                   - difficulty = episode.difficulty_score # 這裡可以根據實際情況設置 difficulty 的值 三種顏色
                   tr
                     td.col-3(class=difficulty)
-                      - if difficulty == "difficult"
-                        | Difficult
-                      - elsif difficulty == "moderate"
-                        | Moderate
-                      - elsif difficulty == "easy"
-                        | Easy
+                      span.difficulty-text
+                        / - if difficulty == "difficult"
+                        /   | Difficult
+                        / - elsif difficulty == "moderate"
+                        /   | Moderate
+                        / - elsif difficulty == "easy"
+                        /   | Easy
                     td.col-3.score
                         | Learning...
                     td.col-3.gpa
@@ -157,36 +163,41 @@
               div.list-group.transcript-content
                 - sentences = JSON.parse(episode.sentence_segments)
                 - translate_array = JSON.parse(episode.translation)
-                - podcast_length = sentences.length
+                - sentences_length = sentences.length
                 - sentences.each_with_index do |sentence, line_index|
                   div.row.d-flex.align-items-center.small
-                      div.small.text-gray.col-lg-7.col-sm-6.d-flex
+                      div.small.text-gray.col-lg-5.col-sm-6.d-flex
                         .row
                           div.col-lg-9.col-9
                             | &nbsp;
                             = sentence
                             | &nbsp;
-                          button.col-lg-3.col-3.btn.btn-link.mt-2(type="button" onclick="toggleSentenceTranslation(#{line_index})" data-toggle="tooltip" data-placement="top" title="Click to translate" style="color:#f7ca4d")
+                      div.col-lg-2.col-2
+                        div.button-frame(style="border: 1px solid #ccc; padding: 5px;")
+                          button.btn.btn-link.mt-2(type="button" onclick="toggleSentenceTranslation(#{line_index})" data-toggle="tooltip" data-placement="top" title="Click to translate" style="color:#f7ca4d")
                             i.bi.bi-arrow-right
 
-                      div.col-lg-4.col-sm-6(data-new-content="Your new content goes here." id="translation_#{line_index}" style="display:none;")
+                      div.col-lg-4.col-sm-6(data-new-content="episode_translate_array_row" id="translation_#{line_index}" style="display:none;")
                         = translate_array[line_index]
-                        / span.word-class= word.right-sidebar.col-lg-4.border.border-sondary.ro
                   hr.thead_hr
               div.d-flex.justify-content-center.mt-3
-                a.pr-5.pl-5.btn.btn-primary(href="#" style="background-color: green; color: white; font-size:1em" onclick="calculateScore(#{podcast_length})") Done
-                a.pr-5.pl-5.btn.btn-primary(href="#" style="color: white; font-size:1em" onclick="LearningStateReset(#{podcast_length})") Reset
+                a.pr-5.pl-5.btn.btn-primary(href="#" style="background-color: green; color: white; font-size:1em" onclick="calculateScore(#{sentences_length})") Done
+                a.pr-5.pl-5.btn.btn-primary(href="#" style="color: white; font-size:1em" onclick="LearningStateReset(#{sentences_length})") Reset
 
-#learningScoreModal.modal(tabindex="-1" role="dialog" aria-labelledby="learningScoreModalLabel" aria-hidden="true")
+#VocabDifficultyModal.modal(tabindex="-1" role="dialog" aria-labelledby="VocabDifficultyModalLabel" aria-hidden="true")
     .modal-dialog
       .modal-content
         .modal-header
-          h5.modal-title#learningScoreModalLabel
+          h5.modal-title#VocabDifficultyModalLabel
             i.bi.bi-alphabet Key Vocabulary
           button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
-            / span(aria-hidden="true") &times;
         .modal-body
-          canvas#learningScoreChart
+          .canvas-container(style="max-width: 300px; max-height: 300px; overflow: hidden; display: flex; align-items: center; justify-content: center; margin: auto")
+            canvas#VocabDifficultyChart(style="max-width: 100%; max-height: 100%;")
+            - difficultyValue = episode.difficult_words.length
+            - moderateValue = episode.moderate_words.length
+            - easyValue = episode.easy_words.length
+
           ul.nav.nav-tabs.justify-content-center
             li.nav-item
               a.nav-link.active(href="#tab1" data-bs-toggle="tab") All
@@ -199,46 +210,52 @@
 
           .tab-content
             #tab1.tab-pane.show.active
-              ul
+              ul(style="display: flex; flex-wrap: wrap;")
                 - word_array = JSON.parse(episode.word_dict).keys
-                - word_count = word_array.size
-                - word_array.each do |word|
-                  li= "#{word}"
+                - word_count = word_array.length
+                - word_array.each_with_index do |word, index|
+                  li(style="flex: 0 0 33.33%;")= "#{word}"
               | #{word_count}
             #tab2.tab-pane
-              ul
+              ul(style="display: flex; flex-wrap: wrap;")
                 - difficult_word_array = JSON.parse(episode.difficult_words).keys
-                - difficult_word_count = difficult_word_array.size
-                - difficult_word_array.each do |word|
-                  li= "#{word}"
+                - difficult_word_count = difficult_word_array.length
+                - difficult_word_array.each_with_index do |word, index|
+                  li(style="flex: 0 0 33.33%;")= "#{word}"
               | #{difficult_word_count}
             #tab3.tab-pane
-              ul
+              ul(style="display: flex; flex-wrap: wrap;")
                 - moderate_word_array = JSON.parse(episode.moderate_words).keys
-                - moderate_word_count = moderate_word_array.size
-                - moderate_word_array.each do |word|
-                  li= "#{word}"
+                - moderate_word_count = moderate_word_array.length
+                - moderate_word_array.each_with_index do |word, index|
+                  li(style="flex: 0 0 33.33%;")= "#{word}"
               | #{moderate_word_count}
             #tab4.tab-pane
-              ul
+              ul(style="display: flex; flex-wrap: wrap;")
                 - easy_word_array = JSON.parse(episode.easy_words).keys
-                - easy_word_count = easy_word_array.size
-                - easy_word_array.each do |word|
-                  li= "#{word}"
+                - easy_word_count = easy_word_array.length
+                = easy_word_array
+                = easy_word_count
+                - easy_word_array.each_with_index do |word, index|
+                  li(style="flex: 0 0 33.33%;")= "#{word}"
               | #{easy_word_count}
           .modal-footer
             button.btn.btn-info(type="button" data-bs-dismiss="modal") Close
 
-script.
-  | function difficulty_scoring(difficulty) {
-  |   if (difficulty < 50) {
-  |     return "easy";
-  |   } else if (difficulty < 75) {
-  |     return "moderate";
-  |   } else {
-  |     return "difficult";
-  |   }
-  | }
+
+#PodcastDifficultyModal.modal(tabindex="-1" role="dialog" aria-labelledby="PodcastDifficultyModalLabel" aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h5.modal-title#PodcastDifficultyModalLabel
+            i.bi.bi-alphabet Podcast Difficulty Information
+            - var = ["#{total_word_counts}","#{sentences_length}","#{podcast_length}","#{word_count}","#{difficultyValue}","#{moderateValue}","#{easyValue}",]
+            = var
+          button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+        .modal-body
+          .canvas-container(style="max-width: 2000px; max-height: 2000px; overflow: hidden; display: flex; align-items: center; justify-content: center; margin: auto")
+            canvas#PodcastDifficultyChart(style="max-width: 100%; max-height: 100%;")
+
 
 script.
   | var arrowRightClickCount = 0;
@@ -255,8 +272,8 @@ script.
   |   }
   | }
 
-  | function LearningStateReset(podcast_length) {
-  |   for (var index = 0; index < podcast_length; index++){
+  | function LearningStateReset(sentences_length) {
+  |   for (var index = 0; index < sentences_length; index++){
   |     var translationContent = document.getElementById('translation_' + index);
   |     translationContent.style.display = 'none';
   |   }
@@ -293,59 +310,101 @@ script.
   |   }
   | }
 
-  | function calculateScore(podcast_length) {
-  |   var newScore = 100 - ((arrowRightClickCount / podcast_length) * 100);
+  | function calculateScore(sentences_length) {
+  |   var newScore = 100 - ((arrowRightClickCount / sentences_length) * 100);
   |   var roundedScore = Math.round(newScore);
   |   document.querySelector('.col-3.score').textContent = roundedScore;
   |   document.querySelector('.col-3.gpa').textContent = getGrade(roundedScore);
   | }
 
+/ script.
+/   | function difficulty_scoring(difficulty) {
+/   |   if (difficulty < 50) {
+/   |     return "easy";
+/   |   } else if (difficulty < 75) {
+/   |     return "moderate";
+/   |   } else {
+/   |     return "difficult";
+/   |   }
+/   | }
 
-//modal script start
-script.
-  | document.addEventListener('DOMContentLoaded', function () {
-  |   var myModal = new bootstrap.Modal(document.getElementById('learningScoreModal'));
-  |   myModal.show(); // 自動顯示 Modal
-  |
-  |   // 初始化 Chart.js
-  |   var difficultyValue = 30;
-  |   var moderateValue = 40;
-  |   var easyValue = 30;
-  |   var difficultyData = [difficultyValue, moderateValue, easyValue];
-  |   drawPieChart(difficultyData);
-  | });
-//modal script
-
-//pie chart start
 script.
   | function drawPieChart(difficultyData) {
-  |   var ctx = document.getElementById('learningScoreChart').getContext('2d');
-  |
-  |   var myPieChart = new Chart(ctx, {
-  |     type: 'pie',
+  |   var ctx = document.getElementById('VocabDifficultyChart').getContext('2d');
+  |   var DoughnutChart = new Chart(ctx, {
+  |     type: 'doughnut',
   |     data: {
   |       labels: ['Difficult', 'Moderate', 'Easy'],
   |       datasets: [{
   |         data: difficultyData,
-  |         backgroundColor: ['#FF5733', '#FFD700', '#7FFF00'], // 設置顏色
+  |         backgroundColor: ['#FF5733', '#FFD700', '#7FFF00'],
   |       }],
+  |       },
+  |     });
+  |  };
+  | $(document).ready(function () {
+  |   var difficultyData = [#{difficultyValue}, #{moderateValue}, #{easyValue}];
+  |   drawPieChart(difficultyData);
+
+  / |   var difficultyText = difficulty_scoring(#{episode.difficulty_score});
+  / |   $('.col-3 .difficulty-text').text(difficultyText);
+  | });
+
+script.
+
+  | function drawHorizontalBarChart(difficultyData) {
+  |   var ctx = document.getElementById('PodcastDifficultyChart').getContext('2d');
+  |   var horizontalBarChart = new Chart(ctx, {
+  |     type: 'bar',
+  |     data: {
+  |       labels: ['Total word counts', 'Total sentence counts', 'Words per 10 seconds', 'Words per minutes', 'Total difficult vocabularies', 'Total moderate vocabularies', 'Total easy vocabularies'],
+  |       datasets: [{
+  |         label: 'Horizontal Bar Chart',
+  |         data: difficultyData,
+  |         backgroundColor: [
+  |           'rgba(255, 99, 132, 0.2)',
+  |           'rgba(255, 159, 64, 0.2)',
+  |           'rgba(255, 205, 86, 0.2)',
+  |           'rgba(75, 192, 192, 0.2)',
+  |           'rgba(54, 162, 235, 0.2)',
+  |           'rgba(153, 102, 255, 0.2)',
+  |           'rgba(201, 203, 207, 0.2)'
+  |         ],
+  |         borderColor: [
+  |           'rgb(255, 99, 132)',
+  |           'rgb(255, 159, 64)',
+  |           'rgb(255, 205, 86)',
+  |           'rgb(75, 192, 192)',
+  |           'rgb(54, 162, 235)',
+  |           'rgb(255, 159, 64)',
+  |           'rgb(255, 205, 86)',
+  |           'rgb(75, 192, 192)',
+  |           'rgb(54, 162, 235)',
+  |           'rgb(153, 102, 255)',
+  |           'rgb(201, 203, 207)'
+  |         ],
+  |         borderWidth: 1
+  |       }]
   |     },
+  |     options: {
+  |       scales: {
+  |         x: {
+  |           beginAtZero: true
+  |         }
+  |       },
+  |       indexAxis: 'y'
+  |     }
   |   });
   | }
-  |
-  // 在模態顯示後（例如在 'shown.bs.modal' 事件中）調用此函數
-script.
-  | $('#learningScoreModal').on('shown.bs.modal', function () {
-  |   // 有三個變數表示 Difficult、Moderate 和 Easy 的數值
-  |   var difficultValue = 30;
-  |   var moderateValue = 40;
-  |   var easyValue = 30;
-  |
-  |   // 將數值組成陣列繪製圓餅圖
-  |   var difficultyData = [difficultValue, moderateValue, easyValue];
-  |   drawPieChart(difficultyData);
+
+  | $(document).ready(function () {
+  |   var difficultyData = [#{total_word_counts},#{sentences_length},#{podcast_length},#{word_count},#{difficultyValue},#{moderateValue},#{easyValue}];
+  |   drawHorizontalBarChart(difficultyData);
+
+  / |   var difficultyText = difficulty_scoring(#{episode.difficulty_score});
+  / |   $('.col-3 .difficulty-text').text(difficultyText);
   | });
-//pie chart end
+
 / script.
 / |function showPopup() {
 / |  var popupContainer = document.getElementById('popup-container');

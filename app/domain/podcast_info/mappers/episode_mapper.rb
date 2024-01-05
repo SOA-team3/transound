@@ -38,7 +38,7 @@ module TranSound
           TranSound::Entity::Episode.new(id: nil, origin_id:, description:,
                                          images:, language:, name:,
                                          release_date:, type:, episode_url:,
-                                         episode_mp3_url:, transcript:,
+                                         episode_mp3_url:, podcast_length:, transcript:,
                                          sentence_segments:, translation:,
                                          difficulty_score:, word_dict:,
                                          difficult_words:, moderate_words:, easy_words:)
@@ -80,6 +80,10 @@ module TranSound
         def episode_mp3_url
           puts "Name of episode_mp3_url: #{name}"
           TranSound::Podcast::WebScrapingUtils::GoogleWebScraping.new(name).scrap
+        end
+
+        def podcast_length
+          @episode['duration_ms']
         end
 
         def transcript

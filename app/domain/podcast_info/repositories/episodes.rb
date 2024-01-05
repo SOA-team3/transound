@@ -55,6 +55,7 @@ module TranSound
                             type: db_record.type,
                             episode_url: db_record.episode_url,
                             episode_mp3_url: db_record.episode_mp3_url,
+                            podcast_length: db_record.podcast_length,##
                             transcript: db_record.transcript,
                             sentence_segments: db_record.sentence_segments,
                             translation: db_record.translation,

@@ -15,6 +15,7 @@ Sequel.migration do
       String :type
       String :episode_url
       String :episode_mp3_url
+      Integer :podcast_length
       String :transcript
       String :sentence_segments
       String :translation

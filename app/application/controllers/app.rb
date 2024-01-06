@@ -35,6 +35,7 @@ module TranSound
 
         puts "Session watching: #{session[:watching].inspect}"
 
+        Podcast::DownloaderUtils::NLTKPretrainedModel.new.download
         episode_result = Service::ListEpisodes.new.call(session[:watching][:episode_id])
         show_result = Service::ListShows.new.call(session[:watching][:show_id])
 

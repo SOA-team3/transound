@@ -25,13 +25,14 @@ module TranSound
 
       # Return a word-difficulty-dict by input transcript
       def words_difficulty_dict_create(transcript)
-        words_difficulty_dict = TranSound::Podcast::WordDifficultyUtils::NLTKWordDifficultyDict.new(transcript).create_word_difficulty_dict
-        # 上面的 gsub 用於處理類似 "i'm" 的情況，將其轉換為 "i"m"
-        json_string = words_difficulty_dict.to_s.gsub("'", '"').gsub('": "', '": "').gsub('": "', '": "')
-        JSON.parse(json_string)
+        json_string = TranSound::Podcast::WordDifficultyUtils::NLTKWordDifficultyDict.new(transcript).create_word_difficulty_dict
+        # Handling Abbreviation situation e.g."i'm"，transform into "i"m"
+        # Replace single quotes with double quotes except for apostrophes in contractions
+        modified_string = json_string.gsub("'", '"').gsub('": "', '": "').gsub('": "', '": "')
+        JSON.parse(modified_string)
       rescue JSON::ParserError => e
         puts "JSON parsing error: #{e.message}"
-        nil
+        {}
       end
 
       def dict_filter(dict, level)

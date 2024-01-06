@@ -45,6 +45,7 @@ module TranSound
   end
 end
 
-temp_dict_file_path = 'app/domain/podcast_difficulty/lib/temp_word_difficulty_dict.yml'
-words_difficulty_dict = YAML.safe_load_file(temp_dict_file_path).to_h
-puts TranSound::Value::Scoring.new(words_difficulty_dict).podcast_difficult_score
+# test
+# temp_dict_file_path = 'app/domain/podcast_difficulty/lib/temp_word_difficulty_dict.yml'
+# words_difficulty_dict = YAML.safe_load_file(temp_dict_file_path).to_h
+# puts TranSound::Value::Scoring.new(words_difficulty_dict).podcast_difficult_score

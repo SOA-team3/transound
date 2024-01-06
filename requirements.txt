@@ -5,6 +5,7 @@ bs4
 wget # to download files
 
 # Data Preprocessing
+openai
 pandas
 
 # Whisper transcribe package
@@ -12,7 +13,8 @@ pandas
 
 # Speech_recognition transcribe package
 SpeechRecognition
-googletrans==4.0.0-rc1
+# googletrans==4.0.0-rc1
+googletrans
 translate
 pydub
 ffmpeg-python

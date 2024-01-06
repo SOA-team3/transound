@@ -17,7 +17,7 @@ module TranSound
       attribute :publisher, Strict::String
       attribute :type, Strict::String
       attribute :show_url, Strict::String
-      # attribute :recent_episodes, String.optional # Strict::String # Hash-like Array
+      attribute :recent_episodes, Strict::String.optional # Strict::String # Hash-like Array
 
       def show_num?
         top > 10

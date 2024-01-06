@@ -19,8 +19,15 @@ module TranSound
       attribute :type, Strict::String
       attribute :episode_url, Strict::String
       attribute :episode_mp3_url, Strict::String
+      attribute :podcast_length, Strict::Integer
       attribute :transcript, Strict::String
+      attribute :sentence_segments, Strict::String
       attribute :translation, Strict::String
+      attribute :difficulty_score, Strict::Float
+      attribute :word_dict, Strict::String
+      attribute :difficult_words, Strict::String
+      attribute :moderate_words, Strict::String
+      attribute :easy_words, Strict::String
 
       def to_attr_hash
         # to_hash.reject { |key, _| %i[id owner contributors].include? key }

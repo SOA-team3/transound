@@ -1,7 +1,7 @@
 .container
   .row
     .nav.nav-tabs.d-flex.justify-content-center
-        a.nav-link#translationTabLink(href="#translationTab", data-bs-toggle="tab" data-bs-target="#translationTab" class="active") Direct Translation
+        a.nav-link#translationTabLink.mr-2(href="#translationTab", data-bs-toggle="tab" data-bs-target="#translationTab" class="active") Direct Translation
         a.nav-link#languageLearningTabLink(href="#languageLearningTab", data-bs-toggle="tab" data-bs-target="#languageLearningTab") Language Learning
     .tab-content
       #translationTab.tab-pane.show.active
@@ -52,7 +52,8 @@
                     span 🔽
 
                 span.title_txt.mr-2.ml-2
-                  h6.button#translateButton.btn.btn-primary Click to Translate
+                  h6.button.btn.btn-primary#translateButton(data-lang-dict-value="#{lang_dict.to_json}")
+                    | Click to Translate
                 span.h2.title_txt
                   - text_loc = ".list-group.transcript-content.pt-1 div[data-new-content]"
                   button.btn.btn-link.download-btn data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadText('Transcription','#{episode.name}','#{text_loc}')"
@@ -73,12 +74,11 @@
                   div.d-flex.justify-content-between
                     h3.title_txt
                       i.bi.bi-globe Translation
-                    / - dynamicFilename = episode.name
                     - text_loc = ".list-group.translate-content.pt-3 div[data-new-content]"
                     span.btn.btn.btn-link.download-btn(data-toggle="tooltip" data-placement="top" title="Download" onclick="downloadText('Translation','#{episode.name}','#{text_loc}')")
                       i.bi.bi-download
-                  p
-                  <br>
+                  hr.mb-2
+                  br
                   div.list-group.translate-content.pt-3
                     div.row
                       / div.col-md-9#translationContent
@@ -122,32 +122,48 @@
 
           .right-sidebar.col-lg-9.border.border-secondary.rounded
             div
-              row.
-                button.mb-2.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#PodcastDifficultyModal")
-                          | Click to View Podcast difficulty information
-                button.mb-2.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#VocabDifficultyModal")
-                          | Click to View Key Vocabulary
-              table.table.table-bordered
-                thead
-                  tr
-                    th.col-1.h5.font-weight-bold  colspan="1" Difficulty Score: #{episode.difficulty_score.round}
-                    th.col-2.h5.font-weight-bold  colspan="2" Learning Score
+              button.mb-2.btn.btn-primary.mr-2(type="button" data-bs-toggle="modal" data-bs-target="#PodcastDifficultyModal")
+                        | Click to View Podcast difficulty information
+              button.mb-2.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#VocabDifficultyModal")
+                        | Click to View Key Vocabulary
+              div.d-flex
+                table.table.table-bordered.mr-2
+                  thead
+                    tr
+                      th.col-2.h5.font-weight-bold  colspan="2" Podcast Difficulty
+                    tr
+                      th.col-3 Score
+                      th.col-3 Level
+                  tbody
+                    - difficulty_score = episode.difficulty_score # 這裡可以根據實際情況設置 difficulty 的值 三種顏色
+                    - adjust_weight = 1.5
+                    - adjusted_score = (episode.difficulty_score * adjust_weight > 100) ? 100 : (episode.difficulty_score * adjust_weight)
+                    - if adjusted_score < 60
+                      - difficulty = 'easy'
+                    - elsif adjusted_score < 70
+                      - difficulty = 'moderate'
+                    - else
+                      - difficulty = 'difficult'
+                    tr
+                      td.col-3 #{adjusted_score.round} / 100
+                      td.col-3(class=difficulty)
+                        span.difficulty-text.strong
+                          - if difficulty == "difficult"
+                            | Difficult
+                          - elsif difficulty == "moderate"
+                            | Moderate
+                          - elsif difficulty == "easy"
+                            | Easy
 
-                  tr
-                    th.col-3 Content Difficulty
-                    th.col-3 Score
-                    th.col-3 Grade
-                tbody
-                  - difficulty = episode.difficulty_score # 這裡可以根據實際情況設置 difficulty 的值 三種顏色
-                  tr
-                    td.col-3(class=difficulty)
-                      span.difficulty-text
-                        / - if difficulty == "difficult"
-                        /   | Difficult
-                        / - elsif difficulty == "moderate"
-                        /   | Moderate
-                        / - elsif difficulty == "easy"
-                        /   | Easy
+                table.table.table-bordered
+                  thead
+                    tr
+                      th.col-2.h5.font-weight-bold  colspan="2" Language Learning
+
+                    tr
+                      th.col-3 Score
+                      th.col-3 Grade
+                  tbody
                     td.col-3.score
                         | Learning...
                     td.col-3.gpa
@@ -167,22 +183,19 @@
                 - sentences.each_with_index do |sentence, line_index|
                   div.row.d-flex.align-items-center.small
                       div.small.text-gray.col-lg-5.col-sm-6.d-flex
-                        .row
-                          div.col-lg-9.col-9
-                            | &nbsp;
-                            = sentence
-                            | &nbsp;
-                      div.col-lg-2.col-2
-                        div.button-frame(style="border: 1px solid #ccc; padding: 5px;")
-                          button.btn.btn-link.mt-2(type="button" onclick="toggleSentenceTranslation(#{line_index})" data-toggle="tooltip" data-placement="top" title="Click to translate" style="color:#f7ca4d")
-                            i.bi.bi-arrow-right
-
-                      div.col-lg-4.col-sm-6(data-new-content="episode_translate_array_row" id="translation_#{line_index}" style="display:none;")
+                        div
+                          | &nbsp;
+                          = sentence
+                          | &nbsp;
+                      div.col-lg-2.col-2.button-frame.d-flex.align-items-center.justify-content-center.vcenter.border-left.border-right
+                          button.btn.btn-link.pr-3.pl-3.btn-outline-warning(type="button" onclick="toggleSentenceTranslation(#{line_index})" data-toggle="tooltip" data-placement="top" title="Click to translate" )
+                            i.bi.bi-arrow-right.arrow-hover(style="font-size: 1.5rem;")
+                      div.col-lg-5.col-sm-6.text-gray(data-new-content="episode_translate_array_row" id="translation_#{line_index}" style="display:none;")
                         = translate_array[line_index]
                   hr.thead_hr
               div.d-flex.justify-content-center.mt-3
-                a.pr-5.pl-5.btn.btn-primary(href="#" style="background-color: green; color: white; font-size:1em" onclick="calculateScore(#{sentences_length})") Done
-                a.pr-5.pl-5.btn.btn-primary(href="#" style="color: white; font-size:1em" onclick="LearningStateReset(#{sentences_length})") Reset
+                a.pr-5.pl-5.btn.btn-outline-success.mr-2(href="#" style="font-size:1em" onclick="calculateScore(#{sentences_length})") Done
+                a.pr-5.pl-5.btn.btn-outline-dark(href="#" style="font-size:1em" onclick="LearningStateReset(#{sentences_length})") Reset
 
 #VocabDifficultyModal.modal(tabindex="-1" role="dialog" aria-labelledby="VocabDifficultyModalLabel" aria-hidden="true")
     .modal-dialog
@@ -192,18 +205,17 @@
             i.bi.bi-alphabet Key Vocabulary
           button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
         .modal-body
+          button#toggleButton.btn-info(style="background : #17a2b8") Show / Hide Pie Chart
           .canvas-container(style="max-width: 300px; max-height: 300px; overflow: hidden; display: flex; align-items: center; justify-content: center; margin: auto")
-            canvas#VocabDifficultyChart(style="max-width: 100%; max-height: 100%;")
-            - difficultyValue = episode.difficult_words.length
-            - moderateValue = episode.moderate_words.length
-            - easyValue = episode.easy_words.length
 
-          ul.nav.nav-tabs.justify-content-center
-            li.nav-item
+            canvas#VocabDifficultyChart(style="max-width: 100%; max-height: 100%;display: block;")
+
+          ul.nav.nav-tabs.justify-content-center.mb-3.mt-4
+            li.nav-item.mr-1
               a.nav-link.active(href="#tab1" data-bs-toggle="tab") All
-            li.nav-item
+            li.nav-item.mr-1
               a.nav-link(href="#tab2" data-bs-toggle="tab") Difficult
-            li.nav-item
+            li.nav-item.mr-1
               a.nav-link(href="#tab3" data-bs-toggle="tab") Moderate
             li.nav-item
               a.nav-link(href="#tab4" data-bs-toggle="tab") Easy
@@ -234,13 +246,11 @@
               ul(style="display: flex; flex-wrap: wrap;")
                 - easy_word_array = JSON.parse(episode.easy_words).keys
                 - easy_word_count = easy_word_array.length
-                = easy_word_array
-                = easy_word_count
                 - easy_word_array.each_with_index do |word, index|
                   li(style="flex: 0 0 33.33%;")= "#{word}"
               | #{easy_word_count}
           .modal-footer
-            button.btn.btn-info(type="button" data-bs-dismiss="modal") Close
+            button.btn.btn-outline-info(type="button" data-bs-dismiss="modal") Close
 
 
 #PodcastDifficultyModal.modal(tabindex="-1" role="dialog" aria-labelledby="PodcastDifficultyModalLabel" aria-hidden="true")
@@ -249,8 +259,7 @@
         .modal-header
           h5.modal-title#PodcastDifficultyModalLabel
             i.bi.bi-alphabet Podcast Difficulty Information
-            - var = ["#{total_word_counts}","#{sentences_length}","#{podcast_length}","#{word_count}","#{difficultyValue}","#{moderateValue}","#{easyValue}",]
-            = var
+
           button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
         .modal-body
           .canvas-container(style="max-width: 2000px; max-height: 2000px; overflow: hidden; display: flex; align-items: center; justify-content: center; margin: auto")
@@ -317,16 +326,19 @@ script.
   |   document.querySelector('.col-3.gpa').textContent = getGrade(roundedScore);
   | }
 
-/ script.
-/   | function difficulty_scoring(difficulty) {
-/   |   if (difficulty < 50) {
-/   |     return "easy";
-/   |   } else if (difficulty < 75) {
-/   |     return "moderate";
-/   |   } else {
-/   |     return "difficult";
-/   |   }
-/   | }
+script.
+  |  document.addEventListener('DOMContentLoaded', function() {
+  |    var canvas = document.getElementById('VocabDifficultyChart');
+  |    var button = document.getElementById('toggleButton');
+  |
+  |    button.addEventListener('click', function() {
+  |      if (canvas.style.display === 'none' || canvas.style.display === '') {
+  |        canvas.style.display = 'block';
+  |      } else {
+  |        canvas.style.display = 'none';
+  |      }
+  |    });
+  |  });
 
 script.
   | function drawPieChart(difficultyData) {
@@ -337,21 +349,18 @@ script.
   |       labels: ['Difficult', 'Moderate', 'Easy'],
   |       datasets: [{
   |         data: difficultyData,
-  |         backgroundColor: ['#FF5733', '#FFD700', '#7FFF00'],
+  |         backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(255, 205, 86, 0.8)', 'rgba(75, 192, 192, 0.8)'],
   |       }],
   |       },
   |     });
   |  };
   | $(document).ready(function () {
-  |   var difficultyData = [#{difficultyValue}, #{moderateValue}, #{easyValue}];
+  |   var difficultyData = [#{difficult_word_count}, #{moderate_word_count}, #{easy_word_count}];
   |   drawPieChart(difficultyData);
 
-  / |   var difficultyText = difficulty_scoring(#{episode.difficulty_score});
-  / |   $('.col-3 .difficulty-text').text(difficultyText);
   | });
 
 script.
-
   | function drawHorizontalBarChart(difficultyData) {
   |   var ctx = document.getElementById('PodcastDifficultyChart').getContext('2d');
   |   var horizontalBarChart = new Chart(ctx, {
@@ -398,24 +407,7 @@ script.
   | }
 
   | $(document).ready(function () {
-  |   var difficultyData = [#{total_word_counts},#{sentences_length},#{podcast_length},#{word_count},#{difficultyValue},#{moderateValue},#{easyValue}];
+  |   var difficultyData = [#{total_word_counts},#{sentences_length},#{podcast_length},#{word_count},#{difficult_word_count},#{moderate_word_count},#{easy_word_count}];
   |   drawHorizontalBarChart(difficultyData);
 
-  / |   var difficultyText = difficulty_scoring(#{episode.difficulty_score});
-  / |   $('.col-3 .difficulty-text').text(difficultyText);
   | });
-
-/ script.
-/ |function showPopup() {
-/ |  var popupContainer = document.getElementById('popup-container');
-/ |  popupContainer.style.display = 'block';
-/ |}
-
-/ function closePopup() {
-/ | var popupContainer = document.getElementById('popup-container');
-/ |  popupContainer.style.display = 'none';
-/ |}
-/ script.
-/ | document.getElementById('open-popup-icon').addEventListener('click', function() {
-/ |   showPopup();
-/ | });

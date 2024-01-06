@@ -19,7 +19,7 @@ module TranSound
       attribute :type, Strict::String
       attribute :episode_url, Strict::String
       attribute :episode_mp3_url, Strict::String
-      attribute :podcast_length, Strict::Integer ##
+      attribute :podcast_length, Strict::Integer
       attribute :transcript, Strict::String
       attribute :sentence_segments, Strict::String
       attribute :translation, Strict::String

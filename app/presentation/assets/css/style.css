@@ -114,7 +114,7 @@ blockquote {
   margin: 0 0 1rem; }
 
 b,
-strong {
+.strong {
   font-weight: bolder; }
 
 small {
@@ -8577,31 +8577,6 @@ table.table-bordered td {
 .border-collapse{
   border-spacing: 10px;
 }
-/* .table-bordered th,
-.table-bordered td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 10px;
-}
-
-.difficult_tag {
-  text-align: center;
-  width: 50px;
-  padding: 5px;
-  font-weight: bold;
-} */
-
-.hard {
-  color: #E45C5E !important;
-}
-
-.medium {
-  color: #F6A414!important;
-}
-
-.easy {
-  color: #64F2A4!important;
-}
 
 body{
   background-color: #a0a0a1;
@@ -8631,10 +8606,16 @@ body{
 
 .difficult{
   color:red;
+
 }
 .moderate{
   color:var(--yellow);
 }
 .easy{
-  color:green;
+  color: #339e27 !important;
+}
+
+.logo{
+  width: 200px ;
+  height: 68px ;
 }

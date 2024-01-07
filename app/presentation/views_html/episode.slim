@@ -188,7 +188,7 @@
                           = sentence
                           | &nbsp;
                       div.col-lg-2.col-2.button-frame.d-flex.align-items-center.justify-content-center.vcenter.border-left.border-right
-                          button.btn.btn-link.pr-3.pl-3.btn-outline-warning(type="button" onclick="toggleSentenceTranslation(#{line_index})" data-toggle="tooltip" data-placement="top" title="Click to translate" )
+                          button.btn.btn-link.pr-3.pl-3.arrow-warning(type="button" onclick="toggleSentenceTranslation(#{line_index})" data-toggle="tooltip" data-placement="top" title="Click to translate" )
                             i.bi.bi-arrow-right.arrow-hover(style="font-size: 1.5rem;")
                       div.col-lg-5.col-sm-6.text-gray(data-new-content="episode_translate_array_row" id="translation_#{line_index}" style="display:none;")
                         = translate_array[line_index]

@@ -1,4 +1,4 @@
-# Googletrans 3.1.0a0 requires httpx==0.13.3, but we having httpx 0.26.0 for openAI which causes incompatible issue.
+# Googletrans 3.1.0a0 requires httpx==0.13.3, but we having httpx 0.26.0 for openAI which is incompatible.
 from googletrans import Translator
 import sys
 
